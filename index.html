@@ -2057,6 +2057,38 @@
         magneticBtn.style.transform = "translate3d(0, 0, 0)";
       });
     }
+  }
+
+    // =========================================================================
+    // LIVE TELEMETRY SCRAMBLER ON HOVER
+    // =========================================================================
+    var telemetryCard = document.getElementById('telemetry-card');
+    var scrambleDigits = document.querySelectorAll('.scramble-digit');
+    if (telemetryCard && scrambleDigits.length > 0) {
+      var scramblerInterval = null;
+      var frames = [
+        ['18', '99', '99.95'],
+        ['11', '100', '99.99'],
+        ['24', '98', '99.90'],
+        ['14', '100', '99.99']
+      ];
+      var fIndex = 0;
+      telemetryCard.addEventListener('mouseenter', function () {
+        scramblerInterval = setInterval(function () {
+          fIndex = (fIndex + 1) % frames.length;
+          scrambleDigits.forEach(function (d, i) {
+            d.textContent = frames[fIndex][i];
+          });
+        }, 110);
+      });
+      telemetryCard.addEventListener('mouseleave', function () {
+        clearInterval(scramblerInterval);
+        scrambleDigits.forEach(function (d) {
+          d.textContent = d.getAttribute('data-base');
+        });
+      });
+    }
+
   })();
   </script>
 </body>
