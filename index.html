@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>webcloud — 3D Object Studio</title>
+  <title>WebCloud — Digital Architecture &amp; Engineering Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --fg: #0d0c0b;
-      --fg-soft: rgba(13,12,11,.64);
+      --fg-soft: rgba(13,12,11,.68);
       --fg-faint: rgba(13,12,11,.42);
       --shade: #f2f0ec;
-      --rule: rgba(13,12,11,.16);
+      --shade-card: #f9f8f6;
+      --shade-card-border: rgba(13,12,11,.08);
+      --rule: rgba(13,12,11,.14);
+      --rule-faint: rgba(13,12,11,.07);
       --ease: cubic-bezier(.22,.61,.36,1);
+      --ease-spring: cubic-bezier(.175, .885, .32, 1.15);
       --pill-bg: #0a0908;
       --pill-fg: #ffffff;
     }
@@ -28,6 +33,8 @@
 
     html {
       -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+      overflow-x: clip;
     }
 
     body {
@@ -37,12 +44,178 @@
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      overflow-x: clip;
+      position: relative;
     }
 
-    /* Fixed Background Video Layer */
-    .stage {
+    /* Scroll progress hairline at top */
+    .meter {
       position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      z-index: 100;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      background: var(--fg);
+      opacity: .65;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    /* Fixed Chrome Header */
+    .chrome {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: max(16px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(18px, 4vw, 52px) 16px;
+      background: linear-gradient(to bottom, rgba(242,240,236,.96) 0%, rgba(242,240,236,.82) 75%, rgba(242,240,236,0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .mark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -.015em;
+      color: var(--fg);
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .mark-star {
+      display: inline-block;
+      font-size: 15px;
+      transform: translateY(-1px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.4vw, 32px);
+      flex-shrink: 0;
+    }
+
+    .nav a:not(.pill) {
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -.01em;
+      opacity: .82;
+      transition: opacity .25s var(--ease);
+    }
+
+    .nav a:not(.pill):hover {
+      opacity: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--pill-fg);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid rgba(10,9,8,.12);
+      box-shadow: 0 1px 0 rgba(255,255,255,.12) inset;
+      -webkit-text-fill-color: var(--pill-fg);
+      transition: transform .35s var(--ease), background .25s var(--ease);
+      cursor: pointer;
+    }
+
+    .pill:hover,
+    .pill:focus-visible {
+      transform: translateY(-2px);
+      background: #000;
+    }
+
+    .pill:focus-visible {
+      outline: 2px solid var(--fg);
+      outline-offset: 2px;
+    }
+
+    /* Preloader Boot Screen */
+    .boot {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: var(--shade);
+      transition: opacity .7s var(--ease), visibility .7s;
+    }
+
+    .boot.done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boot p {
+      font-size: 12px;
+      letter-spacing: .06em;
+      color: var(--fg-faint);
+    }
+
+    .bar {
+      width: 150px;
+      height: 1px;
+      background: var(--rule);
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--fg);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform .1s linear;
+    }
+
+    /* =========================================================================
+       HERO SCROLL-PIN CONTAINER
+       ========================================================================= */
+    .hero-container {
+      position: relative;
+      height: 380vh;
+      min-height: 2800px;
+    }
+
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Video Stage */
+    .stage {
+      position: absolute;
       inset: 0;
       z-index: 0;
       overflow: hidden;
@@ -66,8 +239,8 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(to bottom, rgba(242,240,236,.62) 0%, rgba(242,240,236,.12) 22%, rgba(242,240,236,.12) 78%, rgba(242,240,236,.66) 100%),
-        radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.34) 100%),
+        linear-gradient(to bottom, rgba(242,240,236,.65) 0%, rgba(242,240,236,.14) 22%, rgba(242,240,236,.14) 78%, rgba(242,240,236,.70) 100%),
+        radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.36) 100%),
         rgba(242,240,236,.20);
     }
 
@@ -80,104 +253,16 @@
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>");
     }
 
-    /* Chrome (Fixed Header), Footer, Scroll Meter */
-    .chrome {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: max(14px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(16px, 3.4vw, 44px) 14px;
-      background: linear-gradient(to bottom, rgba(242,240,236,.94) 0%, rgba(242,240,236,.78) 72%, rgba(242,240,236,0) 100%);
-    }
-
-    .mark {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 15px;
-      letter-spacing: -.012em;
-      color: var(--fg);
-      min-width: 0;
-      flex-shrink: 1;
-    }
-
-    .mark-star {
-      opacity: .85;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: clamp(14px, 2.4vw, 32px);
-      flex-shrink: 0;
-    }
-
-    .nav a:not(.pill) {
-      color: var(--fg);
-      text-decoration: none;
-      font-size: 14.5px;
-      letter-spacing: -.008em;
-      opacity: .88;
-      transition: opacity .3s var(--ease);
-    }
-
-    .nav a:not(.pill):hover {
-      opacity: 1;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 40px;
-      padding: 0 21px;
-      border-radius: 999px;
-      background: var(--pill-bg);
-      color: var(--pill-fg);
-      font-size: 14.5px;
-      font-weight: 500;
-      letter-spacing: -.008em;
-      text-decoration: none;
-      white-space: nowrap;
-      opacity: 1;
-      border: 1px solid rgba(10,9,8,.12);
-      box-shadow: 0 1px 0 rgba(255,255,255,.10) inset;
-      -webkit-text-fill-color: var(--pill-fg);
-      transition: transform .4s var(--ease), background .3s var(--ease), color .3s var(--ease);
-    }
-
-    .nav .pill {
-      color: #fff;
-      -webkit-text-fill-color: #fff;
-    }
-
-    .pill:hover,
-    .pill:focus-visible {
-      transform: translateY(-2px);
-      background: #000;
-      color: #fff;
-      -webkit-text-fill-color: #fff;
-    }
-
-    .pill:focus-visible {
-      outline: 2px solid var(--fg);
-      outline-offset: 2px;
-    }
-
-    .foot {
-      position: fixed;
+    /* Hero Ambient Bottom Bar */
+    .hero-foot {
+      position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 40;
+      z-index: 30;
       display: flex;
       justify-content: center;
-      padding: 14px clamp(16px, 4vw, 24px) max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px));
+      padding: 16px clamp(16px, 4vw, 24px) max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px));
       font-size: 12px;
       line-height: 1.45;
       letter-spacing: .02em;
@@ -185,24 +270,12 @@
       text-align: center;
       pointer-events: none;
       background: linear-gradient(to top, rgba(242,240,236,.92) 0%, rgba(242,240,236,.72) 72%, rgba(242,240,236,0) 100%);
+      transition: opacity .3s var(--ease);
     }
 
-    .meter {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 50;
-      height: 2px;
-      width: 100%;
-      transform: scaleX(0);
-      transform-origin: 0 50%;
-      background: var(--fg);
-      opacity: .55;
-    }
-
-    /* Panel Layer */
+    /* Hero Text Narrative Panels */
     .panels {
-      position: fixed;
+      position: absolute;
       inset: 0;
       z-index: 20;
       pointer-events: none;
@@ -228,10 +301,11 @@
       flex-wrap: wrap;
       gap: 6px 12px;
       font-size: 12.5px;
-      letter-spacing: .045em;
+      letter-spacing: .05em;
+      text-transform: uppercase;
       color: var(--fg-soft);
       margin-bottom: clamp(16px, 2vw, 22px);
-      max-width: min(46ch, 100%);
+      max-width: min(48ch, 100%);
       text-align: center;
     }
 
@@ -239,7 +313,7 @@
       font-weight: 400;
       font-size: clamp(34px, 7.1vw, 104px);
       line-height: .98;
-      letter-spacing: -.036em;
+      letter-spacing: -.038em;
       max-width: 15ch;
       text-wrap: balance;
     }
@@ -250,7 +324,7 @@
       line-height: 1.5;
       letter-spacing: -.008em;
       color: var(--fg-soft);
-      max-width: min(46ch, 100%);
+      max-width: min(48ch, 100%);
       text-wrap: pretty;
     }
 
@@ -264,67 +338,578 @@
 
     .cta .pill {
       height: 48px;
-      padding: 0 27px;
+      padding: 0 28px;
       font-size: 15px;
       max-width: min(100%, 320px);
     }
 
-    /* Preloader */
-    .boot {
-      position: fixed;
-      inset: 0;
-      z-index: 90;
+    /* =========================================================================
+       FLOWING CONTENT AFTER HERO
+       ========================================================================= */
+    .content-flow {
+      position: relative;
+      z-index: 40;
+      background: var(--shade);
+      width: 100%;
+    }
+
+    /* Common Section Utility */
+    .section-wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: clamp(90px, 12vw, 160px) clamp(20px, 5vw, 60px);
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-bottom: clamp(18px, 2.5vw, 28px);
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: var(--fg-faint);
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 68px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      max-width: 22ch;
+      margin-bottom: clamp(24px, 3vw, 40px);
+    }
+
+    .section-sub {
+      font-size: clamp(16px, 1.35vw, 20px);
+      line-height: 1.55;
+      color: var(--fg-soft);
+      max-width: 54ch;
+      margin-bottom: clamp(48px, 6vw, 80px);
+    }
+
+    /* Hairline Divider */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+      border: none;
+    }
+
+    /* =========================================================================
+       SECTION 1: OUR MOTIVES & PHILOSOPHY (#motives)
+       French Atelier Editorial Aesthetic
+       ========================================================================= */
+    .motives-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(20px, 3vw, 36px);
+      margin-top: clamp(24px, 3vw, 40px);
+    }
+
+    .motive-card {
+      position: relative;
+      background: var(--shade-card);
+      border: 1px solid var(--shade-card-border);
+      border-radius: clamp(16px, 2vw, 24px);
+      padding: clamp(32px, 4.5vw, 56px);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      min-height: clamp(280px, 32vw, 360px);
+      transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .35s var(--ease);
+      transform-style: preserve-3d;
+      will-change: transform;
+      cursor: default;
+    }
+
+    .motive-card:hover {
+      border-color: rgba(13,12,11,.18);
+      box-shadow: 0 20px 48px -12px rgba(13,12,11,.06);
+    }
+
+    .motive-top {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: var(--shade);
-      transition: opacity .7s var(--ease), visibility .7s;
+      justify-content: space-between;
+      margin-bottom: clamp(28px, 4vw, 48px);
     }
 
-    .boot.done {
+    .motive-num {
+      font-size: 13px;
+      letter-spacing: .08em;
+      color: var(--fg-faint);
+      font-feature-settings: "tnum" 1;
+    }
+
+    .motive-tag {
+      font-size: 11.5px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(13,12,11,.04);
+      color: var(--fg-soft);
+    }
+
+    .motive-card h3 {
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .motive-card p {
+      font-size: clamp(14.5px, 1.1vw, 16.5px);
+      line-height: 1.55;
+      color: var(--fg-soft);
+      max-width: 44ch;
+    }
+
+    /* Scroll reveal state */
+    .reveal-item {
       opacity: 0;
-      visibility: hidden;
+      transform: translate3d(0, 36px, 0);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
     }
 
-    .boot p {
+    .reveal-item.revealed {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* =========================================================================
+       SECTION 2: WORK SHOWCASE / GALLERY (#work)
+       Léo Parpeix Inspired Staggered Grid & Spring Cursor Badge
+       ========================================================================= */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(32px, 5vw, 64px);
+      align-items: start;
+    }
+
+    /* Asymmetric Stagger: Column 2 starts lower on desktop */
+    .work-col:nth-child(2) {
+      margin-top: clamp(60px, 8vw, 140px);
+    }
+
+    .work-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      margin-bottom: clamp(48px, 7vw, 96px);
+      cursor: pointer;
+    }
+
+    .work-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3.4;
+      border-radius: clamp(14px, 1.8vw, 22px);
+      overflow: hidden;
+      background: #e6e3dd;
+      transform-style: preserve-3d;
+      transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+      will-change: transform;
+    }
+
+    .work-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .75s var(--ease), filter .75s var(--ease);
+      will-change: transform;
+      filter: contrast(1.02) saturate(0.96);
+    }
+
+    .work-card:hover .work-media {
+      box-shadow: 0 28px 56px -16px rgba(13,12,11,.14);
+    }
+
+    .work-card:hover .work-media img {
+      transform: scale(1.045);
+      filter: contrast(1.04) saturate(1.02);
+    }
+
+    /* Floating Pill Badge following cursor */
+    .work-badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      pointer-events: none;
+      background: var(--pill-bg);
+      color: var(--pill-fg);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      padding: 8px 18px;
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.28);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0) scale(0.85);
+      transition: opacity .25s var(--ease), transform .25s var(--ease);
+      will-change: transform, opacity;
+    }
+
+    .work-card:hover .work-badge {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+
+    .work-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 18px;
+      padding: 0 4px;
+    }
+
+    .work-title {
+      font-size: clamp(20px, 2vw, 26px);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      color: var(--fg);
+    }
+
+    .work-category {
+      font-size: 13px;
+      letter-spacing: .02em;
+      color: var(--fg-soft);
+      white-space: nowrap;
+    }
+
+    /* =========================================================================
+       SECTION 3: THE CRAFT & CREATORS (#about)
+       Technical Narrative, Metric Strip, Magnetic Pill Button
+       ========================================================================= */
+    .craft-container {
+      border-top: 1px solid var(--rule);
+      padding-top: clamp(80px, 10vw, 140px);
+    }
+
+    .craft-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 100px);
+      align-items: start;
+    }
+
+    .craft-narrative h2 {
+      font-size: clamp(34px, 4.6vw, 64px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      margin-bottom: clamp(24px, 3vw, 36px);
+    }
+
+    .craft-narrative p {
+      font-size: clamp(17px, 1.4vw, 21px);
+      line-height: 1.55;
+      color: var(--fg-soft);
+      margin-bottom: clamp(36px, 4vw, 56px);
+      max-width: 48ch;
+    }
+
+    .craft-cta-area {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pill-magnetic {
+      height: 52px;
+      padding: 0 32px;
+      font-size: 15.5px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      will-change: transform;
+    }
+
+    .craft-guarantee {
       font-size: 12.5px;
-      letter-spacing: .05em;
+      letter-spacing: .02em;
       color: var(--fg-faint);
     }
 
-    .bar {
-      width: 150px;
-      height: 1px;
-      background: var(--rule);
+    /* Metric Strip */
+    .stats-strip {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(32px, 4vw, 56px);
+      padding-left: clamp(20px, 4vw, 60px);
+      border-left: 1px solid var(--rule-faint);
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-number {
+      font-size: clamp(44px, 5.8vw, 80px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: var(--fg);
+      font-feature-settings: "tnum" 1;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      letter-spacing: .02em;
+      color: var(--fg-soft);
+    }
+
+    /* =========================================================================
+       SECTION 4: CLIENT BRIEF & INQUIRY (#order)
+       ========================================================================= */
+    .inquiry-box {
+      margin-top: clamp(80px, 10vw, 140px);
+      background: var(--fg);
+      color: #ffffff;
+      border-radius: clamp(20px, 2.6vw, 32px);
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 6vw, 80px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
       overflow: hidden;
     }
 
-    .bar i {
-      display: block;
-      height: 100%;
-      width: 100%;
-      background: var(--fg);
-      transform: scaleX(0);
-      transform-origin: 0 50%;
+    .inquiry-box::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.22'/></svg>");
+      opacity: .18;
+      pointer-events: none;
     }
 
-    /* Scroll Track */
-    .track {
-      position: relative;
-      z-index: 1;
-      height: 560vh;
-      min-height: 3200px;
+    .inquiry-eyebrow {
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+      margin-bottom: 20px;
     }
 
-    /* Responsive Breakpoints */
+    .inquiry-box h2 {
+      font-size: clamp(32px, 5.2vw, 72px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.035em;
+      max-width: 18ch;
+      margin-bottom: 22px;
+    }
+
+    .inquiry-box p {
+      font-size: clamp(15px, 1.3vw, 19px);
+      line-height: 1.5;
+      color: rgba(255,255,255,.7);
+      max-width: 46ch;
+      margin-bottom: clamp(32px, 4vw, 48px);
+    }
+
+    .inquiry-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: clamp(32px, 4vw, 48px);
+    }
+
+    .inquiry-chip {
+      display: inline-block;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .inquiry-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .pill-light {
+      background: #ffffff;
+      color: var(--fg);
+      -webkit-text-fill-color: var(--fg);
+      border: 1px solid rgba(255,255,255,.3);
+      height: 50px;
+      padding: 0 32px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .pill-light:hover {
+      background: #f0eee9;
+      transform: translateY(-2px);
+    }
+
+    .inquiry-direct {
+      font-size: 13px;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .inquiry-direct:hover {
+      color: #ffffff;
+    }
+
+    /* =========================================================================
+       EDITORIAL STUDIO FOOTER
+       ========================================================================= */
+    .studio-footer {
+      border-top: 1px solid var(--rule);
+      margin-top: clamp(80px, 10vw, 140px);
+      padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 60px) max(32px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+      max-width: 1360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: clamp(32px, 5vw, 80px);
+      margin-bottom: clamp(60px, 8vw, 100px);
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 38ch;
+    }
+
+    .footer-brand-title {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -.02em;
+    }
+
+    .footer-brand-desc {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--fg-soft);
+    }
+
+    .footer-links-col h4 {
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .footer-links-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links-col a {
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: .8;
+      transition: opacity .2s;
+    }
+
+    .footer-links-col a:hover {
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 28px;
+      border-top: 1px solid var(--rule-faint);
+      font-size: 12px;
+      color: var(--fg-faint);
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================= */
+    @media (max-width: 1024px) {
+      .craft-layout {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+      .stats-strip {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid var(--rule-faint);
+        padding-top: 40px;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-brand {
+        grid-column: span 2;
+      }
+    }
+
     @media (max-width: 900px) {
       .veil {
         background:
-          linear-gradient(to bottom, rgba(242,240,236,.72) 0%, rgba(242,240,236,.18) 24%, rgba(242,240,236,.18) 76%, rgba(242,240,236,.74) 100%),
-          radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.40) 100%),
+          linear-gradient(to bottom, rgba(242,240,236,.74) 0%, rgba(242,240,236,.18) 24%, rgba(242,240,236,.18) 76%, rgba(242,240,236,.76) 100%),
+          radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.42) 100%),
           rgba(242,240,236,.24);
+      }
+      .motives-grid {
+        grid-template-columns: 1fr;
+      }
+      .work-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .work-col:nth-child(2) {
+        margin-top: 0;
+      }
+      .work-badge {
+        position: static;
+        display: inline-flex;
+        margin-top: 12px;
+        opacity: 1;
+        transform: none !important;
+        font-size: 12px;
+        padding: 6px 14px;
+      }
+      .work-card:hover .work-badge {
+        transform: none !important;
       }
     }
 
@@ -351,9 +936,20 @@
       .panel {
         padding: max(92px, calc(env(safe-area-inset-top, 0px) + 76px)) 18px max(88px, calc(env(safe-area-inset-bottom, 0px) + 72px));
       }
-      .foot {
-        font-size: 11px;
-        max-width: 34ch;
+      .stats-strip {
+        flex-direction: column;
+        gap: 28px;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .footer-brand {
+        grid-column: span 1;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
@@ -402,70 +998,299 @@
   </style>
 </head>
 <body>
-  <!-- 1. Preloader Boot Screen -->
+  <!-- 1. Scroll Progress Hairline -->
+  <i class="meter" id="meter"></i>
+
+  <!-- 2. Preloader Boot Screen -->
   <div class="boot" id="boot">
     <div class="bar"><i id="bootBar"></i></div>
     <p id="bootPct">LOADING 0%</p>
   </div>
 
-  <!-- 2. Fixed Stage with Video (Crumbling 3D Donut), Veil, and Grain -->
-  <div class="stage">
-    <video id="clip" muted playsinline preload="auto" disablepictureinpicture></video>
-    <div class="veil"></div>
-    <div class="grain"></div>
-  </div>
-
-  <!-- 3. Scroll Progress Hairline -->
-  <i class="meter" id="meter"></i>
-
-  <!-- 4. Fixed Chrome Header -->
+  <!-- 3. Fixed Chrome Header -->
   <header class="chrome">
-    <div class="mark"><span class="mark-star" aria-hidden="true">&#10037;</span>&nbsp;webcloud</div>
-    <nav class="nav">
-      <a href="#board">Works</a>
-      <a href="#visit">About</a>
+    <a href="#" class="mark" aria-label="WebCloud Home">
+      <span class="mark-star" aria-hidden="true">&#10037;</span>&nbsp;webcloud
+    </a>
+    <nav class="nav" aria-label="Primary Navigation">
+      <a href="#motives">Philosophy</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
       <a class="pill" href="#order">Start a brief</a>
     </nav>
   </header>
 
-  <!-- 5. Cross-fading Narrative Panels -->
-  <main class="panels">
-    <section class="panel" data-panel>
-      <div class="eyebrow">Objects studio <span>&middot;</span> No. 112 Render Lane</div>
-      <h1>Built at four.<br />Out by seven.</h1>
-      <p class="sub">Six kinds of mesh, one render farm, and a queue that starts before the sun does.</p>
-      <div class="cta"><a class="pill" href="#board">View the reel</a></div>
+  <!-- 4. Hero Scroll-Pinned Container (Video Scrub) -->
+  <div class="hero-container" id="heroTrack">
+    <div class="hero-sticky">
+      <!-- Video Stage -->
+      <div class="stage">
+        <video id="clip" muted playsinline preload="auto" disablepictureinpicture></video>
+        <div class="veil"></div>
+        <div class="grain"></div>
+      </div>
+
+      <!-- Narrative Panels (Fading in & out during video scrub) -->
+      <main class="panels">
+        <!-- Panel 1: Main Brand Statement -->
+        <section class="panel" data-panel>
+          <div class="eyebrow">WebCloud Studio <span>&middot;</span> Digital Architecture</div>
+          <h1>Built at four.<br />Live by seven.</h1>
+          <p class="sub">Clean architecture, precision engineering, and high-performance digital flagships that convert before the competition even wakes up.</p>
+          <div class="cta"><a class="pill" href="#work">Explore projects</a></div>
+        </section>
+
+        <!-- Panel 2: Studio Voice Stop -->
+        <section class="panel" data-panel>
+          <div class="eyebrow">Across the studio</div>
+          <h1>Flat, never bent.</h1>
+          <p class="sub">The mesh should still be clean when it reaches the viewport. We export to order, never before.</p>
+          <div class="cta"><a class="pill" href="#about">Tour our space</a></div>
+        </section>
+
+        <!-- Panel 3: Tactile Craft Stop -->
+        <section class="panel" data-panel>
+          <div class="eyebrow">The surface</div>
+          <h1>Smooth enough to<br />hold a light pass.</h1>
+          <p class="sub">Custom surface shaders whipped every morning, spread to the edge and weighed by the quarter pound.</p>
+          <div class="cta"><a class="pill" href="#order">Start a brief</a></div>
+        </section>
+      </main>
+
+      <!-- Ambient Hero Micro-bar -->
+      <div class="hero-foot" id="heroFoot">WebCloud Digital Studio &nbsp;&middot;&nbsp; Custom Web Engineering &nbsp;&middot;&nbsp; Open for select briefs</div>
+    </div>
+  </div>
+
+  <!-- 5. Flowing Content Below Hero -->
+  <div class="content-flow">
+
+    <!-- =======================================================================
+         SECTION 1: OUR MOTIVES & PHILOSOPHY (#motives)
+         ======================================================================= -->
+    <section id="motives" class="section-wrap">
+      <div class="section-eyebrow">01 / Philosophy &amp; Motives</div>
+      <h2 class="section-title">Built with intention.<br />Engineered for dominance.</h2>
+      <p class="section-sub">We reject the assembly-line web. Every flagship we architect is a bespoke digital instrument—engineered for speed, conversion, and enduring authority.</p>
+
+      <div class="motives-grid">
+        <!-- Pillar 1 -->
+        <div class="motive-card reveal-item" data-tilt>
+          <div class="motive-top">
+            <span class="motive-num">01</span>
+            <span class="motive-tag">Velocity</span>
+          </div>
+          <div>
+            <h3>Lightning Deployment</h3>
+            <p>From initial architectural brief to a high-speed live release in record time. We execute with surgical velocity without sacrificing structural integrity.</p>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="motive-card reveal-item" data-tilt>
+          <div class="motive-top">
+            <span class="motive-num">02</span>
+            <span class="motive-tag">Craftsmanship</span>
+          </div>
+          <div>
+            <h3>Bespoke Digital Craft</h3>
+            <p>Hand-tailored UI/UX and custom front-end architecture. Zero bloated generic templates or third-party crutches—only pure, intentional code.</p>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="motive-card reveal-item" data-tilt>
+          <div class="motive-top">
+            <span class="motive-num">03</span>
+            <span class="motive-tag">Value</span>
+          </div>
+          <div>
+            <h3>Unbeatable Market Value</h3>
+            <p>Tier-one design agency polish at an accessible, transparent price point that dramatically outclasses standard agency overhead and quoting models.</p>
+          </div>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="motive-card reveal-item" data-tilt>
+          <div class="motive-top">
+            <span class="motive-num">04</span>
+            <span class="motive-tag">Longevity</span>
+          </div>
+          <div>
+            <h3>Lifetime Support Guarantee</h3>
+            <p>We don't drop files and disappear. Continuous optimization, security updates, and dedicated long-term stewardship for your flagship's digital home.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="panel" data-panel>
-      <div class="eyebrow">Across the studio</div>
-      <h1>Flat, never bent.</h1>
-      <p class="sub">The mesh should still be clean when it reaches the viewport. We export to order, never before.</p>
-      <div class="cta"><a class="pill" href="#visit">Tour our space</a></div>
+    <hr class="divider">
+
+    <!-- =======================================================================
+         SECTION 2: WORK SHOWCASE / GALLERY (#work)
+         Léo Parpeix Inspired Staggered Grid
+         ========================================================================= -->
+    <section id="work" class="section-wrap">
+      <div class="section-eyebrow">02 / Selected Works</div>
+      <h2 class="section-title">Case studies in<br />digital precision.</h2>
+      <p class="section-sub">A curated selection of client commissions engineered to command attention and transform visitors into loyal advocates.</p>
+
+      <div class="work-grid">
+        <!-- Column 1 -->
+        <div class="work-col">
+          <!-- Project 1 -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
+            <div class="work-media">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Aura Health & Aesthetics Flagship Architecture" loading="lazy">
+              <span class="work-badge">Explore Project &nearr;</span>
+            </div>
+            <div class="work-meta">
+              <h3 class="work-title">Aura Health &amp; Aesthetics</h3>
+              <span class="work-category">Medical &amp; Wellness Flagship</span>
+            </div>
+          </a>
+
+          <!-- Project 3 -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
+            <div class="work-media">
+              <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85" alt="Vanguard Commerce High-Conversion Platform" loading="lazy">
+              <span class="work-badge">Explore Project &nearr;</span>
+            </div>
+            <div class="work-meta">
+              <h3 class="work-title">Vanguard Commerce</h3>
+              <span class="work-category">High-Conversion E-Commerce</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Column 2 (Staggered on Desktop) -->
+        <div class="work-col">
+          <!-- Project 2 -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
+            <div class="work-media">
+              <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85" alt="Komorebi Studio Architectural Space" loading="lazy">
+              <span class="work-badge">Explore Project &nearr;</span>
+            </div>
+            <div class="work-meta">
+              <h3 class="work-title">Komorebi Studio</h3>
+              <span class="work-category">Architectural Interior Space</span>
+            </div>
+          </a>
+
+          <!-- Project 4 -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
+            <div class="work-media">
+              <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85" alt="Prism Collective Luxury Brand Identity" loading="lazy">
+              <span class="work-badge">Explore Project &nearr;</span>
+            </div>
+            <div class="work-meta">
+              <h3 class="work-title">Prism Collective</h3>
+              <span class="work-category">Luxury Brand Identity</span>
+            </div>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section class="panel" data-panel>
-      <div class="eyebrow">The surface</div>
-      <h1>Smooth enough to<br />hold a light pass.</h1>
-      <p class="sub">Custom surface shaders whipped every morning, spread to the edge and weighed by the quarter pound.</p>
-      <div class="cta"><a class="pill" href="#order">Start a brief</a></div>
+    <!-- =======================================================================
+         SECTION 3: THE CRAFT & CREATORS (#about)
+         ======================================================================= -->
+    <section id="about" class="section-wrap craft-container">
+      <div class="section-eyebrow">03 / The Atelier</div>
+      <div class="craft-layout">
+        <!-- Narrative Body -->
+        <div class="craft-narrative reveal-item">
+          <h2>Obsessed with every single pixel.</h2>
+          <p>We build digital spaces that leave an impression. No shortcuts, no cookie-cutter layouts. Every line of code and interactive touchpoint is hand-refined to ensure your business doesn't just get visits—it commands authority.</p>
+          <div class="craft-cta-area">
+            <a class="pill pill-magnetic" id="magneticCta" href="#order">Start Your Build &nearr;</a>
+            <span class="craft-guarantee">60fps guaranteed &bull; Zero bloat</span>
+          </div>
+        </div>
+
+        <!-- Metric Strip -->
+        <div class="stats-strip reveal-item">
+          <div class="stat-block">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Handcrafted Performance</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-number">&lt;1.0s</span>
+            <span class="stat-label">Instant Load Benchmarks</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Dedicated Client Support</span>
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
 
-  <!-- 6. Fixed Ambient Footer -->
-  <footer class="foot">112 Render Lane &nbsp;&middot;&nbsp; Tue–Sun, 9am till sold out</footer>
+    <!-- =======================================================================
+         SECTION 4: CLIENT BRIEF / INQUIRY (#order)
+         ======================================================================= -->
+    <section id="order" class="section-wrap">
+      <div class="inquiry-box reveal-item">
+        <span class="inquiry-eyebrow">Initiate Brief &bull; Q2/Q3 Intake</span>
+        <h2>Ready to construct something unforgettable?</h2>
+        <p>We accept a limited roster of high-stakes briefs each quarter to preserve our obsessively handcrafted engineering standard.</p>
+        <div class="inquiry-tags">
+          <span class="inquiry-chip">Flagship Web Architecture</span>
+          <span class="inquiry-chip">E-Commerce Platforms</span>
+          <span class="inquiry-chip">3D / Interactive Systems</span>
+          <span class="inquiry-chip">Custom Replatforming</span>
+        </div>
+        <div class="inquiry-cta">
+          <a class="pill pill-light" href="mailto:studio@webcloud.build?subject=WebCloud%20Brief%20Inquiry%20%E2%80%94%20Project%20Discussion">Launch Client Brief &nearr;</a>
+          <a class="inquiry-direct" href="mailto:studio@webcloud.build">studio@webcloud.build</a>
+        </div>
+      </div>
+    </section>
 
-  <!-- 7. Page Scroll Height Provider -->
-  <div class="track"></div>
+    <!-- =======================================================================
+         EDITORIAL STUDIO FOOTER
+         ======================================================================= -->
+    <footer class="studio-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="mark" style="font-size: 17px;">
+            <span class="mark-star" aria-hidden="true">&#10037;</span>&nbsp;webcloud
+          </span>
+          <p class="footer-brand-desc">Digital Architecture &amp; Precision Engineering. Transforming ambitious businesses into high-converting market leaders.</p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Directory</h4>
+          <ul>
+            <li><a href="#motives">Philosophy</a></li>
+            <li><a href="#work">Selected Works</a></li>
+            <li><a href="#about">The Atelier</a></li>
+            <li><a href="#order">Initiate Brief</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:studio@webcloud.build">studio@webcloud.build</a></li>
+            <li><a href="https://github.com/Coolvik678/webcloud" target="_blank" rel="noopener noreferrer">GitHub &nearr;</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">X / Twitter &nearr;</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn &nearr;</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>WebCloud Digital Studio &nbsp;&middot;&nbsp; Custom Web Engineering &nbsp;&middot;&nbsp; Open for select briefs</div>
+        <div>&copy; 2025 WebCloud. All rights reserved.</div>
+      </div>
+    </footer>
 
-  <!-- 8. Interactive Controller IIFE -->
+  </div>
+
+  <!-- Interactive Controller Script -->
   <script>
   (function () {
     "use strict";
 
-    // 1920x1080, 10.04s, 241 frames, all-intra — every frame is a keyframe,
-    // which is why a scroll scrub can land on an exact frame instantly without decode lag.
-    // Video contains the 3D studio object (white crumbling donut) that shatters on scroll.
+    // 1920x1080, 10.04s, 241 frames, all-intra MP4 (crumbling white donut)
     var VIDEO_URL = "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/45567745-d826-44a2-a5ce-7ef670944e60.mp4";
 
     var clip = document.getElementById("clip");
@@ -473,18 +1298,18 @@
     var bootBar = document.getElementById("bootBar");
     var bootPct = document.getElementById("bootPct");
     var meter = document.getElementById("meter");
+    var heroTrack = document.getElementById("heroTrack");
+    var heroFoot = document.getElementById("heroFoot");
     var panels = [].slice.call(document.querySelectorAll("[data-panel]"));
 
-    // Cue table: Each panel owns a slice of scroll as [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] in 0..1 page progress.
-    // The gaps between one panel's fadeOutEnd and the next's fadeInStart are deliberate dead zones — video only — so two panels are never readable at once.
+    // Cue table: Each panel owns a slice of hero progress [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] in 0..1
     var CUES = [
-      [0.00, 0.00, 0.15, 0.23],
-      [0.35, 0.43, 0.57, 0.65],
-      [0.77, 0.85, 1.10, 1.20]
+      [0.00, 0.00, 0.18, 0.26],
+      [0.36, 0.44, 0.58, 0.66],
+      [0.76, 0.84, 1.10, 1.20]
     ];
-    var DRIFT = 22; // px of counter-scroll travel per panel
+    var DRIFT = 24; // px of counter-scroll travel per panel
 
-    // Math & animation helpers
     function clamp(v, a, b) {
       return Math.max(a, Math.min(b, v));
     }
@@ -499,27 +1324,47 @@
     }
 
     // Engine state
-    var progress = 0; // 0..1 down the page
-    var seekTo = 0;   // target video time
-    var seekAt = 0;   // actual, eased video time
+    var heroProgress = 0; // 0..1 during the sticky hero phase
+    var docProgress = 0;  // 0..1 down the entire page
+    var seekTo = 0;       // target video time
+    var seekAt = 0;       // actual, eased video time
     var duration = 0;
     var ready = false;
     var started = false;
     var attached = false;
 
     function readScroll() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      progress = max > 0 ? clamp(window.pageYOffset / max, 0, 1) : 0;
-      if (duration) seekTo = progress * duration;
+      // 1. Overall document scroll progress (drives top meter)
+      var docMax = document.documentElement.scrollHeight - window.innerHeight;
+      docProgress = docMax > 0 ? clamp(window.pageYOffset / docMax, 0, 1) : 0;
+
+      // 2. Hero sticky progress (drives video scrub & 3 hero panels)
+      if (heroTrack) {
+        var heroRect = heroTrack.getBoundingClientRect();
+        var heroScrollable = heroTrack.offsetHeight - window.innerHeight;
+        heroProgress = heroScrollable > 0 ? clamp(-heroRect.top / heroScrollable, 0, 1) : 0;
+      } else {
+        heroProgress = 0;
+      }
+
+      if (duration) seekTo = heroProgress * duration;
+
+      // Fade out hero micro-bar as hero reaches completion
+      if (heroFoot) {
+        heroFoot.style.opacity = heroProgress > 0.85 ? clamp(1 - (heroProgress - 0.85) / 0.12, 0, 1) : 1;
+      }
     }
 
     function paint() {
-      meter.style.transform = "scaleX(" + progress + ")";
+      // Top hairline progress meter
+      if (meter) meter.style.transform = "scaleX(" + docProgress + ")";
+
+      // Cross-fading narrative hero panels
       for (var i = 0; i < panels.length; i++) {
         var c = CUES[i];
         var el = panels[i];
-        var enter = ramp(progress, c[0], c[1]);
-        var leave = ramp(progress, c[2], c[3]);
+        var enter = ramp(heroProgress, c[0], c[1]);
+        var leave = ramp(heroProgress, c[2], c[3]);
         var o = enter * (1 - leave);
         var y = (1 - enter) * DRIFT - leave * DRIFT;
         el.style.opacity = o;
@@ -529,12 +1374,11 @@
     }
 
     // Continuous requestAnimationFrame loop
-    // The easing of currentTime toward seekTo (rather than snapping directly) is what turns a jumpy scrub into a smooth cinematic one.
     function frame() {
       if (ready && duration) {
         var gap = seekTo - seekAt;
         if (Math.abs(gap) > 0.0008) {
-          seekAt += gap * 0.115; // easing factor — do not change
+          seekAt += gap * 0.12; // buttery smooth easing factor
           if (clip.readyState >= 2 && !clip.seeking) {
             try {
               clip.currentTime = seekAt;
@@ -546,23 +1390,21 @@
       requestAnimationFrame(frame);
     }
 
-    // Preloader progress display
+    // Preloader UI progress
     function setProgress(f) {
-      bootBar.style.transform = "scaleX(" + f + ")";
-      bootPct.textContent = "LOADING " + Math.round(f * 100) + "%";
+      if (bootBar) bootBar.style.transform = "scaleX(" + f + ")";
+      if (bootPct) bootPct.textContent = "LOADING " + Math.round(f * 100) + "%";
     }
 
-    // Start display: idempotent transition when video becomes playable
     function start() {
       if (started) return;
       started = true;
       ready = true;
-      boot.classList.add("done");
+      if (boot) boot.classList.add("done");
       readScroll();
       seekAt = seekTo;
     }
 
-    // Attach video source and bind event listeners
     function attach(src) {
       if (attached) return;
       attached = true;
@@ -584,12 +1426,9 @@
       clip.src = src;
       clip.load();
 
-      // Guard fallback: ensures slow/stalled decode never strands the page indefinitely behind preloader
-      setTimeout(start, 12000);
+      setTimeout(start, 10000);
     }
 
-    // Preload: fetch the mp4 as a fully buffered blob first, because seeking inside a
-    // buffered blob is near instant while range requests over the network are a slideshow.
     function preload() {
       var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
       var signal = controller ? controller.signal : undefined;
@@ -600,7 +1439,7 @@
           setProgress(1);
           attach(VIDEO_URL);
         }
-      }, 15000);
+      }, 14000);
 
       fetch(VIDEO_URL, { signal: signal })
         .then(function (res) {
@@ -630,21 +1469,17 @@
           attach(URL.createObjectURL(blob));
         })
         .catch(function () {
-          // Covers CORS failure, abort, network interruption, and offline
           clearTimeout(bail);
           setProgress(1);
           attach(VIDEO_URL);
         });
     }
 
-    // iOS unlock: iOS will not paint a frame from a video that has never been played,
-    // so nudge it once on the first interaction and pause immediately.
+    // iOS Safari video unlock
     function unlock() {
       var p = clip.play();
       if (p && p.then) {
-        p.then(function () {
-          clip.pause();
-        }).catch(function () {});
+        p.then(function () { clip.pause(); }).catch(function () {});
       } else {
         clip.pause();
       }
@@ -654,7 +1489,6 @@
       window.addEventListener(ev, unlock, { once: true, passive: true });
     });
 
-    // Final wiring
     window.addEventListener("scroll", readScroll, { passive: true });
     window.addEventListener("resize", readScroll);
 
@@ -662,6 +1496,102 @@
     paint();
     preload();
     requestAnimationFrame(frame);
+
+    // =========================================================================
+    // INTERSECTION OBSERVER FOR SCROLL REVEALS
+    // =========================================================================
+    if ("IntersectionObserver" in window) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -60px 0px", threshold: 0.1 });
+
+      document.querySelectorAll(".reveal-item").forEach(function (el) {
+        revealObserver.observe(el);
+      });
+    } else {
+      document.querySelectorAll(".reveal-item").forEach(function (el) {
+        el.classList.add("revealed");
+      });
+    }
+
+    // =========================================================================
+    // MOTIVES CARD 3D TILT EFFECT
+    // =========================================================================
+    var tiltCards = document.querySelectorAll("[data-tilt]");
+    tiltCards.forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var cx = rect.width / 2;
+        var cy = rect.height / 2;
+        var dx = (x - cx) / cx;
+        var dy = (y - cy) / cy;
+        card.style.transform = "perspective(1000px) rotateX(" + (-dy * 7) + "deg) rotateY(" + (dx * 7) + "deg) translate3d(0, -4px, 0)";
+      });
+      card.addEventListener("mouseleave", function () {
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";
+      });
+    });
+
+    // =========================================================================
+    // WORK CARD SPRING HOVER & FLOATING CURSOR BADGE
+    // =========================================================================
+    var workCards = document.querySelectorAll("[data-tilt-work]");
+    workCards.forEach(function (card) {
+      var badge = card.querySelector(".work-badge");
+      var media = card.querySelector(".work-media");
+
+      card.addEventListener("mousemove", function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        // Position floating badge relative to card
+        if (badge && window.innerWidth > 900) {
+          badge.style.transform = "translate3d(" + x + "px, " + y + "px, 0) scale(1)";
+        }
+
+        // Subtle 3D card tilt
+        if (media) {
+          var cx = rect.width / 2;
+          var cy = rect.height / 2;
+          var dx = (x - cx) / cx;
+          var dy = (y - cy) / cy;
+          media.style.transform = "perspective(1200px) rotateX(" + (-dy * 6) + "deg) rotateY(" + (dx * 6) + "deg) translate3d(0, -6px, 0)";
+        }
+      });
+
+      card.addEventListener("mouseleave", function () {
+        if (badge && window.innerWidth > 900) {
+          badge.style.transform = "translate3d(-50%, -50%, 0) scale(0.85)";
+        }
+        if (media) {
+          media.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";
+        }
+      });
+    });
+
+    // =========================================================================
+    // MAGNETIC CTA PILL BUTTON
+    // =========================================================================
+    var magneticBtn = document.getElementById("magneticCta");
+    if (magneticBtn) {
+      magneticBtn.addEventListener("mousemove", function (e) {
+        var rect = magneticBtn.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        magneticBtn.style.transform = "translate3d(" + (x * 0.32) + "px, " + (y * 0.32) + "px, 0)";
+      });
+      magneticBtn.addEventListener("mouseleave", function () {
+        magneticBtn.style.transform = "translate3d(0, 0, 0)";
+      });
+    }
   })();
   </script>
 </body>
