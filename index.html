@@ -1000,6 +1000,302 @@
         margin-top: 16px;
       }
     }
+  
+    /* --- MOSAIC SECTION --- */
+    .mosaic-wrap {
+      position: relative;
+      z-index: 20;
+      background: #fdfbf7;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
+      color: #0d0d0d;
+    }
+    .mosaic-container, .obs-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .eyebrow-pill {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #1d4ed8;
+      background: rgba(29, 78, 216, 0.08);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+    .eyebrow-pill.dark {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.12);
+    }
+    .mosaic-header h2, .obs-header h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .mosaic-header p, .obs-header p {
+      color: #666;
+      font-size: 16px;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+    .mosaic-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr 340px;
+      grid-template-rows: 160px 300px 140px;
+      gap: 16px;
+    }
+    .m-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+    .card-toast {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f7f6f2 100%);
+    }
+    .toast-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+    .toast-sparkle {
+      width: 36px;
+      height: 36px;
+      background: #10b981;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .toast-title { font-weight: 700; font-size: 14px; }
+    .toast-sub { font-size: 12px; color: #666; }
+    .toast-time { margin-left: auto; font-size: 11px; color: #999; }
+
+    .card-integrations {
+      grid-column: 1;
+      grid-row: 2 / span 2;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-integrations h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .card-integrations p { font-size: 13px; color: #666; margin-bottom: 20px; }
+    .chips-stack { display: flex; flex-direction: column; gap: 8px; }
+    .chip {
+      background: #f4f3ef;
+      padding: 10px 14px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 600;
+      width: fit-content;
+    }
+    .chip-tilted {
+      background: #1d4ed8;
+      color: #fff;
+      transform: rotate(-3deg);
+      margin-top: 10px;
+    }
+
+    .card-hero-flagship {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at 10% 10%, #faf8f2 0%, #ffffff 70%);
+    }
+    .flagship-top h3 { font-size: 24px; font-weight: 700; }
+    .flagship-top p { font-size: 14px; color: #666; margin-top: 4px; }
+    .mockup-window {
+      margin-top: 24px;
+      flex: 1;
+      background: #f4f3ef;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .mockup-bar {
+      height: 28px;
+      background: #ebe9e3;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+    }
+    .mockup-bar span { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
+    .mockup-bar span:first-child { background: #ef4444; }
+    .mockup-bar span:nth-child(2) { background: #f59e0b; }
+    .mockup-bar span:nth-child(3) { background: #10b981; }
+    .mockup-url { margin-left: 12px; font-size: 10px; font-family: monospace; color: #888; }
+    .mockup-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .mockup-skeleton-hero { height: 60px; background: #e5e2d9; border-radius: 8px; }
+    .mockup-skeleton-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; flex: 1; }
+    .mockup-skeleton-grid div { background: #eceae3; border-radius: 6px; }
+
+    .card-telemetry {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
+    }
+    .sub-badge { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 0.08em; }
+    .telemetry-big-stat { font-size: 56px; font-weight: 800; line-height: 1; margin: 12px 0 6px; color: #10b981; }
+    .telemetry-big-stat span { font-size: 24px; color: #888; font-weight: 400; }
+    .card-telemetry p { font-size: 13px; color: #666; margin-bottom: 24px; }
+    .bar-chart-wrap {
+      margin-top: auto;
+      display: flex;
+      align-items: flex-end;
+      height: 140px;
+      gap: 8px;
+    }
+    .bar-chart-wrap .bar {
+      flex: 1;
+      width: auto;
+      height: auto;
+      background: #ebe8e1;
+      border-radius: 4px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      overflow: visible;
+    }
+    .bar-chart-wrap .bar span { position: absolute; bottom: -20px; font-size: 10px; color: #999; }
+    .bar-chart-wrap .bar.bar-highlight { background: #10b981; }
+
+    .card-quick-brief {
+      grid-column: 2 / span 2;
+      grid-row: 3;
+      background: #111114;
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
+    .quick-brief-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .quick-text h4 { font-size: 18px; font-weight: 700; }
+    .quick-text p { font-size: 13px; color: #888; margin-top: 2px; }
+    .quick-btn {
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: 99px;
+      transition: transform 0.2s ease;
+      white-space: nowrap;
+    }
+    .quick-btn:hover { transform: scale(1.05); }
+
+    /* --- OBSERVABILITY SECTION --- */
+    .obs-wrap {
+      position: relative;
+      z-index: 20;
+      background: #09090b;
+      color: #ffffff;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
+    }
+    .obs-header p { color: #888; }
+    .obs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .obs-card {
+      background: #131217;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 32px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s ease;
+    }
+    .obs-card:hover { border-color: rgba(96, 165, 250, 0.4); }
+    .obs-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .mono-tag { font-family: monospace; font-size: 11px; color: #888; }
+    .status-indicator {
+      font-size: 11px;
+      font-family: monospace;
+      padding: 3px 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .status-indicator.live { color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
+    .status-indicator.active { color: #34d399; background: rgba(52, 211, 153, 0.1); }
+    .status-indicator.calm { color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+
+    .obs-visual-center { display: flex; justify-content: center; align-items: center; padding: 24px 0; }
+    .globe-svg { width: 130px; height: 130px; color: rgba(96, 165, 250, 0.4); margin: 0 auto; }
+    .telemetry-rows { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+    .t-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+    .t-row strong { font-size: 18px; color: #34d399; }
+    .t-row .unit { font-size: 11px; color: #666; margin-left: 2px; }
+
+    .obs-pill-stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .obs-status-pill {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #ccc;
+    }
+    .obs-status-pill span { color: #34d399; margin-right: 6px; }
+    .obs-bottom h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .obs-bottom p { font-size: 13px; color: #888; }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .mosaic-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .card-toast { grid-column: 1; grid-row: auto; }
+      .card-integrations { grid-column: 2; grid-row: auto; }
+      .card-hero-flagship { grid-column: 1 / span 2; grid-row: auto; min-height: 380px; }
+      .card-telemetry { grid-column: 1; grid-row: auto; }
+      .card-quick-brief { grid-column: 2; grid-row: auto; }
+      .obs-grid { grid-template-columns: 1fr; height: auto; }
+      .obs-card { min-height: 380px; }
+    }
+
+    @media (max-width: 640px) {
+      .mosaic-grid { grid-template-columns: 1fr; }
+      .card-toast, .card-integrations, .card-hero-flagship, .card-telemetry, .card-quick-brief {
+        grid-column: 1;
+        grid-row: auto;
+      }
+      .quick-brief-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1018,6 +1314,8 @@
       <span class="mark-star" aria-hidden="true">&#10037;</span>&nbsp;webcloud
     </a>
     <nav class="nav" aria-label="Primary Navigation">
+      <a href="#mosaic-section">Platform</a>
+      <a href="#observability-section">Telemetry</a>
       <a href="#motives">Philosophy</a>
       <a href="#work">Work</a>
       <a href="#about">About</a>
@@ -1071,6 +1369,166 @@
 
   <!-- 5. Flowing Content Below Hero -->
   <div class="content-flow">
+
+    <!-- SECTION 1: 5-PANEL PRODUCT MOSAIC -->
+    <section id="mosaic-section" class="mosaic-wrap">
+      <div class="mosaic-container">
+        <div class="mosaic-header">
+          <span class="eyebrow-pill">ENGINEERING STANDARD</span>
+          <h2>Websites built to outperform.</h2>
+          <p>Bespoke architecture, zero template debt, and conversion flows designed to close deals.</p>
+        </div>
+
+        <div class="mosaic-grid">
+          <!-- Card 1: Notification Toast -->
+          <div class="m-card card-toast">
+            <div class="toast-pill">
+              <div class="toast-sparkle">&#10022;</div>
+              <div>
+                <div class="toast-title">Site Deployed Live!</div>
+                <div class="toast-sub">Production build published in 3.8s</div>
+              </div>
+              <span class="toast-time">Now</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Connected Ecosystem -->
+          <div class="m-card card-integrations">
+            <h3>Connected to your stack.</h3>
+            <p>Stripe, CRM automations, custom booking, and analytics.</p>
+            <div class="chips-stack">
+              <div class="chip">Stripe Checkout</div>
+              <div class="chip">WhatsApp API</div>
+              <div class="chip">Google Analytics 4</div>
+              <div class="chip chip-tilted">100% Custom APIs</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Core Flagship Mockup -->
+          <div class="m-card card-hero-flagship">
+            <div class="flagship-top">
+              <h3>High-Conversion Flagships</h3>
+              <p>Hand-crafted UI/UX with smooth micro-interactions.</p>
+            </div>
+            <div class="mockup-window">
+              <div class="mockup-bar">
+                <span></span><span></span><span></span>
+                <span class="mockup-url">webcloud.studio/preview</span>
+              </div>
+              <div class="mockup-body">
+                <div class="mockup-skeleton-hero"></div>
+                <div class="mockup-skeleton-grid">
+                  <div></div><div></div><div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Performance Bar Chart -->
+          <div class="m-card card-telemetry">
+            <span class="sub-badge">PERFORMANCE</span>
+            <div class="telemetry-big-stat">99<span>/100</span></div>
+            <p>Average Google PageSpeed mobile score.</p>
+            <div class="bar-chart-wrap">
+              <div class="bar" style="height: 35%;"><span>M</span></div>
+              <div class="bar" style="height: 50%;"><span>T</span></div>
+              <div class="bar" style="height: 65%;"><span>W</span></div>
+              <div class="bar" style="height: 75%;"><span>T</span></div>
+              <div class="bar" style="height: 85%;"><span>F</span></div>
+              <div class="bar bar-highlight" style="height: 98%;"><span>S</span></div>
+              <div class="bar" style="height: 92%;"><span>S</span></div>
+            </div>
+          </div>
+
+          <!-- Card 5: Quick Brief Bar -->
+          <div class="m-card card-quick-brief">
+            <div class="quick-brief-inner">
+              <div class="quick-text">
+                <h4>Ready to upgrade your digital presence?</h4>
+                <p>Direct founder communication. Rapid turnaround.</p>
+              </div>
+              <a href="#order" class="quick-btn">Start a Brief &nearr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: LIVE OBSERVABILITY ENGINE (VELA 3-CARD GRID) -->
+    <section id="observability-section" class="obs-wrap">
+      <div class="obs-container">
+        <div class="obs-header">
+          <span class="eyebrow-pill dark">SYSTEM ARCHITECTURE</span>
+          <h2>Precision at every layer.</h2>
+          <p>Speed, security, and continuous uptime monitored in real time.</p>
+        </div>
+
+        <div class="obs-grid">
+          <!-- Card 1: Edge CDN -->
+          <div class="obs-card">
+            <div class="obs-top">
+              <span class="mono-tag">GLOBAL DELIVERY</span>
+              <span class="status-indicator live">34 Edge Nodes</span>
+            </div>
+            <div class="obs-visual-center">
+              <svg class="globe-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 3" />
+                <ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="currentColor" stroke-width="1.2" />
+                <ellipse cx="50" cy="50" rx="16" ry="42" fill="none" stroke="currentColor" stroke-width="1.2" />
+              </svg>
+            </div>
+            <div class="obs-bottom">
+              <h3>Sub-100ms Edge Latency</h3>
+              <p>Every website is distributed globally across Tier-1 edge infrastructure.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Live Telemetry Scrambler -->
+          <div class="obs-card" id="telemetry-card">
+            <div class="obs-top">
+              <span class="mono-tag">REAL-TIME TELEMETRY</span>
+              <span class="status-indicator active">Hover to Inspect</span>
+            </div>
+            <div class="telemetry-rows">
+              <div class="t-row">
+                <span>Response Time</span>
+                <div><strong class="scramble-digit" data-base="14">14</strong><span class="unit">ms</span></div>
+              </div>
+              <div class="t-row">
+                <span>SEO Score</span>
+                <div><strong class="scramble-digit" data-base="100">100</strong><span class="unit">/100</span></div>
+              </div>
+              <div class="t-row">
+                <span>Uptime SLA</span>
+                <div><strong class="scramble-digit" data-base="99.99">99.99</strong><span class="unit">%</span></div>
+              </div>
+            </div>
+            <div class="obs-bottom">
+              <h3>Clean Code Diagnostics</h3>
+              <p>Zero template debt. Semantic HTML and production-grade CSS.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Lifetime Guarantee -->
+          <div class="obs-card">
+            <div class="obs-top">
+              <span class="mono-tag">PARTNERSHIP</span>
+              <span class="status-indicator calm">Dedicated Care</span>
+            </div>
+            <div class="obs-pill-stack">
+              <div class="obs-status-pill"><span>&bull;</span> 24h Content Updates</div>
+              <div class="obs-status-pill"><span>&bull;</span> Ongoing Conversion Tuning</div>
+              <div class="obs-status-pill"><span>&bull;</span> Direct Developer Channel</div>
+            </div>
+            <div class="obs-bottom">
+              <h3>Lifetime Support</h3>
+              <p>We handle maintenance, speed audits, and updates as your business grows.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- =======================================================================
          SECTION 1: OUR MOTIVES & PHILOSOPHY (#motives)
