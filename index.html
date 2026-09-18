@@ -1510,7 +1510,7 @@
     <div class="hero-sticky">
       <!-- Video Stage -->
       <div class="stage">
-        <video id="clip" muted playsinline preload="auto" disablepictureinpicture></video>
+        <video id="clip" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/45567745-d826-44a2-a5ce-7ef670944e60.mp4" muted playsinline webkit-playsinline="true" preload="auto" crossorigin="anonymous" disablepictureinpicture></video>
         <div class="veil"></div>
         <div class="grain"></div>
       </div>
@@ -2057,10 +2057,9 @@
     var docProgress = 0;
     var seekTo = 0;
     var seekAt = 0;
-    var duration = 0;
+    var duration = 10.04;
     var ready = false;
     var started = false;
-    var attached = false;
 
     function readScroll() {
       var docMax = document.documentElement.scrollHeight - window.innerHeight;
@@ -2074,7 +2073,8 @@
         heroProgress = 0;
       }
 
-      if (duration) seekTo = heroProgress * duration;
+      var dur = (duration && duration > 0) ? duration : (clip && clip.duration ? clip.duration : 10.04);
+      seekTo = heroProgress * dur;
 
       if (heroFoot) {
         heroFoot.style.opacity = heroProgress > 0.85 ? clamp(1 - (heroProgress - 0.85) / 0.12, 0, 1) : 1;
@@ -2098,11 +2098,11 @@
     }
 
     function frame() {
-      if (ready && duration) {
+      if (ready && clip) {
         var gap = seekTo - seekAt;
         if (Math.abs(gap) > 0.0008) {
           seekAt += gap * 0.12;
-          if (clip.readyState >= 2 && !clip.seeking) {
+          if (clip.readyState >= 1 && !clip.seeking) {
             try {
               clip.currentTime = seekAt;
             } catch (e) {}
@@ -2122,17 +2122,22 @@
       if (started) return;
       started = true;
       ready = true;
+      setProgress(1);
       if (boot) boot.classList.add("done");
       readScroll();
       seekAt = seekTo;
+      if (clip) {
+        try {
+          clip.currentTime = seekAt;
+        } catch (e) {}
+      }
     }
 
-    function attach(src) {
-      if (attached) return;
-      attached = true;
+    function initVideo() {
+      if (!clip) return;
 
       clip.addEventListener("loadedmetadata", function () {
-        duration = clip.duration || 0;
+        duration = clip.duration || 10.04;
         clip.pause();
         readScroll();
         seekAt = seekTo;
@@ -2141,63 +2146,48 @@
         } catch (e) {}
       });
 
-      clip.addEventListener("loadeddata", start);
-      clip.addEventListener("canplaythrough", start);
-      clip.addEventListener("error", start);
+      clip.addEventListener("canplay", function () {
+        if (!ready) {
+          ready = true;
+          readScroll();
+          seekAt = seekTo;
+        }
+      });
 
-      clip.src = src;
-      clip.load();
-
-      setTimeout(start, 10000);
+      if (!clip.src) {
+        clip.src = VIDEO_URL;
+      }
+      try {
+        clip.load();
+      } catch (e) {}
     }
 
-    function preload() {
-      var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-      var signal = controller ? controller.signal : undefined;
+    function bootSequence() {
+      initVideo();
 
-      var bail = setTimeout(function () {
-        if (!attached) {
-          if (controller) controller.abort();
-          setProgress(1);
-          attach(VIDEO_URL);
+      var startTs = null;
+      var RAMP_DURATION = 1000;
+
+      function rampStep(timestamp) {
+        if (!startTs) startTs = timestamp;
+        var elapsed = timestamp - startTs;
+        var p = Math.min(elapsed / RAMP_DURATION, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        setProgress(eased);
+
+        if (p < 1) {
+          requestAnimationFrame(rampStep);
+        } else {
+          start();
         }
-      }, 14000);
+      }
 
-      fetch(VIDEO_URL, { signal: signal })
-        .then(function (res) {
-          if (!res.ok || !res.body) throw new Error("Fetch failed");
-          var contentLength = res.headers.get("content-length");
-          var total = contentLength ? parseInt(contentLength, 10) : 0;
-          var reader = res.body.getReader();
-          var chunks = [];
-          var got = 0;
-
-          function pump() {
-            return reader.read().then(function (result) {
-              if (result.done) {
-                return new Blob(chunks, { type: "video/mp4" });
-              }
-              chunks.push(result.value);
-              got += result.value.length;
-              setProgress(total ? got / total : Math.min(got / 11e6, 0.95));
-              return pump();
-            });
-          }
-          return pump();
-        })
-        .then(function (blob) {
-          clearTimeout(bail);
-          setProgress(1);
-          attach(URL.createObjectURL(blob));
-        })
-        .catch(function () {
-          clearTimeout(bail);
-          setProgress(1);
-          attach(VIDEO_URL);
-        });
+      requestAnimationFrame(rampStep);
+      setTimeout(start, 1200);
     }
 
     function unlock() {
+      if (!clip) return;
       var p = clip.play();
       if (p && p.then) {
         p.then(function () { clip.pause(); }).catch(function () {});
@@ -2215,7 +2205,7 @@
 
     readScroll();
     paint();
-    preload();
+    bootSequence();
     requestAnimationFrame(frame);
 
     // =========================================================================
