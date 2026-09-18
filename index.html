@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>WebCloud — Digital Architecture &amp; Engineering Studio</title>
+  <title>WebCloud — Digital Architecture &amp; Performance Engineering Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marck+Script&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --fg: #0d0c0b;
@@ -23,6 +23,9 @@
       --ease-spring: cubic-bezier(.175, .885, .32, 1.15);
       --pill-bg: #0a0908;
       --pill-fg: #ffffff;
+      --font-sans: 'Manrope', 'Inter Tight', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --font-cursive: 'Marck Script', cursive;
     }
 
     *, *::before, *::after {
@@ -59,7 +62,7 @@
       transform: scaleX(0);
       transform-origin: 0 50%;
       background: var(--fg);
-      opacity: .65;
+      opacity: .75;
       pointer-events: none;
       will-change: transform;
     }
@@ -178,14 +181,14 @@
       color: var(--fg-faint);
     }
 
-    .bar {
+    .boot .bar {
       width: 150px;
       height: 1px;
       background: var(--rule);
       overflow: hidden;
     }
 
-    .bar i {
+    .boot .bar i {
       display: block;
       height: 100%;
       width: 100%;
@@ -196,7 +199,7 @@
     }
 
     /* =========================================================================
-       HERO SCROLL-PIN CONTAINER
+       HERO SCROLL-PIN CONTAINER (All-Intra Crumbling Donut)
        ========================================================================= */
     .hero-container {
       position: relative;
@@ -213,7 +216,6 @@
       overflow: hidden;
     }
 
-    /* Video Stage */
     .stage {
       position: absolute;
       inset: 0;
@@ -253,7 +255,6 @@
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>");
     }
 
-    /* Hero Ambient Bottom Bar */
     .hero-foot,
     .studio-status-bar {
       position: absolute;
@@ -274,7 +275,6 @@
       transition: opacity .3s var(--ease);
     }
 
-    /* Hero Text Narrative Panels */
     .panels {
       position: absolute;
       inset: 0;
@@ -312,7 +312,7 @@
       text-align: center;
     }
 
-    h1 {
+    .panel h1, .hero-panel h1 {
       font-weight: 400;
       font-size: clamp(34px, 7.1vw, 104px);
       line-height: .98;
@@ -341,7 +341,8 @@
       justify-content: center;
     }
 
-    .cta .pill {
+    .cta .pill,
+    .panel-cta .pill {
       height: 48px;
       padding: 0 28px;
       font-size: 15px;
@@ -349,7 +350,7 @@
     }
 
     /* =========================================================================
-       FLOWING CONTENT AFTER HERO
+       FLOWING CONTENT WRAPPER
        ========================================================================= */
     .content-flow {
       position: relative;
@@ -358,334 +359,875 @@
       width: 100%;
     }
 
-    /* Common Section Utility */
-    .section-wrap {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: clamp(90px, 12vw, 160px) clamp(20px, 5vw, 60px);
-    }
-
-    .section-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--fg-faint);
-      margin-bottom: clamp(18px, 2.5vw, 28px);
-    }
-
-    .section-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 18px;
-      height: 1px;
-      background: var(--fg-faint);
-    }
-
-    .section-title {
-      font-size: clamp(32px, 5vw, 68px);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: -.03em;
-      max-width: 22ch;
-      margin-bottom: clamp(24px, 3vw, 40px);
-    }
-
-    .section-sub {
-      font-size: clamp(16px, 1.35vw, 20px);
-      line-height: 1.55;
-      color: var(--fg-soft);
-      max-width: 54ch;
-      margin-bottom: clamp(48px, 6vw, 80px);
-    }
-
-    /* Hairline Divider */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--rule);
-      border: none;
-    }
-
     /* =========================================================================
-       SECTION 1: OUR MOTIVES & PHILOSOPHY (#motives)
-       French Atelier Editorial Aesthetic
+       SECTION 2: SPOTLIGHT REVEAL (Nike Interactive Mask Engine)
        ========================================================================= */
-    .motives-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(20px, 3vw, 36px);
-      margin-top: clamp(24px, 3vw, 40px);
-    }
-
-    .motive-card {
+    .spotlight-section {
       position: relative;
-      background: var(--shade-card);
-      border: 1px solid var(--shade-card-border);
-      border-radius: clamp(16px, 2vw, 24px);
-      padding: clamp(32px, 4.5vw, 56px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: clamp(280px, 32vw, 360px);
-      transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .35s var(--ease);
-      transform-style: preserve-3d;
-      will-change: transform;
-      cursor: default;
-    }
-
-    .motive-card:hover {
-      border-color: rgba(13,12,11,.18);
-      box-shadow: 0 20px 48px -12px rgba(13,12,11,.06);
-    }
-
-    .motive-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: clamp(28px, 4vw, 48px);
-    }
-
-    .motive-num {
-      font-size: 13px;
-      letter-spacing: .08em;
-      color: var(--fg-faint);
-      font-feature-settings: "tnum" 1;
-    }
-
-    .motive-tag {
-      font-size: 11.5px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(13,12,11,.04);
-      color: var(--fg-soft);
-    }
-
-    .motive-card h3 {
-      font-size: clamp(22px, 2.4vw, 32px);
-      font-weight: 400;
-      letter-spacing: -.02em;
-      line-height: 1.15;
-      margin-bottom: 14px;
-    }
-
-    .motive-card p {
-      font-size: clamp(14.5px, 1.1vw, 16.5px);
-      line-height: 1.55;
-      color: var(--fg-soft);
-      max-width: 44ch;
-    }
-
-    /* Scroll reveal state */
-    .reveal-item {
-      opacity: 0;
-      transform: translate3d(0, 36px, 0);
-      transition: opacity .8s var(--ease), transform .8s var(--ease);
-    }
-
-    .reveal-item.revealed {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-
-    /* =========================================================================
-       SECTION 2: WORK SHOWCASE / GALLERY (#work)
-       Léo Parpeix Inspired Staggered Grid & Spring Cursor Badge
-       ========================================================================= */
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(32px, 5vw, 64px);
-      align-items: start;
-    }
-
-    /* Asymmetric Stagger: Column 2 starts lower on desktop */
-    .work-col:nth-child(2) {
-      margin-top: clamp(60px, 8vw, 140px);
-    }
-
-    .work-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      position: relative;
-      margin-bottom: clamp(48px, 7vw, 96px);
-      cursor: pointer;
-    }
-
-    .work-media {
-      position: relative;
+      z-index: 25;
       width: 100%;
-      aspect-ratio: 4 / 3.4;
-      border-radius: clamp(14px, 1.8vw, 22px);
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
-      background: #e6e3dd;
-      transform-style: preserve-3d;
-      transition: transform .5s var(--ease), box-shadow .5s var(--ease);
-      will-change: transform;
+      background: #000000;
+      color: #ffffff;
+      box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
     }
 
-    .work-media img {
+    .spotlight-mask-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: #000;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .spotlight-mask-container video {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform .75s var(--ease), filter .75s var(--ease);
-      will-change: transform;
-      filter: contrast(1.02) saturate(0.96);
     }
 
-    .work-card:hover .work-media {
-      box-shadow: 0 28px 56px -16px rgba(13,12,11,.14);
-    }
-
-    .work-card:hover .work-media img {
-      transform: scale(1.045);
-      filter: contrast(1.04) saturate(1.02);
-    }
-
-    /* Floating Pill Badge following cursor */
-    .work-badge {
+    .spotlight-mask-container svg {
       position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 5;
-      pointer-events: none;
-      background: var(--pill-bg);
-      color: var(--pill-fg);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: -.01em;
-      padding: 8px 18px;
-      border-radius: 999px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.28);
-      white-space: nowrap;
-      opacity: 0;
-      transform: translate3d(-50%, -50%, 0) scale(0.85);
-      transition: opacity .25s var(--ease), transform .25s var(--ease);
-      will-change: transform, opacity;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
-    .work-card:hover .work-badge {
-      opacity: 1;
-      transform: translate3d(-50%, -50%, 0) scale(1);
+    /* Invisible hover trigger zones */
+    .spotlight-trigger-right {
+      position: absolute;
+      right: calc(8% + 100px);
+      bottom: 12%;
+      width: calc(50% - 50px);
+      height: calc(50% + 230px);
+      z-index: 30;
     }
 
-    .work-meta {
+    .spotlight-trigger-left {
+      position: absolute;
+      left: calc(8% + 200px);
+      top: calc(20% + 190px);
+      width: calc(15% + 250px);
+      height: calc(22.5% + 130px);
+      transform: translateY(-100%);
+      z-index: 30;
+    }
+
+    /* Glassmorphic Stats Card */
+    .spotlight-stats-card {
+      position: absolute;
+      left: calc(8% + 160px);
+      top: 18%;
+      z-index: 20;
+      width: 320px;
+      padding: 24px 32px;
+      background: rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(80px);
+      -webkit-backdrop-filter: blur(80px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+    }
+
+    .spotlight-stat-row {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-top: 18px;
-      padding: 0 4px;
+      gap: 12px;
     }
 
-    .work-title {
-      font-size: clamp(20px, 2vw, 26px);
+    .spotlight-big-stat {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: #DA3A16;
+      font-size: 68px;
+      line-height: 76px;
+      letter-spacing: -0.03em;
+    }
+
+    .spotlight-chart-wrap {
+      width: 140px;
+      height: 70px;
+    }
+
+    .spotlight-card-title {
+      font-family: var(--font-serif);
+      color: #ffffff;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .spotlight-card-sub {
+      font-family: var(--font-serif);
+      color: rgba(255,255,255,0.65);
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+
+    /* Headline bottom left */
+    .spotlight-headline {
+      position: absolute;
+      left: 8%;
+      bottom: 12%;
+      z-index: 20;
+      max-width: 520px;
+      font-size: clamp(28px, 3.8vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spotlight-headline .sans-line {
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .spotlight-headline .serif-line {
+      font-family: var(--font-serif);
       font-weight: 400;
-      letter-spacing: -.02em;
-      color: var(--fg);
+      padding-top: 4px;
     }
 
-    .work-category {
-      font-size: 13px;
-      letter-spacing: .02em;
-      color: var(--fg-soft);
-      white-space: nowrap;
+    .spotlight-headline .serif-italic {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* Branded CTA block bottom right */
+    .spotlight-cta-block {
+      position: absolute;
+      right: calc(8% + 100px);
+      bottom: 12%;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 180px;
+    }
+
+    .spotlight-cta-top {
+      width: 100%;
+      background: #ffffff;
+      padding: 6px 0;
+      text-align: center;
+      color: #000000;
+      font-family: var(--font-serif);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 16px;
+    }
+
+    .spotlight-cta-bottom {
+      width: 100%;
+      height: 90px;
+      background: #DA3A16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-decoration: none;
+      transition: transform .25s var(--ease);
+    }
+
+    .spotlight-cta-bottom:hover {
+      transform: scale(1.03);
     }
 
     /* =========================================================================
-       SECTION 3: THE CRAFT & CREATORS (#about)
-       Technical Narrative, Metric Strip, Magnetic Pill Button
+       SECTION 3: 5-PANEL PRODUCT MOSAIC (#mosaic-section)
        ========================================================================= */
-    .craft-container {
-      border-top: 1px solid var(--rule);
-      padding-top: clamp(80px, 10vw, 140px);
+    .mosaic-wrap {
+      position: relative;
+      z-index: 20;
+      background: #fdfbf7;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
+      color: #0d0d0d;
     }
 
-    .craft-layout {
+    .mosaic-container, .obs-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .eyebrow-pill {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #1d4ed8;
+      background: rgba(29, 78, 216, 0.08);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow-pill.dark {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.12);
+    }
+
+    .mosaic-header h2, .obs-header h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .mosaic-header p, .obs-header p {
+      color: #666;
+      font-size: 16px;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    .mosaic-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 6vw, 100px);
-      align-items: start;
+      grid-template-columns: 320px 1fr 340px;
+      grid-template-rows: 160px 300px 140px;
+      gap: 16px;
     }
 
-    .craft-narrative h2 {
-      font-size: clamp(34px, 4.6vw, 64px);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: -.03em;
-      margin-bottom: clamp(24px, 3vw, 36px);
+    .m-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
     }
 
-    .craft-narrative p {
-      font-size: clamp(17px, 1.4vw, 21px);
-      line-height: 1.55;
-      color: var(--fg-soft);
-      margin-bottom: clamp(36px, 4vw, 56px);
-      max-width: 48ch;
-    }
-
-    .craft-cta-area {
+    .card-toast {
+      grid-column: 1;
+      grid-row: 1;
       display: flex;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      background: linear-gradient(135deg, #ffffff 0%, #f7f6f2 100%);
     }
 
-    .pill-magnetic {
-      height: 52px;
-      padding: 0 32px;
-      font-size: 15.5px;
-      font-weight: 500;
-      letter-spacing: -.01em;
-      will-change: transform;
+    .toast-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
     }
 
-    .craft-guarantee {
-      font-size: 12.5px;
-      letter-spacing: .02em;
-      color: var(--fg-faint);
+    .toast-sparkle {
+      width: 36px;
+      height: 36px;
+      background: #10b981;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
     }
 
-    /* Metric Strip */
-    .stats-strip {
+    .toast-title { font-weight: 700; font-size: 14px; }
+    .toast-sub { font-size: 12px; color: #666; }
+    .toast-time { margin-left: auto; font-size: 11px; color: #999; }
+
+    .card-integrations {
+      grid-column: 1;
+      grid-row: 2 / span 2;
       display: flex;
       flex-direction: column;
-      gap: clamp(32px, 4vw, 56px);
-      padding-left: clamp(20px, 4vw, 60px);
-      border-left: 1px solid var(--rule-faint);
     }
 
-    .stat-block {
+    .card-integrations h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .card-integrations p { font-size: 13px; color: #666; margin-bottom: 20px; }
+    .chips-stack { display: flex; flex-direction: column; gap: 8px; }
+
+    .chip {
+      background: #f4f3ef;
+      padding: 10px 14px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .chip-tilted {
+      background: #1d4ed8;
+      color: #fff;
+      transform: rotate(-3deg);
+      margin-top: 10px;
+    }
+
+    .card-hero-flagship {
+      grid-column: 2;
+      grid-row: 1 / span 2;
       display: flex;
       flex-direction: column;
+      background: radial-gradient(circle at 10% 10%, #faf8f2 0%, #ffffff 70%);
+    }
+
+    .flagship-top h3 { font-size: 24px; font-weight: 700; }
+    .flagship-top p { font-size: 14px; color: #666; margin-top: 4px; }
+
+    .mockup-window {
+      margin-top: 24px;
+      flex: 1;
+      background: #f4f3ef;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mockup-bar {
+      height: 28px;
+      background: #ebe9e3;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
       gap: 6px;
     }
 
-    .stat-number {
-      font-size: clamp(44px, 5.8vw, 80px);
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -.04em;
-      color: var(--fg);
-      font-feature-settings: "tnum" 1;
+    .mockup-bar span { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
+    .mockup-bar span:first-child { background: #ef4444; }
+    .mockup-bar span:nth-child(2) { background: #f59e0b; }
+    .mockup-bar span:nth-child(3) { background: #10b981; }
+    .mockup-url { margin-left: 12px; font-size: 10px; font-family: monospace; color: #888; }
+    .mockup-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .mockup-skeleton-hero { height: 60px; background: #e5e2d9; border-radius: 8px; }
+    .mockup-skeleton-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; flex: 1; }
+    .mockup-skeleton-grid div { background: #eceae3; border-radius: 6px; }
+
+    .card-telemetry {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
     }
 
-    .stat-label {
-      font-size: 14px;
-      letter-spacing: .02em;
-      color: var(--fg-soft);
+    .sub-badge { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 0.08em; }
+    .telemetry-big-stat { font-size: 56px; font-weight: 800; line-height: 1; margin: 12px 0 6px; color: #10b981; }
+    .telemetry-big-stat span { font-size: 24px; color: #888; font-weight: 400; }
+    .card-telemetry p { font-size: 13px; color: #666; margin-bottom: 24px; }
+
+    .bar-chart-wrap {
+      margin-top: auto;
+      display: flex;
+      align-items: flex-end;
+      height: 140px;
+      gap: 8px;
+    }
+
+    .bar-chart-wrap .bar {
+      flex: 1;
+      width: auto;
+      height: auto;
+      background: #ebe8e1;
+      border-radius: 4px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .bar-chart-wrap .bar span { position: absolute; bottom: -20px; font-size: 10px; color: #999; }
+    .bar-chart-wrap .bar.bar-highlight { background: #10b981; }
+
+    .card-quick-brief {
+      grid-column: 2 / span 2;
+      grid-row: 3;
+      background: #111114;
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
+
+    .quick-brief-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .quick-text h4 { font-size: 18px; font-weight: 700; }
+    .quick-text p { font-size: 13px; color: #888; margin-top: 2px; }
+
+    .quick-btn {
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: 99px;
+      transition: transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .quick-btn:hover { transform: scale(1.05); }
+
+    /* =========================================================================
+       SECTION 4: LIVE OBSERVABILITY ENGINE (#observability-section)
+       ========================================================================= */
+    .obs-wrap {
+      position: relative;
+      z-index: 20;
+      background: #09090b;
+      color: #ffffff;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
+    }
+
+    .obs-header p { color: #888; }
+    .obs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .obs-card {
+      background: #131217;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 32px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s ease;
+    }
+
+    .obs-card:hover { border-color: rgba(96, 165, 250, 0.4); }
+    .obs-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .mono-tag { font-family: monospace; font-size: 11px; color: #888; }
+
+    .status-indicator {
+      font-size: 11px;
+      font-family: monospace;
+      padding: 3px 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-indicator.live { color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
+    .status-indicator.active { color: #34d399; background: rgba(52, 211, 153, 0.1); }
+    .status-indicator.calm { color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+
+    .obs-visual-center { display: flex; justify-content: center; align-items: center; padding: 24px 0; }
+    .globe-svg { width: 130px; height: 130px; color: rgba(96, 165, 250, 0.4); margin: 0 auto; }
+    .telemetry-rows { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+
+    .t-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .t-row strong { font-size: 18px; color: #34d399; }
+    .t-row .unit { font-size: 11px; color: #666; margin-left: 2px; }
+
+    .obs-pill-stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .obs-status-pill {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #ccc;
+    }
+
+    .obs-status-pill span { color: #34d399; margin-right: 6px; }
+    .obs-bottom h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .obs-bottom p { font-size: 13px; color: #888; }
+
+    /* =========================================================================
+       SECTION 5: GUARDNET AMBIENT VIDEO BENEFITS
+       ========================================================================= */
+    .benefits-wrap {
+      position: relative;
+      background: #000000;
+      color: #ffffff;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+    }
+
+    .benefits-container {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    .benefits-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      text-align: center;
+      margin-bottom: clamp(48px, 6vw, 80px);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(16px, 2vw, 24px);
+    }
+
+    .benefit-card {
+      position: relative;
+      height: clamp(380px, 42vw, 460px);
+      border-radius: 20px;
+      background: #0d0d0d;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .benefit-card-padded {
+      padding: clamp(24px, 3.5vw, 36px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .blue-blob-left {
+      position: absolute;
+      top: 50%;
+      left: -320px;
+      transform: translateY(-50%);
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: #1e3a8a;
+      filter: blur(80px);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .blue-blob-right {
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: #1e3a8a;
+      filter: blur(70px);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .benefit-card h3 {
+      font-size: clamp(20px, 2.2vw, 26px);
+      font-weight: 300;
+      line-height: 1.2;
+      position: relative;
+      z-index: 10;
+    }
+
+    .benefit-card p {
+      font-size: clamp(13px, 1.1vw, 14.5px);
+      line-height: 1.6;
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      position: relative;
+      z-index: 10;
+      max-width: 320px;
+    }
+
+    .benefit-video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 75%;
+      overflow: hidden;
+    }
+
+    .benefit-video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .benefit-video-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, #0d0d0d);
+      pointer-events: none;
+    }
+
+    .benefit-video-bottom {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: clamp(20px, 3vw, 28px);
     }
 
     /* =========================================================================
-       SECTION 4: CLIENT BRIEF & INQUIRY (#order)
+       SECTION 6: PIXEL-GRID CASE STUDIES & MARQUEE (#work)
+       ========================================================================= */
+    .pixel-projects-wrap {
+      position: relative;
+      background: #ffffff;
+      color: #000000;
+      padding: clamp(90px, 12vw, 160px) clamp(20px, 5vw, 60px) 40px;
+    }
+
+    .pixel-projects-container {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    .pixel-header-badge {
+      display: inline-block;
+      background: #000000;
+      color: #ffffff;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+
+    .pixel-header-title {
+      font-size: clamp(32px, 4.5vw, 56px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: clamp(48px, 6vw, 80px);
+    }
+
+    .pixel-header-title span {
+      color: rgba(0,0,0,0.4);
+    }
+
+    .pixel-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: clamp(60px, 8vw, 100px);
+    }
+
+    .pixel-card {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #e5e5e5;
+    }
+
+    .pixel-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s var(--ease);
+    }
+
+    .pixel-card:hover .pixel-card-img {
+      transform: scale(1.04);
+    }
+
+    /* 12x8 Pixel Blocks Overlay */
+    .pixel-blocks-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .pixel-block {
+      background: rgba(0, 0, 0, 0.85);
+      transform: scale(0);
+      opacity: 0;
+      transition: transform .25s var(--ease), opacity .25s var(--ease);
+    }
+
+    .pixel-card:hover .pixel-block {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+
+    /* Magnetic Squares */
+    .mag-square {
+      position: absolute;
+      background: #ffffff;
+      pointer-events: none;
+      z-index: 8;
+      transition: transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+    }
+
+    .pixel-info-plate {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: #ffffff;
+      padding: 14px 20px;
+      z-index: 10;
+      max-width: 75%;
+    }
+
+    .pixel-info-title {
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .pixel-info-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: rgba(0,0,0,0.6);
+      margin-top: 6px;
+    }
+
+    .pixel-info-year {
+      font-weight: 600;
+      color: #000000;
+    }
+
+    /* Infinite Marquee */
+    @keyframes marqueeProjects {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .marquee-wrap {
+      overflow: hidden;
+      padding: 30px 0;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      background: #fafafa;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeProjects 28s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 36px;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: rgba(0,0,0,0.85);
+    }
+
+    /* =========================================================================
+       SECTION 7: TECH-NOIR CREATOR MANIFESTO (#about)
+       ========================================================================= */
+    .noir-section {
+      position: relative;
+      background: #0d0c0b;
+      color: #ffffff;
+      padding: clamp(100px, 14vw, 180px) clamp(20px, 5vw, 60px) 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .noir-container {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .noir-logo {
+      width: 72px;
+      height: 72px;
+      margin-bottom: 40px;
+    }
+
+    .noir-mission {
+      font-size: clamp(14px, 1.4vw, 17px);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      line-height: 1.7;
+      max-width: 580px;
+      margin-bottom: 32px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .noir-signature {
+      font-family: var(--font-cursive);
+      font-size: clamp(72px, 10vw, 128px);
+      line-height: 1;
+      margin-bottom: 48px;
+      color: #ffffff;
+      opacity: 0.95;
+    }
+
+    .noir-paragraphs {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 540px;
+      margin-bottom: clamp(60px, 8vw, 100px);
+      font-size: 16px;
+      line-height: 1.65;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .noir-video-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .noir-video-fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, #0d0c0b, transparent);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .noir-video-wrap video {
+      width: 100%;
+      height: auto;
+      max-height: 600px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* =========================================================================
+       SECTION 8: CLIENT BRIEF (#order) & STUDIO FOOTER
        ========================================================================= */
     .inquiry-box {
-      margin-top: clamp(80px, 10vw, 140px);
+      margin: clamp(80px, 10vw, 140px) auto;
+      max-width: 1240px;
       background: var(--fg);
       color: #ffffff;
       border-radius: clamp(20px, 2.6vw, 32px);
@@ -785,12 +1327,9 @@
       color: #ffffff;
     }
 
-    /* =========================================================================
-       EDITORIAL STUDIO FOOTER
-       ========================================================================= */
     .studio-footer {
       border-top: 1px solid var(--rule);
-      margin-top: clamp(80px, 10vw, 140px);
+      margin-top: clamp(60px, 8vw, 120px);
       padding: clamp(60px, 8vw, 100px) clamp(20px, 5vw, 60px) max(32px, calc(env(safe-area-inset-bottom, 0px) + 24px));
       max-width: 1360px;
       margin-left: auto;
@@ -867,409 +1406,25 @@
        RESPONSIVE BREAKPOINTS
        ========================================================================= */
     @media (max-width: 1024px) {
-      .craft-layout {
-        grid-template-columns: 1fr;
-        gap: 56px;
+      .spotlight-headline {
+        bottom: 8%;
+        left: 5%;
+        max-width: 420px;
       }
-      .stats-strip {
-        padding-left: 0;
-        border-left: none;
-        border-top: 1px solid var(--rule-faint);
-        padding-top: 40px;
-        flex-direction: row;
-        justify-content: space-between;
+      .spotlight-stats-card {
+        left: 5%;
+        top: 15%;
       }
-      .footer-top {
-        grid-template-columns: 1fr 1fr;
+      .spotlight-cta-block {
+        right: 5%;
+        bottom: 8%;
       }
-      .footer-brand {
-        grid-column: span 2;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .veil {
-        background:
-          linear-gradient(to bottom, rgba(242,240,236,.74) 0%, rgba(242,240,236,.18) 24%, rgba(242,240,236,.18) 76%, rgba(242,240,236,.76) 100%),
-          radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.42) 100%),
-          rgba(242,240,236,.24);
-      }
-      .motives-grid {
+      .benefits-grid {
         grid-template-columns: 1fr;
       }
-      .work-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
+      .benefit-card {
+        height: 380px;
       }
-      .work-col:nth-child(2) {
-        margin-top: 0;
-      }
-      .work-badge {
-        position: static;
-        display: inline-flex;
-        margin-top: 12px;
-        opacity: 1;
-        transform: none !important;
-        font-size: 12px;
-        padding: 6px 14px;
-      }
-      .work-card:hover .work-badge {
-        transform: none !important;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .nav a:not(.pill) {
-        display: none;
-      }
-      .mark {
-        font-size: 14px;
-      }
-      .nav .pill {
-        height: 38px;
-        padding: 0 16px;
-        font-size: 13.5px;
-      }
-      h1 {
-        max-width: 12ch;
-        font-size: clamp(30px, 9.8vw, 52px);
-      }
-      .sub {
-        font-size: 15px;
-        max-width: 34ch;
-      }
-      .panel {
-        padding: max(92px, calc(env(safe-area-inset-top, 0px) + 76px)) 18px max(88px, calc(env(safe-area-inset-bottom, 0px) + 72px));
-      }
-      .stats-strip {
-        flex-direction: column;
-        gap: 28px;
-      }
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .footer-brand {
-        grid-column: span 1;
-      }
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .mark-star {
-        display: none;
-      }
-      .nav .pill {
-        height: 36px;
-        padding: 0 14px;
-        font-size: 13px;
-      }
-      h1 {
-        max-width: 11ch;
-        font-size: clamp(28px, 10.5vw, 40px);
-      }
-      .eyebrow {
-        font-size: 11px;
-        letter-spacing: .04em;
-        max-width: 28ch;
-      }
-      .cta .pill {
-        width: 100%;
-        max-width: 280px;
-        height: 44px;
-        padding: 0 20px;
-        font-size: 14px;
-      }
-    }
-
-    @media (max-height: 520px) and (orientation: landscape) {
-      .panel {
-        padding: max(72px, calc(env(safe-area-inset-top, 0px) + 56px)) 24px max(64px, calc(env(safe-area-inset-bottom, 0px) + 48px));
-      }
-      h1 {
-        font-size: clamp(28px, 8vh, 44px);
-      }
-      .sub {
-        margin-top: 12px;
-        font-size: 14px;
-      }
-      .cta {
-        margin-top: 16px;
-      }
-    }
-  
-    /* --- MOSAIC SECTION --- */
-    .mosaic-wrap {
-      position: relative;
-      z-index: 20;
-      background: #fdfbf7;
-      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
-      color: #0d0d0d;
-    }
-    .mosaic-container, .obs-container {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
-    .eyebrow-pill {
-      display: inline-block;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #1d4ed8;
-      background: rgba(29, 78, 216, 0.08);
-      padding: 4px 12px;
-      border-radius: 99px;
-      margin-bottom: 16px;
-    }
-    .eyebrow-pill.dark {
-      color: #60a5fa;
-      background: rgba(96, 165, 250, 0.12);
-    }
-    .mosaic-header h2, .obs-header h2 {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-    .mosaic-header p, .obs-header p {
-      color: #666;
-      font-size: 16px;
-      max-width: 540px;
-      margin-bottom: 48px;
-    }
-    .mosaic-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr 340px;
-      grid-template-rows: 160px 300px 140px;
-      gap: 16px;
-    }
-    .m-card {
-      background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.07);
-      border-radius: 20px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-    }
-    .card-toast {
-      grid-column: 1;
-      grid-row: 1;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, #ffffff 0%, #f7f6f2 100%);
-    }
-    .toast-pill {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-    }
-    .toast-sparkle {
-      width: 36px;
-      height: 36px;
-      background: #10b981;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-    .toast-title { font-weight: 700; font-size: 14px; }
-    .toast-sub { font-size: 12px; color: #666; }
-    .toast-time { margin-left: auto; font-size: 11px; color: #999; }
-
-    .card-integrations {
-      grid-column: 1;
-      grid-row: 2 / span 2;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-integrations h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .card-integrations p { font-size: 13px; color: #666; margin-bottom: 20px; }
-    .chips-stack { display: flex; flex-direction: column; gap: 8px; }
-    .chip {
-      background: #f4f3ef;
-      padding: 10px 14px;
-      border-radius: 99px;
-      font-size: 13px;
-      font-weight: 600;
-      width: fit-content;
-    }
-    .chip-tilted {
-      background: #1d4ed8;
-      color: #fff;
-      transform: rotate(-3deg);
-      margin-top: 10px;
-    }
-
-    .card-hero-flagship {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-      display: flex;
-      flex-direction: column;
-      background: radial-gradient(circle at 10% 10%, #faf8f2 0%, #ffffff 70%);
-    }
-    .flagship-top h3 { font-size: 24px; font-weight: 700; }
-    .flagship-top p { font-size: 14px; color: #666; margin-top: 4px; }
-    .mockup-window {
-      margin-top: 24px;
-      flex: 1;
-      background: #f4f3ef;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.06);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .mockup-bar {
-      height: 28px;
-      background: #ebe9e3;
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-      gap: 6px;
-    }
-    .mockup-bar span { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
-    .mockup-bar span:first-child { background: #ef4444; }
-    .mockup-bar span:nth-child(2) { background: #f59e0b; }
-    .mockup-bar span:nth-child(3) { background: #10b981; }
-    .mockup-url { margin-left: 12px; font-size: 10px; font-family: monospace; color: #888; }
-    .mockup-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
-    .mockup-skeleton-hero { height: 60px; background: #e5e2d9; border-radius: 8px; }
-    .mockup-skeleton-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; flex: 1; }
-    .mockup-skeleton-grid div { background: #eceae3; border-radius: 6px; }
-
-    .card-telemetry {
-      grid-column: 3;
-      grid-row: 1 / span 2;
-      display: flex;
-      flex-direction: column;
-    }
-    .sub-badge { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 0.08em; }
-    .telemetry-big-stat { font-size: 56px; font-weight: 800; line-height: 1; margin: 12px 0 6px; color: #10b981; }
-    .telemetry-big-stat span { font-size: 24px; color: #888; font-weight: 400; }
-    .card-telemetry p { font-size: 13px; color: #666; margin-bottom: 24px; }
-    .bar-chart-wrap {
-      margin-top: auto;
-      display: flex;
-      align-items: flex-end;
-      height: 140px;
-      gap: 8px;
-    }
-    .bar-chart-wrap .bar {
-      flex: 1;
-      width: auto;
-      height: auto;
-      background: #ebe8e1;
-      border-radius: 4px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      overflow: visible;
-    }
-    .bar-chart-wrap .bar span { position: absolute; bottom: -20px; font-size: 10px; color: #999; }
-    .bar-chart-wrap .bar.bar-highlight { background: #10b981; }
-
-    .card-quick-brief {
-      grid-column: 2 / span 2;
-      grid-row: 3;
-      background: #111114;
-      color: #fff;
-      display: flex;
-      align-items: center;
-    }
-    .quick-brief-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-    .quick-text h4 { font-size: 18px; font-weight: 700; }
-    .quick-text p { font-size: 13px; color: #888; margin-top: 2px; }
-    .quick-btn {
-      background: #fff;
-      color: #000;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 12px 20px;
-      border-radius: 99px;
-      transition: transform 0.2s ease;
-      white-space: nowrap;
-    }
-    .quick-btn:hover { transform: scale(1.05); }
-
-    /* --- OBSERVABILITY SECTION --- */
-    .obs-wrap {
-      position: relative;
-      z-index: 20;
-      background: #09090b;
-      color: #ffffff;
-      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
-    }
-    .obs-header p { color: #888; }
-    .obs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .obs-card {
-      background: #131217;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 32px;
-      min-height: 440px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.3s ease;
-    }
-    .obs-card:hover { border-color: rgba(96, 165, 250, 0.4); }
-    .obs-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .mono-tag { font-family: monospace; font-size: 11px; color: #888; }
-    .status-indicator {
-      font-size: 11px;
-      font-family: monospace;
-      padding: 3px 10px;
-      border-radius: 99px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .status-indicator.live { color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
-    .status-indicator.active { color: #34d399; background: rgba(52, 211, 153, 0.1); }
-    .status-indicator.calm { color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
-
-    .obs-visual-center { display: flex; justify-content: center; align-items: center; padding: 24px 0; }
-    .globe-svg { width: 130px; height: 130px; color: rgba(96, 165, 250, 0.4); margin: 0 auto; }
-    .telemetry-rows { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
-    .t-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-family: monospace;
-      font-size: 13px;
-    }
-    .t-row strong { font-size: 18px; color: #34d399; }
-    .t-row .unit { font-size: 11px; color: #666; margin-left: 2px; }
-
-    .obs-pill-stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
-    .obs-status-pill {
-      background: rgba(255, 255, 255, 0.04);
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      color: #ccc;
-    }
-    .obs-status-pill span { color: #34d399; margin-right: 6px; }
-    .obs-bottom h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .obs-bottom p { font-size: 13px; color: #888; }
-
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
       .mosaic-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
@@ -1281,9 +1436,34 @@
       .card-quick-brief { grid-column: 2; grid-row: auto; }
       .obs-grid { grid-template-columns: 1fr; height: auto; }
       .obs-card { min-height: 380px; }
+      .pixel-grid-cards { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 720px) {
+      .nav a:not(.pill) { display: none; }
+      .mark { font-size: 14px; }
+      .nav .pill { height: 38px; padding: 0 16px; font-size: 13.5px; }
+      .panel h1, .hero-panel h1 { max-width: 12ch; font-size: clamp(30px, 9.8vw, 52px); }
+      .sub, .hero-panel p { font-size: 15px; max-width: 34ch; }
+      .spotlight-stats-card {
+        left: 16px;
+        top: 12%;
+        width: 280px;
+        padding: 16px 20px;
+      }
+      .spotlight-big-stat { font-size: 48px; line-height: 52px; }
+      .spotlight-headline {
+        left: 16px;
+        bottom: 120px;
+        font-size: 24px;
+        max-width: 90%;
+      }
+      .spotlight-cta-block {
+        right: 16px;
+        bottom: 24px;
+        width: 140px;
+      }
+      .spotlight-cta-bottom { height: 60px; }
       .mosaic-grid { grid-template-columns: 1fr; }
       .card-toast, .card-integrations, .card-hero-flagship, .card-telemetry, .card-quick-brief {
         grid-column: 1;
@@ -1294,8 +1474,10 @@
         align-items: flex-start;
         gap: 16px;
       }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .footer-brand { grid-column: span 1; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
-
   </style>
 </head>
 <body>
@@ -1314,11 +1496,11 @@
       <span class="mark-star" aria-hidden="true">&#10037;</span>&nbsp;webcloud
     </a>
     <nav class="nav" aria-label="Primary Navigation">
+      <a href="#spotlight">Mastery</a>
       <a href="#mosaic-section">Platform</a>
       <a href="#observability-section">Telemetry</a>
-      <a href="#motives">Philosophy</a>
       <a href="#work">Work</a>
-      <a href="#about">About</a>
+      <a href="#about">Atelier</a>
       <a class="pill" href="#order">Start a brief</a>
     </nav>
   </header>
@@ -1348,7 +1530,7 @@
           <div class="eyebrow panel-tag">Engineering Standard <span>&middot;</span> Sub-Second Speed</div>
           <h1>Sub-second speed.<br />Zero bloat.</h1>
           <p class="sub">No sluggish page builders, no fragile template stacks. Every line of code is hand-crafted to run at a continuous 60fps across every device.</p>
-          <div class="cta panel-cta"><a class="pill" href="#motives">Our Philosophy &nearr;</a></div>
+          <div class="cta panel-cta"><a class="pill" href="#mosaic-section">Our Philosophy &nearr;</a></div>
         </section>
 
         <!-- Hero Stop 3: The Offer & Authority -->
@@ -1370,7 +1552,86 @@
   <!-- 5. Flowing Content Below Hero -->
   <div class="content-flow">
 
-    <!-- SECTION 1: 5-PANEL PRODUCT MOSAIC -->
+    <!-- =======================================================================
+         SECTION 2: SPOTLIGHT REVEAL (Nike Interactive Mask Engine)
+         ======================================================================= -->
+    <section id="spotlight" class="spotlight-section">
+      <!-- Invisible hover zones to play/pause video -->
+      <div class="spotlight-trigger-right" id="triggerRight"></div>
+      <div class="spotlight-trigger-left" id="triggerLeft"></div>
+
+      <!-- Mask container -->
+      <div class="spotlight-mask-container">
+        <video id="spotlightVideo" src="https://pikaso.cdnpk.net/private/production/4024859125/d070ae9c-55df-47aa-acbe-4ee66337855c-0.mp4?token=exp=1777075200~hmac=4202c1d0ec90137eb6dffa8e0db93ed7569a68b2016165d8b1b567f888869ff5" muted loop playsinline></video>
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="holeGradient">
+              <stop offset="0%" stop-color="black" stop-opacity="1" />
+              <stop offset="60%" stop-color="black" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="black" stop-opacity="0" />
+            </radialGradient>
+            <mask id="spotlight-mask" maskContentUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+              <rect width="100%" height="100%" fill="white" />
+              <circle id="trail-5" cx="-1000" cy="-1000" r="345" fill="url(#holeGradient)" opacity="0.25" />
+              <circle id="trail-4" cx="-1000" cy="-1000" r="380" fill="url(#holeGradient)" opacity="0.40" />
+              <circle id="trail-3" cx="-1000" cy="-1000" r="415" fill="url(#holeGradient)" opacity="0.55" />
+              <circle id="trail-2" cx="-1000" cy="-1000" r="450" fill="url(#holeGradient)" opacity="0.70" />
+              <circle id="trail-1" cx="-1000" cy="-1000" r="485" fill="url(#holeGradient)" opacity="0.85" />
+              <circle id="trail-0" cx="-1000" cy="-1000" r="520" fill="url(#holeGradient)" opacity="1.00" />
+            </mask>
+          </defs>
+          <image href="https://github.com/dsMagnatov/Acreage-landing-assets/blob/main/02604201313.png?raw=true" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" mask="url(#spotlight-mask)" />
+        </svg>
+      </div>
+
+      <!-- Glassmorphic Stats Card -->
+      <div class="spotlight-stats-card">
+        <div class="spotlight-stat-row">
+          <div class="spotlight-big-stat">78%</div>
+          <div class="spotlight-chart-wrap">
+            <svg style="width:140px;height:70px" viewBox="0 0 289 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_878_28499)">
+                <path d="M22.5 48.7306C39.7833 48.7306 49.34 54.94 63.1667 69.2965C76.9933 83.653 86.55 110.5 103.833 110.5C121.117 110.5 130.673 84.2876 144.5 59.2856C158.327 34.2837 167.883 19.5573 185.167 19.5573C202.45 19.5573 208.55 57.6673 225.833 57.6673C243.117 57.6673 249.217 19.5 266.5 19.5" stroke="#DA3A16" stroke-width="2.5"/>
+              </g>
+              <defs>
+                <filter id="filter0_d_878_28499" x="0" y="0" width="289" height="138" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feOffset dy="4"/>
+                  <feGaussianBlur stdDeviation="11.25"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0.854902 0 0 0 0 0.227451 0 0 0 0 0.0862745 0 0 0 1 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_878_28499"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_878_28499" result="shape"/>
+                </filter>
+              </defs>
+            </svg>
+          </div>
+        </div>
+        <div class="spotlight-card-title">NEXT-GEN CUSHIONING ARCHITECTURE</div>
+        <div class="spotlight-card-sub">Impact Absorption &amp; Energy Return Dynamics</div>
+      </div>
+
+      <!-- Headline bottom-left -->
+      <h2 class="spotlight-headline">
+        <span class="sans-line">Bringing Aerospace-</span>
+        <span class="sans-line">Grade Infrastructure</span>
+        <span class="serif-line">Directly To Your Digital</span>
+        <span class="serif-italic">Urban Flagship</span>
+      </h2>
+
+      <!-- CTA block bottom-right -->
+      <div class="spotlight-cta-block">
+        <div class="spotlight-cta-top">THE SCIENCE OF CONVERSION</div>
+        <a href="#order" class="spotlight-cta-bottom" aria-label="Start Brief">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 3: 5-PANEL PRODUCT MOSAIC (#mosaic-section)
+         ======================================================================= -->
     <section id="mosaic-section" class="mosaic-wrap">
       <div class="mosaic-container">
         <div class="mosaic-header">
@@ -1454,7 +1715,9 @@
       </div>
     </section>
 
-    <!-- SECTION 2: LIVE OBSERVABILITY ENGINE (VELA 3-CARD GRID) -->
+    <!-- =======================================================================
+         SECTION 4: LIVE OBSERVABILITY ENGINE (#observability-section)
+         ======================================================================= -->
     <section id="observability-section" class="obs-wrap">
       <div class="obs-container">
         <div class="obs-header">
@@ -1529,192 +1792,193 @@
       </div>
     </section>
 
-
     <!-- =======================================================================
-         SECTION 1: OUR MOTIVES & PHILOSOPHY (#motives)
+         SECTION 5: GUARDNET AMBIENT VIDEO BENEFITS
          ======================================================================= -->
-    <section id="motives" class="section-wrap">
-      <div class="section-eyebrow">01 / Philosophy &amp; Motives</div>
-      <h2 class="section-title">Built with intention.<br />Engineered for dominance.</h2>
-      <p class="section-sub">We reject the assembly-line web. Every flagship we architect is a bespoke digital instrument—engineered for speed, conversion, and enduring authority.</p>
+    <section class="benefits-wrap">
+      <div class="benefits-container">
+        <h2 class="benefits-title">Key Architectural Benefits</h2>
+        <div class="benefits-grid">
+          <!-- Card 1: Left Card with Ambient Blue Blob -->
+          <div class="benefit-card benefit-card-padded">
+            <div class="blue-blob-left"></div>
+            <h3>Preemptive Risks<br>Scouting and Reactions</h3>
+            <p>Our autonomous defense protocols constantly observe traffic bursts, file integrity, and edge behavior to eliminate bottlenecks before your users ever notice.</p>
+          </div>
 
-      <div class="motives-grid">
-        <!-- Pillar 1 -->
-        <div class="motive-card reveal-item" data-tilt>
-          <div class="motive-top">
-            <span class="motive-num">01</span>
-            <span class="motive-tag">Velocity</span>
-          </div>
-          <div>
-            <h3>Lightning Deployment</h3>
-            <p>From initial architectural brief to a high-speed live release in record time. We execute with surgical velocity without sacrificing structural integrity.</p>
-          </div>
-        </div>
-
-        <!-- Pillar 2 -->
-        <div class="motive-card reveal-item" data-tilt>
-          <div class="motive-top">
-            <span class="motive-num">02</span>
-            <span class="motive-tag">Craftsmanship</span>
-          </div>
-          <div>
-            <h3>Bespoke Digital Craft</h3>
-            <p>Hand-tailored UI/UX and custom front-end architecture. Zero bloated generic templates or third-party crutches—only pure, intentional code.</p>
-          </div>
-        </div>
-
-        <!-- Pillar 3 -->
-        <div class="motive-card reveal-item" data-tilt>
-          <div class="motive-top">
-            <span class="motive-num">03</span>
-            <span class="motive-tag">Value</span>
-          </div>
-          <div>
-            <h3>Unbeatable Market Value</h3>
-            <p>Tier-one design agency polish at an accessible, transparent price point that dramatically outclasses standard agency overhead and quoting models.</p>
-          </div>
-        </div>
-
-        <!-- Pillar 4 -->
-        <div class="motive-card reveal-item" data-tilt>
-          <div class="motive-top">
-            <span class="motive-num">04</span>
-            <span class="motive-tag">Longevity</span>
-          </div>
-          <div>
-            <h3>Lifetime Support Guarantee</h3>
-            <p>We don't drop files and disappear. Continuous optimization, security updates, and dedicated long-term stewardship for your flagship's digital home.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- =======================================================================
-         SECTION 2: WORK SHOWCASE / GALLERY (#work)
-         Léo Parpeix Inspired Staggered Grid
-         ========================================================================= -->
-    <section id="work" class="section-wrap">
-      <div class="section-eyebrow">02 / Selected Works</div>
-      <h2 class="section-title">Case studies in<br />digital precision.</h2>
-      <p class="section-sub">A curated selection of client commissions engineered to command attention and transform visitors into loyal advocates.</p>
-
-      <div class="work-grid">
-        <!-- Column 1 -->
-        <div class="work-col">
-          <!-- Project 1 -->
-          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
-            <div class="work-media">
-              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Aura Health & Aesthetics Flagship Architecture" loading="lazy">
-              <span class="work-badge">Explore Project &nearr;</span>
+          <!-- Card 2: Center Video Card with Seamless Fade -->
+          <div class="benefit-card" style="display:flex; flex-direction:column;">
+            <div class="benefit-video-wrapper">
+              <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260421_072701_f6a01abb-eb30-4559-9d6e-774362defbc3.mp4" autoplay loop muted playsinline></video>
+              <div class="benefit-video-fade"></div>
             </div>
-            <div class="work-meta">
-              <h3 class="work-title">Aura Health &amp; Aesthetics</h3>
-              <span class="work-category">Medical &amp; Wellness Flagship</span>
+            <div class="benefit-video-bottom">
+              <h3>Know-how and Sectoral<br>Awareness</h3>
             </div>
-          </a>
-
-          <!-- Project 3 -->
-          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
-            <div class="work-media">
-              <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85" alt="Vanguard Commerce High-Conversion Platform" loading="lazy">
-              <span class="work-badge">Explore Project &nearr;</span>
-            </div>
-            <div class="work-meta">
-              <h3 class="work-title">Vanguard Commerce</h3>
-              <span class="work-category">High-Conversion E-Commerce</span>
-            </div>
-          </a>
-        </div>
-
-        <!-- Column 2 (Staggered on Desktop) -->
-        <div class="work-col">
-          <!-- Project 2 -->
-          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
-            <div class="work-media">
-              <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85" alt="Komorebi Studio Architectural Space" loading="lazy">
-              <span class="work-badge">Explore Project &nearr;</span>
-            </div>
-            <div class="work-meta">
-              <h3 class="work-title">Komorebi Studio</h3>
-              <span class="work-category">Architectural Interior Space</span>
-            </div>
-          </a>
-
-          <!-- Project 4 -->
-          <a href="#" target="_blank" rel="noopener noreferrer" class="work-card reveal-item" data-tilt-work>
-            <div class="work-media">
-              <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85" alt="Prism Collective Luxury Brand Identity" loading="lazy">
-              <span class="work-badge">Explore Project &nearr;</span>
-            </div>
-            <div class="work-meta">
-              <h3 class="work-title">Prism Collective</h3>
-              <span class="work-category">Luxury Brand Identity</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         SECTION 3: THE CRAFT & CREATORS (#about)
-         ======================================================================= -->
-    <section id="about" class="section-wrap craft-container">
-      <div class="section-eyebrow">03 / The Atelier</div>
-      <div class="craft-layout">
-        <!-- Narrative Body -->
-        <div class="craft-narrative reveal-item">
-          <h2>Obsessed with every single pixel.</h2>
-          <p>We build digital spaces that leave an impression. No shortcuts, no cookie-cutter layouts. Every line of code and interactive touchpoint is hand-refined to ensure your business doesn't just get visits—it commands authority.</p>
-          <div class="craft-cta-area">
-            <a class="pill pill-magnetic" id="magneticCta" href="#order">Start Your Build &nearr;</a>
-            <span class="craft-guarantee">60fps guaranteed &bull; Zero bloat</span>
           </div>
-        </div>
 
-        <!-- Metric Strip -->
-        <div class="stats-strip reveal-item">
-          <div class="stat-block">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">Handcrafted Performance</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-number">&lt;1.0s</span>
-            <span class="stat-label">Instant Load Benchmarks</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-number">24/7</span>
-            <span class="stat-label">Dedicated Client Support</span>
+          <!-- Card 3: Right Card with Ambient Blue Blob -->
+          <div class="benefit-card benefit-card-padded">
+            <div class="blue-blob-right"></div>
+            <h3>Preemptive Risks<br>Scouting and Reactions</h3>
+            <p style="margin-top:auto;">We engineer custom front-ends that maintain unbroken uptime and sub-second load times regardless of viral traffic surges.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =======================================================================
-         SECTION 4: CLIENT BRIEF / INQUIRY (#order)
+         SECTION 6: PIXEL-GRID CASE STUDIES & MARQUEE (#work)
          ======================================================================= -->
-    <section id="order" class="section-wrap">
-      <div class="inquiry-box reveal-item">
-        <span class="inquiry-eyebrow">Initiate Brief &bull; Q2/Q3 Intake</span>
-        <h2>Ready to construct something unforgettable?</h2>
-        <p>We accept a limited roster of high-stakes briefs each quarter to preserve our obsessively handcrafted engineering standard.</p>
-        <div class="inquiry-tags">
-          <span class="inquiry-chip">Flagship Web Architecture</span>
-          <span class="inquiry-chip">E-Commerce Platforms</span>
-          <span class="inquiry-chip">3D / Interactive Systems</span>
-          <span class="inquiry-chip">Custom Replatforming</span>
+    <section id="work" class="pixel-projects-wrap">
+      <div class="pixel-projects-container">
+        <span class="pixel-header-badge">Projects</span>
+        <h2 class="pixel-header-title">Insights from <span>Our</span><br><span>Case Studies</span></h2>
+
+        <div class="pixel-grid-cards">
+          <!-- Project 1: HeartX -->
+          <div class="pixel-card" data-pixel-card>
+            <img src="https://images.pexels.com/photos/7691249/pexels-photo-7691249.jpeg?auto=compress&cs=tinysrgb&w=800" alt="HeartX Platform" class="pixel-card-img">
+            <div class="pixel-blocks-overlay"></div>
+            <!-- Floating magnetic squares -->
+            <div class="mag-square" style="width:16px;height:16px;left:5%;top:30%;"></div>
+            <div class="mag-square" style="width:10px;height:10px;left:10%;top:42%;"></div>
+            <div class="mag-square" style="width:14px;height:14px;left:80%;top:70%;"></div>
+            <div class="pixel-info-plate">
+              <div class="pixel-info-title">HeartX</div>
+              <div class="pixel-info-meta">
+                <span>Brand Strategy &amp; Product Design</span>
+                <span class="pixel-info-year">2026</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: Swave -->
+          <div class="pixel-card" data-pixel-card>
+            <img src="https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Swave Commerce" class="pixel-card-img">
+            <div class="pixel-blocks-overlay"></div>
+            <div class="mag-square" style="width:16px;height:16px;left:82%;top:55%;"></div>
+            <div class="mag-square" style="width:10px;height:10px;left:88%;top:68%;"></div>
+            <div class="mag-square" style="width:12px;height:12px;left:78%;top:72%;"></div>
+            <div class="pixel-info-plate">
+              <div class="pixel-info-title">Swave&reg;</div>
+              <div class="pixel-info-meta">
+                <span>Web Design &amp; Identity</span>
+                <span class="pixel-info-year">2025</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: EduSpark -->
+          <div class="pixel-card" data-pixel-card>
+            <img src="https://images.pexels.com/photos/5428003/pexels-photo-5428003.jpeg?auto=compress&cs=tinysrgb&w=800" alt="EduSpark Platform" class="pixel-card-img">
+            <div class="pixel-blocks-overlay"></div>
+            <div class="mag-square" style="width:16px;height:16px;left:4%;top:24%;"></div>
+            <div class="mag-square" style="width:10px;height:10px;left:10%;top:36%;"></div>
+            <div class="mag-square" style="width:14px;height:14px;left:78%;top:78%;"></div>
+            <div class="pixel-info-plate">
+              <div class="pixel-info-title">EduSpark</div>
+              <div class="pixel-info-meta">
+                <span>Brand Strategy &amp; Web Design</span>
+                <span class="pixel-info-year">2025</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: Greenergy -->
+          <div class="pixel-card" data-pixel-card>
+            <img src="https://images.pexels.com/photos/2800832/pexels-photo-2800832.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Greenergy Identity" class="pixel-card-img">
+            <div class="pixel-blocks-overlay"></div>
+            <div class="mag-square" style="width:14px;height:14px;left:82%;top:26%;"></div>
+            <div class="mag-square" style="width:10px;height:10px;left:88%;top:38%;"></div>
+            <div class="mag-square" style="width:12px;height:12px;left:78%;top:44%;"></div>
+            <div class="pixel-info-plate">
+              <div class="pixel-info-title">Greenergy</div>
+              <div class="pixel-info-meta">
+                <span>Brand Strategy &amp; Web Design</span>
+                <span class="pixel-info-year">2024</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="inquiry-cta">
-          <a class="pill pill-light" href="mailto:studio@webcloud.build?subject=WebCloud%20Brief%20Inquiry%20%E2%80%94%20Project%20Discussion">Launch Client Brief &nearr;</a>
-          <a class="inquiry-direct" href="mailto:studio@webcloud.build">studio@webcloud.build</a>
+      </div>
+
+      <!-- Infinite Logo Marquee -->
+      <div class="marquee-wrap">
+        <div class="marquee-track">
+          <!-- Doubled 8 logos for seamless loop -->
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Codecraft_</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> ennLabs</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg> GlobalBank</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> 45 Degrees&deg;</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c3-4 6-4 9 0s6 4 9 0"/></svg> AlphaWave</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="16" y2="18"/></svg> Biosynthesis</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Boltshift</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="10" y="2" width="4" height="20"/><rect x="2" y="10" width="20" height="4"/></svg> Clandestine</div>
+          <!-- Loop set -->
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Codecraft_</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> ennLabs</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg> GlobalBank</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> 45 Degrees&deg;</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c3-4 6-4 9 0s6 4 9 0"/></svg> AlphaWave</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="16" y2="18"/></svg> Biosynthesis</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Boltshift</div>
+          <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="10" y="2" width="4" height="20"/><rect x="2" y="10" width="20" height="4"/></svg> Clandestine</div>
         </div>
       </div>
     </section>
 
     <!-- =======================================================================
-         EDITORIAL STUDIO FOOTER
+         SECTION 7: TECH-NOIR CREATOR MANIFESTO (#about)
          ======================================================================= -->
+    <section id="about" class="noir-section">
+      <div class="noir-container">
+        <!-- Logo Emblem -->
+        <svg class="noir-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M60 120C26.8629 120 0 93.1371 0 60V0C22.5654 0 42.2213 12.4569 52.4662 30.8691C38.4788 34.2089 28.0787 46.7902 28.0787 61.8006V63.1443C28.0787 79.9648 41.7146 93.6006 58.5353 93.6006H59.8789L59.8785 61.8006C59.8785 79.3633 74.1159 93.6006 91.6787 93.6006L91.6787 61.8006C91.6787 44.2783 77.5071 30.0661 60 30.0008L60 0H62.5352C94.2722 0 120 25.7279 120 57.4648V60C120 93.1371 93.1371 120 60 120Z" fill="white"/>
+        </svg>
+
+        <!-- Mission statement -->
+        <p class="noir-mission">
+          We built this platform with a single purpose: to eliminate operational chaos and restore uncompromising engineering authority to your brand.
+        </p>
+
+        <!-- Cursive signature -->
+        <div class="noir-signature">WebCloud Studio</div>
+
+        <!-- Narrative body -->
+        <div class="noir-paragraphs">
+          <p>We were exhausted by bloated software that demanded more effort than it saved. That is why we engineer custom front-end architectures that operate silently and perform without hesitation.</p>
+          <p>Your digital flagship should command authority, not apologize for load times. Let our architecture handle the precision engineering so you can focus on building your empire.</p>
+        </div>
+      </div>
+
+      <!-- Bottom looping video with seamless top fade -->
+      <div class="noir-video-wrap">
+        <div class="noir-video-fade"></div>
+        <video src="https://res.cloudinary.com/daklr2whx/video/upload/v1778602552/track-video_2_s9lp53.mp4" autoplay loop muted playsinline></video>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 8: CLIENT BRIEF (#order) & STUDIO FOOTER
+         ======================================================================= -->
+    <section id="order" class="inquiry-box">
+      <span class="inquiry-eyebrow">Initiate Brief &bull; Q2/Q3 Intake</span>
+      <h2>Ready to construct something unforgettable?</h2>
+      <p>We accept a limited roster of high-stakes briefs each quarter to preserve our obsessively handcrafted engineering standard.</p>
+      <div class="inquiry-tags">
+        <span class="inquiry-chip">Flagship Web Architecture</span>
+        <span class="inquiry-chip">E-Commerce Platforms</span>
+        <span class="inquiry-chip">3D / Interactive Systems</span>
+        <span class="inquiry-chip">Custom Replatforming</span>
+      </div>
+      <div class="inquiry-cta">
+        <a class="pill pill-light" href="mailto:studio@webcloud.build?subject=WebCloud%20Brief%20Inquiry%20%E2%80%94%20Project%20Discussion">Launch Client Brief &nearr;</a>
+        <a class="inquiry-direct" href="mailto:studio@webcloud.build">studio@webcloud.build</a>
+      </div>
+    </section>
+
     <footer class="studio-footer">
       <div class="footer-top">
         <div class="footer-brand">
@@ -1726,8 +1990,10 @@
         <div class="footer-links-col">
           <h4>Directory</h4>
           <ul>
-            <li><a href="#motives">Philosophy</a></li>
-            <li><a href="#work">Selected Works</a></li>
+            <li><a href="#spotlight">Mastery</a></li>
+            <li><a href="#mosaic-section">Platform</a></li>
+            <li><a href="#observability-section">Telemetry</a></li>
+            <li><a href="#work">Case Studies</a></li>
             <li><a href="#about">The Atelier</a></li>
             <li><a href="#order">Initiate Brief</a></li>
           </ul>
@@ -1767,13 +2033,12 @@
     var heroFoot = document.getElementById("heroFoot");
     var panels = [].slice.call(document.querySelectorAll("[data-panel]"));
 
-    // Cue table: Each panel owns a slice of hero progress [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] in 0..1
     var CUES = [
       [0.00, 0.00, 0.18, 0.26],
       [0.36, 0.44, 0.58, 0.66],
       [0.76, 0.84, 1.10, 1.20]
     ];
-    var DRIFT = 24; // px of counter-scroll travel per panel
+    var DRIFT = 24;
 
     function clamp(v, a, b) {
       return Math.max(a, Math.min(b, v));
@@ -1788,22 +2053,19 @@
       return smooth(clamp((p - a) / (b - a), 0, 1));
     }
 
-    // Engine state
-    var heroProgress = 0; // 0..1 during the sticky hero phase
-    var docProgress = 0;  // 0..1 down the entire page
-    var seekTo = 0;       // target video time
-    var seekAt = 0;       // actual, eased video time
+    var heroProgress = 0;
+    var docProgress = 0;
+    var seekTo = 0;
+    var seekAt = 0;
     var duration = 0;
     var ready = false;
     var started = false;
     var attached = false;
 
     function readScroll() {
-      // 1. Overall document scroll progress (drives top meter)
       var docMax = document.documentElement.scrollHeight - window.innerHeight;
       docProgress = docMax > 0 ? clamp(window.pageYOffset / docMax, 0, 1) : 0;
 
-      // 2. Hero sticky progress (drives video scrub & 3 hero panels)
       if (heroTrack) {
         var heroRect = heroTrack.getBoundingClientRect();
         var heroScrollable = heroTrack.offsetHeight - window.innerHeight;
@@ -1814,17 +2076,14 @@
 
       if (duration) seekTo = heroProgress * duration;
 
-      // Fade out hero micro-bar as hero reaches completion
       if (heroFoot) {
         heroFoot.style.opacity = heroProgress > 0.85 ? clamp(1 - (heroProgress - 0.85) / 0.12, 0, 1) : 1;
       }
     }
 
     function paint() {
-      // Top hairline progress meter
       if (meter) meter.style.transform = "scaleX(" + docProgress + ")";
 
-      // Cross-fading narrative hero panels
       for (var i = 0; i < panels.length; i++) {
         var c = CUES[i];
         var el = panels[i];
@@ -1838,12 +2097,11 @@
       }
     }
 
-    // Continuous requestAnimationFrame loop
     function frame() {
       if (ready && duration) {
         var gap = seekTo - seekAt;
         if (Math.abs(gap) > 0.0008) {
-          seekAt += gap * 0.12; // buttery smooth easing factor
+          seekAt += gap * 0.12;
           if (clip.readyState >= 2 && !clip.seeking) {
             try {
               clip.currentTime = seekAt;
@@ -1855,7 +2113,6 @@
       requestAnimationFrame(frame);
     }
 
-    // Preloader UI progress
     function setProgress(f) {
       if (bootBar) bootBar.style.transform = "scaleX(" + f + ")";
       if (bootPct) bootPct.textContent = "LOADING " + Math.round(f * 100) + "%";
@@ -1940,7 +2197,6 @@
         });
     }
 
-    // iOS Safari video unlock
     function unlock() {
       var p = clip.play();
       if (p && p.then) {
@@ -1963,104 +2219,78 @@
     requestAnimationFrame(frame);
 
     // =========================================================================
-    // INTERSECTION OBSERVER FOR SCROLL REVEALS
+    // SPOTLIGHT REVEAL INERTIAL MASK CONTROLLER (Nike Engine)
     // =========================================================================
-    if ("IntersectionObserver" in window) {
-      var revealObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-            revealObserver.unobserve(entry.target);
+    var NUM_TRAILS = 6;
+    var trailPoints = Array.from({ length: NUM_TRAILS }, function () {
+      return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    });
+    var targetX = window.innerWidth / 2;
+    var targetY = window.innerHeight / 2;
+    var spotlightSection = document.getElementById("spotlight");
+    var spotlightVideo = document.getElementById("spotlightVideo");
+    var triggerRight = document.getElementById("triggerRight");
+    var triggerLeft = document.getElementById("triggerLeft");
+
+    if (spotlightSection) {
+      window.addEventListener("mousemove", function (e) {
+        var rect = spotlightSection.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          targetX = e.clientX - rect.left;
+          targetY = e.clientY - rect.top;
+        }
+      }, { passive: true });
+
+      spotlightSection.addEventListener("touchmove", function (e) {
+        var rect = spotlightSection.getBoundingClientRect();
+        if (e.touches[0]) {
+          targetX = e.touches[0].clientX - rect.left;
+          targetY = e.touches[0].clientY - rect.top;
+        }
+      }, { passive: true });
+
+      function animateSpotlight() {
+        trailPoints[0].x += (targetX - trailPoints[0].x) * 0.20;
+        trailPoints[0].y += (targetY - trailPoints[0].y) * 0.20;
+        for (var i = 1; i < NUM_TRAILS; i++) {
+          trailPoints[i].x += (trailPoints[i - 1].x - trailPoints[i].x) * 0.35;
+          trailPoints[i].y += (trailPoints[i - 1].y - trailPoints[i].y) * 0.35;
+        }
+        for (var j = 0; j < NUM_TRAILS; j++) {
+          var circle = document.getElementById("trail-" + j);
+          if (circle) {
+            circle.setAttribute("cx", trailPoints[j].x.toString());
+            circle.setAttribute("cy", trailPoints[j].y.toString());
           }
-        });
-      }, { rootMargin: "0px 0px -60px 0px", threshold: 0.1 });
+        }
+        requestAnimationFrame(animateSpotlight);
+      }
+      requestAnimationFrame(animateSpotlight);
 
-      document.querySelectorAll(".reveal-item").forEach(function (el) {
-        revealObserver.observe(el);
-      });
-    } else {
-      document.querySelectorAll(".reveal-item").forEach(function (el) {
-        el.classList.add("revealed");
-      });
+      // Play / Pause video on hover triggers
+      function playSpotlightVideo() {
+        if (spotlightVideo) spotlightVideo.play().catch(function () {});
+      }
+      function pauseSpotlightVideo() {
+        if (spotlightVideo && window.innerWidth > 720) spotlightVideo.pause();
+      }
+
+      if (triggerRight) {
+        triggerRight.addEventListener("mouseenter", playSpotlightVideo);
+        triggerRight.addEventListener("mouseleave", pauseSpotlightVideo);
+      }
+      if (triggerLeft) {
+        triggerLeft.addEventListener("mouseenter", playSpotlightVideo);
+        triggerLeft.addEventListener("mouseleave", pauseSpotlightVideo);
+      }
+      // On mobile / touch, autoplay
+      if (window.innerWidth <= 720) {
+        playSpotlightVideo();
+      }
     }
 
     // =========================================================================
-    // MOTIVES CARD 3D TILT EFFECT
-    // =========================================================================
-    var tiltCards = document.querySelectorAll("[data-tilt]");
-    tiltCards.forEach(function (card) {
-      card.addEventListener("mousemove", function (e) {
-        var rect = card.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
-        var cx = rect.width / 2;
-        var cy = rect.height / 2;
-        var dx = (x - cx) / cx;
-        var dy = (y - cy) / cy;
-        card.style.transform = "perspective(1000px) rotateX(" + (-dy * 7) + "deg) rotateY(" + (dx * 7) + "deg) translate3d(0, -4px, 0)";
-      });
-      card.addEventListener("mouseleave", function () {
-        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";
-      });
-    });
-
-    // =========================================================================
-    // WORK CARD SPRING HOVER & FLOATING CURSOR BADGE
-    // =========================================================================
-    var workCards = document.querySelectorAll("[data-tilt-work]");
-    workCards.forEach(function (card) {
-      var badge = card.querySelector(".work-badge");
-      var media = card.querySelector(".work-media");
-
-      card.addEventListener("mousemove", function (e) {
-        var rect = card.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
-
-        // Position floating badge relative to card
-        if (badge && window.innerWidth > 900) {
-          badge.style.transform = "translate3d(" + x + "px, " + y + "px, 0) scale(1)";
-        }
-
-        // Subtle 3D card tilt
-        if (media) {
-          var cx = rect.width / 2;
-          var cy = rect.height / 2;
-          var dx = (x - cx) / cx;
-          var dy = (y - cy) / cy;
-          media.style.transform = "perspective(1200px) rotateX(" + (-dy * 6) + "deg) rotateY(" + (dx * 6) + "deg) translate3d(0, -6px, 0)";
-        }
-      });
-
-      card.addEventListener("mouseleave", function () {
-        if (badge && window.innerWidth > 900) {
-          badge.style.transform = "translate3d(-50%, -50%, 0) scale(0.85)";
-        }
-        if (media) {
-          media.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";
-        }
-      });
-    });
-
-    // =========================================================================
-    // MAGNETIC CTA PILL BUTTON
-    // =========================================================================
-    var magneticBtn = document.getElementById("magneticCta");
-    if (magneticBtn) {
-      magneticBtn.addEventListener("mousemove", function (e) {
-        var rect = magneticBtn.getBoundingClientRect();
-        var x = e.clientX - rect.left - rect.width / 2;
-        var y = e.clientY - rect.top - rect.height / 2;
-        magneticBtn.style.transform = "translate3d(" + (x * 0.32) + "px, " + (y * 0.32) + "px, 0)";
-      });
-      magneticBtn.addEventListener("mouseleave", function () {
-        magneticBtn.style.transform = "translate3d(0, 0, 0)";
-      });
-    }
-  }
-
-    // =========================================================================
-    // LIVE TELEMETRY SCRAMBLER ON HOVER
+    // LIVE TELEMETRY SCRAMBLER ON HOVER (Vela UI)
     // =========================================================================
     var telemetryCard = document.getElementById('telemetry-card');
     var scrambleDigits = document.querySelectorAll('.scramble-digit');
@@ -2088,6 +2318,43 @@
         });
       });
     }
+
+    // =========================================================================
+    // PIXEL-GRID 12x8 BLOCKS & MAGNETIC SQUARES GENERATOR
+    // =========================================================================
+    var pixelCards = document.querySelectorAll('[data-pixel-card]');
+    pixelCards.forEach(function (card) {
+      var overlay = card.querySelector('.pixel-blocks-overlay');
+      if (overlay && overlay.children.length === 0) {
+        // Generate 12 cols x 8 rows = 96 blocks
+        for (var r = 0; r < 8; r++) {
+          for (var c = 0; c < 12; c++) {
+            var block = document.createElement('div');
+            block.className = 'pixel-block';
+            var delayIn = (r + c) * 0.018;
+            block.style.transitionDelay = delayIn + 's';
+            overlay.appendChild(block);
+          }
+        }
+      }
+
+      // Magnetic squares
+      var magSquares = card.querySelectorAll('.mag-square');
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var mx = (e.clientX - rect.left) / rect.width - 0.5;
+        var my = (e.clientY - rect.top) / rect.height - 0.5;
+        magSquares.forEach(function (sq, idx) {
+          var factor = (idx + 1) * 12;
+          sq.style.transform = 'translate3d(' + (mx * factor) + 'px, ' + (my * factor) + 'px, 0)';
+        });
+      });
+      card.addEventListener('mouseleave', function () {
+        magSquares.forEach(function (sq) {
+          sq.style.transform = 'translate3d(0,0,0)';
+        });
+      });
+    });
 
   })();
   </script>
