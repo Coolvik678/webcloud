@@ -1971,27 +1971,30 @@
          ======================================================================= -->
     <section id="spotlight" class="spotlight-section">
 
-      <!-- LEFT: Full-bleed studio flagship image with cursor glow overlay -->
+      <!-- LEFT: Full-bleed studio flagship image with cursor reveal overlay -->
       <div class="spotlight-left-panel">
+        <!-- Base image — always present, revealed through cursor mask -->
         <img
           src="assets/webcloud_studio_flagship.jpg"
           alt="WebCloud digital flagship studio mockup — browser frame, design tokens, metrics"
           draggable="false"
         >
-        <!-- Invisible hover trigger zones for JS cursor animation (kept for effect) -->
+        <!-- Invisible hover trigger zones for JS cursor animation -->
         <div class="spotlight-trigger-right" id="triggerRight"></div>
         <div class="spotlight-trigger-left" id="triggerLeft"></div>
-        <!-- Subtle radial cursor glow overlay (purely aesthetic, light palette) -->
+        <!-- SVG mask overlay: white rect obscures image; black radial circles punch spotlight holes revealing image below -->
         <div class="spotlight-mask-container" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
-              <radialGradient id="holeGradient">
-                <stop offset="0%" stop-color="white" stop-opacity="0.18" />
-                <stop offset="60%" stop-color="white" stop-opacity="0.06" />
-                <stop offset="100%" stop-color="white" stop-opacity="0" />
+              <radialGradient id="holeGradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stop-color="black" stop-opacity="1"   />
+                <stop offset="60%"  stop-color="black" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="black" stop-opacity="0"   />
               </radialGradient>
               <mask id="spotlight-mask" maskContentUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+                <!-- White fills the mask = overlay is visible everywhere -->
                 <rect width="100%" height="100%" fill="white" />
+                <!-- Black circles cut holes = overlay hides at cursor, revealing the image -->
                 <circle id="trail-5" cx="-1000" cy="-1000" r="345" fill="url(#holeGradient)" opacity="0.25" />
                 <circle id="trail-4" cx="-1000" cy="-1000" r="380" fill="url(#holeGradient)" opacity="0.40" />
                 <circle id="trail-3" cx="-1000" cy="-1000" r="415" fill="url(#holeGradient)" opacity="0.55" />
@@ -2000,6 +2003,8 @@
                 <circle id="trail-0" cx="-1000" cy="-1000" r="520" fill="url(#holeGradient)" opacity="1.00" />
               </mask>
             </defs>
+            <!-- This overlay rect is what gets masked. Where the cursor is, it disappears → image shines through -->
+            <rect width="100%" height="100%" fill="#f2f0ec" mask="url(#spotlight-mask)" opacity="0.88" />
           </svg>
         </div>
       </div>
