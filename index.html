@@ -388,9 +388,9 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
-      background: #000000;
-      color: #ffffff;
-      box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
+      background: var(--shade);
+      color: var(--fg);
+      box-shadow: 0 -20px 50px rgba(13, 12, 11, 0.04);
     }
 
     .spotlight-mask-container {
@@ -399,7 +399,7 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      background: #000;
+      background: var(--shade);
       pointer-events: none;
       overflow: hidden;
     }
@@ -439,19 +439,20 @@
       z-index: 30;
     }
 
-    /* Glassmorphic Stats Card */
+    /* Frosted Luxury Stats Card */
     .spotlight-stats-card {
       position: absolute;
       left: calc(8% + 160px);
       top: 18%;
       z-index: 20;
-      width: 320px;
-      padding: 24px 32px;
-      background: rgba(0, 0, 0, 0.22);
-      backdrop-filter: blur(80px);
-      -webkit-backdrop-filter: blur(80px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 4px;
+      width: 330px;
+      padding: 24px 30px;
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(13, 12, 11, 0.12);
+      border-radius: 12px;
+      box-shadow: 0 20px 48px rgba(13, 12, 11, 0.08);
     }
 
     .spotlight-stat-row {
@@ -464,9 +465,9 @@
     .spotlight-big-stat {
       font-family: var(--font-serif);
       font-style: italic;
-      color: #DA3A16;
-      font-size: 68px;
-      line-height: 76px;
+      color: #0d0c0b;
+      font-size: 64px;
+      line-height: 72px;
       letter-spacing: -0.03em;
     }
 
@@ -476,21 +477,22 @@
     }
 
     .spotlight-card-title {
-      font-family: var(--font-serif);
-      color: #ffffff;
-      font-size: 14px;
-      letter-spacing: 0.04em;
+      font-family: var(--font-sans);
+      color: #0d0c0b;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       margin-top: 14px;
       margin-bottom: 4px;
-      line-height: 1.2;
+      line-height: 1.3;
     }
 
     .spotlight-card-sub {
-      font-family: var(--font-serif);
-      color: rgba(255,255,255,0.65);
-      font-size: 12.5px;
-      line-height: 1.4;
+      font-family: var(--font-sans);
+      color: var(--fg-soft);
+      font-size: 12px;
+      line-height: 1.45;
     }
 
     /* Headline bottom left */
@@ -499,17 +501,18 @@
       left: 8%;
       bottom: 12%;
       z-index: 20;
-      max-width: 520px;
+      max-width: 540px;
       font-size: clamp(28px, 3.8vw, 44px);
       line-height: 1.05;
       letter-spacing: -0.025em;
       display: flex;
       flex-direction: column;
+      color: #0d0c0b;
     }
 
     .spotlight-headline .sans-line {
       font-family: var(--font-sans);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .spotlight-headline .serif-line {
@@ -534,36 +537,42 @@
       flex-direction: column;
       align-items: center;
       width: 180px;
+      box-shadow: 0 16px 36px rgba(13, 12, 11, 0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(13, 12, 11, 0.1);
     }
 
     .spotlight-cta-top {
       width: 100%;
       background: #ffffff;
-      padding: 6px 0;
+      padding: 8px 0;
       text-align: center;
-      color: #000000;
-      font-family: var(--font-serif);
-      font-size: 10px;
+      color: #0d0c0b;
+      font-family: var(--font-sans);
+      font-size: 9.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      line-height: 16px;
+      letter-spacing: 0.1em;
+      line-height: 14px;
+      border-bottom: 1px solid rgba(13, 12, 11, 0.08);
     }
 
     .spotlight-cta-bottom {
       width: 100%;
-      height: 90px;
-      background: #DA3A16;
+      height: 84px;
+      background: #0d0c0b;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       text-decoration: none;
-      transition: transform .25s var(--ease);
+      transition: transform .25s var(--ease), background .25s var(--ease);
     }
 
     .spotlight-cta-bottom:hover {
-      transform: scale(1.03);
+      background: #1f1e1c;
+      transform: scale(1.02);
     }
 
     /* =========================================================================
@@ -585,33 +594,37 @@
     .eyebrow-pill {
       display: inline-block;
       font-size: 11px;
-      letter-spacing: 0.12em;
-      font-weight: 700;
+      letter-spacing: 0.14em;
+      font-weight: 600;
       text-transform: uppercase;
-      color: #1d4ed8;
-      background: rgba(29, 78, 216, 0.08);
-      padding: 4px 12px;
+      color: var(--fg);
+      background: rgba(13, 12, 11, 0.05);
+      border: 1px solid rgba(13, 12, 11, 0.08);
+      padding: 5px 14px;
       border-radius: 99px;
       margin-bottom: 16px;
     }
 
     .eyebrow-pill.dark {
-      color: #60a5fa;
-      background: rgba(96, 165, 250, 0.12);
+      color: var(--fg);
+      background: rgba(13, 12, 11, 0.05);
+      border: 1px solid rgba(13, 12, 11, 0.08);
     }
 
     .mosaic-header h2, .obs-header h2 {
       font-size: clamp(32px, 5vw, 48px);
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: -0.03em;
       margin-bottom: 12px;
+      color: var(--fg);
     }
 
     .mosaic-header p, .obs-header p {
-      color: #666;
-      font-size: 16px;
+      color: var(--fg-soft);
+      font-size: clamp(14.5px, 1.1vw, 16px);
       max-width: 540px;
       margin-bottom: 48px;
+      line-height: 1.55;
     }
 
     .mosaic-grid {
@@ -799,12 +812,20 @@
     .obs-wrap {
       position: relative;
       z-index: 20;
-      background: #09090b;
-      color: #ffffff;
+      background: var(--shade);
+      color: var(--fg);
       padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px);
+      border-top: 1px solid var(--rule-faint);
     }
 
-    .obs-header p { color: #888; }
+    .obs-header h2 {
+      color: var(--fg);
+    }
+
+    .obs-header p {
+      color: var(--fg-soft);
+    }
+
     .obs-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -812,72 +833,155 @@
     }
 
     .obs-card {
-      background: #131217;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border: 1px solid rgba(13, 12, 11, 0.08);
       border-radius: 20px;
       padding: 32px;
       min-height: 440px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+      box-shadow: 0 4px 20px rgba(13, 12, 11, 0.02);
     }
 
-    .obs-card:hover { border-color: rgba(96, 165, 250, 0.4); }
-    .obs-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .mono-tag { font-family: monospace; font-size: 11px; color: #888; }
+    .obs-card:hover {
+      border-color: rgba(13, 12, 11, 0.22);
+      box-shadow: 0 20px 48px rgba(13, 12, 11, 0.07);
+      transform: translateY(-4px);
+    }
+
+    .obs-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .mono-tag {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--fg-faint);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
 
     .status-indicator {
       font-size: 11px;
       font-family: monospace;
-      padding: 3px 10px;
+      padding: 4px 10px;
       border-radius: 99px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(13, 12, 11, 0.1);
+      font-weight: 600;
     }
 
-    .status-indicator.live { color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
-    .status-indicator.active { color: #34d399; background: rgba(52, 211, 153, 0.1); }
-    .status-indicator.calm { color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+    .status-indicator.live {
+      color: #059669;
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
 
-    .obs-visual-center { display: flex; justify-content: center; align-items: center; padding: 24px 0; }
-    .globe-svg { width: 130px; height: 130px; color: rgba(96, 165, 250, 0.4); margin: 0 auto; }
-    .telemetry-rows { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+    .status-indicator.active {
+      color: #0284c7;
+      background: rgba(2, 132, 199, 0.1);
+      border-color: rgba(2, 132, 199, 0.25);
+    }
+
+    .status-indicator.calm {
+      color: #d97706;
+      background: rgba(217, 119, 6, 0.1);
+      border-color: rgba(217, 119, 6, 0.25);
+    }
+
+    .obs-visual-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 0;
+    }
+
+    .globe-svg {
+      width: 130px;
+      height: 130px;
+      color: rgba(13, 12, 11, 0.35);
+      margin: 0 auto;
+    }
+
+    .telemetry-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 16px 0;
+    }
 
     .t-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 255, 255, 0.03);
+      background: #f8f7f4;
+      border: 1px solid rgba(13, 12, 11, 0.05);
       padding: 12px 16px;
       border-radius: 10px;
       font-family: monospace;
       font-size: 13px;
+      color: var(--fg);
     }
 
-    .t-row strong { font-size: 18px; color: #34d399; }
-    .t-row .unit { font-size: 11px; color: #666; margin-left: 2px; }
+    .t-row strong {
+      font-size: 18px;
+      color: #0d0c0b;
+      font-weight: 700;
+    }
 
-    .obs-pill-stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .t-row .unit {
+      font-size: 11px;
+      color: var(--fg-faint);
+      margin-left: 2px;
+    }
+
+    .obs-pill-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
     .obs-status-pill {
-      background: rgba(255, 255, 255, 0.04);
+      background: #f8f7f4;
+      border: 1px solid rgba(13, 12, 11, 0.05);
       padding: 12px 16px;
       border-radius: 10px;
       font-size: 13px;
-      color: #ccc;
+      color: var(--fg-soft);
     }
 
-    .obs-status-pill span { color: #34d399; margin-right: 6px; }
-    .obs-bottom h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .obs-bottom p { font-size: 13px; color: #888; }
+    .obs-status-pill span {
+      color: #059669;
+      margin-right: 6px;
+    }
+
+    .obs-bottom h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--fg);
+    }
+
+    .obs-bottom p {
+      font-size: 13px;
+      color: var(--fg-soft);
+      line-height: 1.5;
+    }
 
     /* =========================================================================
-       SECTION 5: GUARDNET AMBIENT VIDEO BENEFITS
+       SECTION 5: ARCHITECTURAL BENEFITS (WebCloud Pillars)
        ========================================================================= */
     .benefits-wrap {
       position: relative;
-      background: #000000;
-      color: #ffffff;
+      background: #f9f8f6;
+      color: var(--fg);
       padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+      border-top: 1px solid var(--rule-faint);
     }
 
     .benefits-container {
@@ -887,10 +991,11 @@
 
     .benefits-title {
       font-size: clamp(32px, 5vw, 56px);
-      font-weight: 300;
-      letter-spacing: -0.04em;
+      font-weight: 400;
+      letter-spacing: -0.03em;
       text-align: center;
       margin-bottom: clamp(48px, 6vw, 80px);
+      color: var(--fg);
     }
 
     .benefits-grid {
@@ -903,9 +1008,16 @@
       position: relative;
       height: clamp(380px, 42vw, 460px);
       border-radius: 20px;
-      background: #0d0d0d;
+      background: #ffffff;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(13, 12, 11, 0.08);
+      box-shadow: 0 4px 20px rgba(13, 12, 11, 0.02);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(13, 12, 11, 0.06);
     }
 
     .benefit-card-padded {
@@ -918,43 +1030,42 @@
     .blue-blob-left {
       position: absolute;
       top: 50%;
-      left: -320px;
+      left: -180px;
       transform: translateY(-50%);
-      width: 440px;
-      height: 440px;
+      width: 360px;
+      height: 360px;
       border-radius: 50%;
-      background: #1e3a8a;
-      filter: blur(80px);
-      opacity: 0.45;
+      background: radial-gradient(circle, rgba(230, 222, 210, 0.7) 0%, rgba(249, 248, 246, 0) 70%);
+      filter: blur(40px);
       pointer-events: none;
     }
 
     .blue-blob-right {
       position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 260px;
-      height: 260px;
+      top: -60px;
+      right: -60px;
+      width: 240px;
+      height: 240px;
       border-radius: 50%;
-      background: #1e3a8a;
-      filter: blur(70px);
-      opacity: 0.45;
+      background: radial-gradient(circle, rgba(230, 222, 210, 0.7) 0%, rgba(249, 248, 246, 0) 70%);
+      filter: blur(40px);
       pointer-events: none;
     }
 
     .benefit-card h3 {
       font-size: clamp(20px, 2.2vw, 26px);
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.2;
       position: relative;
       z-index: 10;
+      color: var(--fg);
     }
 
     .benefit-card p {
       font-size: clamp(13px, 1.1vw, 14.5px);
       line-height: 1.6;
-      color: rgba(255,255,255,0.7);
-      font-weight: 300;
+      color: var(--fg-soft);
+      font-weight: 400;
       position: relative;
       z-index: 10;
       max-width: 320px;
@@ -965,6 +1076,7 @@
       width: 100%;
       height: 75%;
       overflow: hidden;
+      background: #f2f0ec;
     }
 
     .benefit-video-wrapper video {
@@ -980,7 +1092,7 @@
       left: 0;
       right: 0;
       height: 120px;
-      background: linear-gradient(to bottom, transparent, #0d0d0d);
+      background: linear-gradient(to bottom, transparent, #ffffff);
       pointer-events: none;
     }
 
@@ -989,6 +1101,7 @@
       display: flex;
       align-items: center;
       padding: clamp(20px, 3vw, 28px);
+      background: #ffffff;
     }
 
     /* =========================================================================
@@ -1008,41 +1121,52 @@
 
     .pixel-header-badge {
       display: inline-block;
-      background: #000000;
+      background: var(--fg);
       color: #ffffff;
-      padding: 6px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 99px;
       margin-bottom: 20px;
     }
 
     .pixel-header-title {
       font-size: clamp(32px, 4.5vw, 56px);
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.15;
       letter-spacing: -0.03em;
       margin-bottom: clamp(48px, 6vw, 80px);
+      color: var(--fg);
     }
 
     .pixel-header-title span {
-      color: rgba(0,0,0,0.4);
+      color: var(--fg-soft);
     }
 
     .pixel-grid-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 24px;
       margin-bottom: clamp(60px, 8vw, 100px);
     }
 
     .pixel-card {
       position: relative;
       aspect-ratio: 4 / 3;
-      border-radius: 6px;
+      border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      background: #e5e5e5;
+      background: var(--shade);
+      border: 1px solid rgba(13, 12, 11, 0.08);
+      box-shadow: 0 4px 20px rgba(13, 12, 11, 0.03);
+      transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+
+    .pixel-card:hover {
+      box-shadow: 0 20px 48px rgba(13, 12, 11, 0.08);
+      transform: translateY(-4px);
     }
 
     .pixel-card-img {
@@ -1070,7 +1194,7 @@
     }
 
     .pixel-block {
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(13, 12, 11, 0.88);
       transform: scale(0);
       opacity: 0;
       transition: transform .25s var(--ease), opacity .25s var(--ease);
@@ -1085,6 +1209,7 @@
     .mag-square {
       position: absolute;
       background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
       pointer-events: none;
       z-index: 8;
       transition: transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.2);
@@ -1095,28 +1220,33 @@
       bottom: 0;
       left: 0;
       background: #ffffff;
-      padding: 14px 20px;
+      padding: 16px 24px;
+      border-top-right-radius: 14px;
       z-index: 10;
-      max-width: 75%;
+      max-width: 80%;
+      border-top: 1px solid rgba(13, 12, 11, 0.08);
+      border-right: 1px solid rgba(13, 12, 11, 0.08);
+      box-shadow: 0 4px 16px rgba(13, 12, 11, 0.04);
     }
 
     .pixel-info-title {
       font-size: clamp(18px, 2.2vw, 24px);
       font-weight: 400;
       line-height: 1.2;
+      color: var(--fg);
     }
 
     .pixel-info-meta {
       display: flex;
       gap: 16px;
-      font-size: 12px;
-      color: rgba(0,0,0,0.6);
+      font-size: 12.5px;
+      color: var(--fg-soft);
       margin-top: 6px;
     }
 
     .pixel-info-year {
       font-weight: 600;
-      color: #000000;
+      color: var(--fg);
     }
 
     /* Infinite Marquee */
@@ -1156,18 +1286,192 @@
     }
 
     /* =========================================================================
-       SECTION 7: TECH-NOIR CREATOR MANIFESTO (#about)
+       SECTION: TRANSPARENT PRICING & TERMS (#pricing)
+       ========================================================================= */
+    .pricing-wrap {
+      position: relative;
+      background: #fdfbf7;
+      padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 60px);
+      color: var(--fg);
+      border-top: 1px solid var(--rule-faint);
+    }
+
+    .pricing-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .pricing-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto clamp(48px, 6vw, 72px);
+    }
+
+    .pricing-header h2 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      color: var(--fg);
+    }
+
+    .pricing-header p {
+      font-size: clamp(14.5px, 1.1vw, 16px);
+      color: var(--fg-soft);
+      line-height: 1.55;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(16px, 2vw, 24px);
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: #ffffff;
+      border: 1px solid rgba(13, 12, 11, 0.08);
+      border-radius: 20px;
+      padding: clamp(28px, 3.5vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+      box-shadow: 0 4px 20px rgba(13, 12, 11, 0.02);
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 52px rgba(13, 12, 11, 0.08);
+      border-color: rgba(13, 12, 11, 0.2);
+    }
+
+    .pricing-card.featured {
+      border: 1.5px solid var(--fg);
+      background: #ffffff;
+      box-shadow: 0 16px 40px rgba(13, 12, 11, 0.06);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -13px;
+      left: 32px;
+      background: var(--fg);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    .pricing-tier-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: clamp(34px, 3.8vw, 44px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      color: var(--fg);
+    }
+
+    .pricing-turnaround {
+      font-size: 12.5px;
+      color: #059669;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .pricing-desc {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--fg-soft);
+      margin-bottom: 24px;
+      min-height: 42px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule-faint);
+    }
+
+    .pricing-features li {
+      font-size: 13.5px;
+      color: var(--fg-soft);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: "✓";
+      color: var(--fg);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .pricing-cta {
+      display: block;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 99px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: var(--shade);
+      color: var(--fg);
+      border: 1px solid var(--rule);
+    }
+
+    .pricing-card.featured .pricing-cta {
+      background: var(--fg);
+      color: #ffffff;
+      border-color: var(--fg);
+    }
+
+    .pricing-cta:hover {
+      transform: scale(1.02);
+      background: var(--fg);
+      color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================================================================
+       SECTION 8: THE ATELIER & MANIFESTO (#about)
        ========================================================================= */
     .noir-section {
       position: relative;
-      background: #0d0c0b;
-      color: #ffffff;
+      background: var(--shade);
+      color: var(--fg);
       padding: clamp(100px, 14vw, 180px) clamp(20px, 5vw, 60px) 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       overflow: hidden;
+      border-top: 1px solid var(--rule-faint);
     }
 
     .noir-container {
@@ -1185,14 +1489,19 @@
       margin-bottom: 40px;
     }
 
+    .noir-logo path {
+      fill: var(--fg);
+    }
+
     .noir-mission {
       font-size: clamp(14px, 1.4vw, 17px);
       text-transform: uppercase;
       letter-spacing: 0.14em;
       line-height: 1.7;
-      max-width: 580px;
+      max-width: 600px;
       margin-bottom: 32px;
-      color: rgba(255,255,255,0.9);
+      color: var(--fg);
+      font-weight: 600;
     }
 
     .noir-signature {
@@ -1200,7 +1509,7 @@
       font-size: clamp(72px, 10vw, 128px);
       line-height: 1;
       margin-bottom: 48px;
-      color: #ffffff;
+      color: var(--fg);
       opacity: 0.95;
     }
 
@@ -1212,8 +1521,8 @@
       margin-bottom: clamp(60px, 8vw, 100px);
       font-size: 16px;
       line-height: 1.65;
-      font-weight: 300;
-      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+      color: var(--fg-soft);
     }
 
     .noir-video-wrap {
@@ -1227,8 +1536,8 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 120px;
-      background: linear-gradient(to bottom, #0d0c0b, transparent);
+      height: 140px;
+      background: linear-gradient(to bottom, var(--shade), transparent);
       z-index: 5;
       pointer-events: none;
     }
@@ -1239,6 +1548,7 @@
       max-height: 600px;
       object-fit: cover;
       display: block;
+      opacity: 0.85;
     }
 
     /* =========================================================================
@@ -1516,9 +1826,11 @@
     </a>
     <nav class="nav" aria-label="Primary Navigation">
       <a href="#spotlight">Mastery</a>
-      <a href="#mosaic-section">Platform</a>
-      <a href="#observability-section">Telemetry</a>
-      <a href="#work">Work</a>
+      <a href="#mosaic-section">Process</a>
+      <a href="#observability-section">Architecture</a>
+      <a href="#benefits-section">Motives</a>
+      <a href="#work">Works</a>
+      <a href="#pricing">Pricing</a>
       <a href="#about">Atelier</a>
       <a class="pill" href="#order">Start a brief</a>
     </nav>
@@ -1539,24 +1851,24 @@
         <!-- Hero Stop 1: The Hook -->
         <section class="panel hero-panel" id="panel-1" data-panel>
           <div class="eyebrow panel-tag">WebCloud Studio <span>&middot;</span> Digital Architecture</div>
-          <h1>Websites engineered<br />to convert, not just exist.</h1>
-          <p class="sub">Clean architecture, surgical front-end precision, and high-performance digital flagships that turn cold traffic into paying clients.</p>
+          <h1>Built at four.<br />Live by seven.</h1>
+          <p class="sub">Clean architecture, surgical front-end precision, and high-performance digital flagships that convert before the competition even wakes up.</p>
           <div class="cta panel-cta"><a class="pill" href="#work">Explore Selected Works &nearr;</a></div>
         </section>
 
         <!-- Hero Stop 2: The Technical Edge -->
         <section class="panel hero-panel" id="panel-2" data-panel>
-          <div class="eyebrow panel-tag">Engineering Standard <span>&middot;</span> Sub-Second Speed</div>
+          <div class="eyebrow panel-tag">Engineering Standard <span>&middot;</span> Zero Template Debt</div>
           <h1>Sub-second speed.<br />Zero bloat.</h1>
           <p class="sub">No sluggish page builders, no fragile template stacks. Every line of code is hand-crafted to run at a continuous 60fps across every device.</p>
-          <div class="cta panel-cta"><a class="pill" href="#mosaic-section">Our Philosophy &nearr;</a></div>
+          <div class="cta panel-cta"><a class="pill" href="#benefits-section">Our Philosophy &nearr;</a></div>
         </section>
 
         <!-- Hero Stop 3: The Offer & Authority -->
         <section class="panel hero-panel" id="panel-3" data-panel>
           <div class="eyebrow panel-tag">Commission Intake <span>&middot;</span> Select Briefs</div>
           <h1>Built to command<br />market authority.</h1>
-          <p class="sub">We don't produce digital brochures that collect dust. We build digital assets that outclass your competition before they even wake up.</p>
+          <p class="sub">We don't produce digital brochures that collect dust. We architect high-converting digital assets that outclass your competition permanently.</p>
           <div class="cta panel-cta"><a class="pill" href="#order">Start Your Brief &nearr;</a></div>
         </section>
       </main>
@@ -1572,7 +1884,7 @@
   <div class="content-flow">
 
     <!-- =======================================================================
-         SECTION 2: SPOTLIGHT REVEAL (Nike Interactive Mask Engine)
+         SECTION 2: SPOTLIGHT REVEAL (Interactive Architectural Mask Engine)
          ======================================================================= -->
     <section id="spotlight" class="spotlight-section">
       <!-- Invisible hover zones to play/pause video -->
@@ -1603,47 +1915,33 @@
         </svg>
       </div>
 
-      <!-- Glassmorphic Stats Card -->
+      <!-- Frosted Luxury Stats Card -->
       <div class="spotlight-stats-card">
         <div class="spotlight-stat-row">
-          <div class="spotlight-big-stat">78%</div>
+          <div class="spotlight-big-stat">99.8%</div>
           <div class="spotlight-chart-wrap">
             <svg style="width:140px;height:70px" viewBox="0 0 289 138" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g filter="url(#filter0_d_878_28499)">
-                <path d="M22.5 48.7306C39.7833 48.7306 49.34 54.94 63.1667 69.2965C76.9933 83.653 86.55 110.5 103.833 110.5C121.117 110.5 130.673 84.2876 144.5 59.2856C158.327 34.2837 167.883 19.5573 185.167 19.5573C202.45 19.5573 208.55 57.6673 225.833 57.6673C243.117 57.6673 249.217 19.5 266.5 19.5" stroke="#DA3A16" stroke-width="2.5"/>
-              </g>
-              <defs>
-                <filter id="filter0_d_878_28499" x="0" y="0" width="289" height="138" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                  <feOffset dy="4"/>
-                  <feGaussianBlur stdDeviation="11.25"/>
-                  <feComposite in2="hardAlpha" operator="out"/>
-                  <feColorMatrix type="matrix" values="0 0 0 0 0.854902 0 0 0 0 0.227451 0 0 0 0 0.0862745 0 0 0 1 0"/>
-                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_878_28499"/>
-                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_878_28499" result="shape"/>
-                </filter>
-              </defs>
+              <path d="M22.5 48.7306C39.7833 48.7306 49.34 54.94 63.1667 69.2965C76.9933 83.653 86.55 110.5 103.833 110.5C121.117 110.5 130.673 84.2876 144.5 59.2856C158.327 34.2837 167.883 19.5573 185.167 19.5573C202.45 19.5573 208.55 57.6673 225.833 57.6673C243.117 57.6673 249.217 19.5 266.5 19.5" stroke="#0d0c0b" stroke-width="2.8"/>
             </svg>
           </div>
         </div>
-        <div class="spotlight-card-title">NEXT-GEN CUSHIONING ARCHITECTURE</div>
-        <div class="spotlight-card-sub">Impact Absorption &amp; Energy Return Dynamics</div>
+        <div class="spotlight-card-title">SUB-SECOND RUNTIME ARCHITECTURE</div>
+        <div class="spotlight-card-sub">Zero Layout Shifts &middot; Core Web Vitals Guaranteed</div>
       </div>
 
       <!-- Headline bottom-left -->
       <h2 class="spotlight-headline">
-        <span class="sans-line">Bringing Aerospace-</span>
-        <span class="sans-line">Grade Infrastructure</span>
-        <span class="serif-line">Directly To Your Digital</span>
-        <span class="serif-italic">Urban Flagship</span>
+        <span class="sans-line">Hand-Engineered Code.</span>
+        <span class="sans-line">Zero Template Debt.</span>
+        <span class="serif-line">Command Your Market With A</span>
+        <span class="serif-italic">Bespoke Digital Flagship</span>
       </h2>
 
       <!-- CTA block bottom-right -->
       <div class="spotlight-cta-block">
-        <div class="spotlight-cta-top">THE SCIENCE OF CONVERSION</div>
+        <div class="spotlight-cta-top">THE ARCHITECTURE OF CONVERSION</div>
         <a href="#order" class="spotlight-cta-bottom" aria-label="Start Brief">
-          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </a>
       </div>
     </section>
@@ -1812,35 +2110,48 @@
     </section>
 
     <!-- =======================================================================
-         SECTION 5: GUARDNET AMBIENT VIDEO BENEFITS
+         SECTION 5: PHILOSOPHY & MOTIVES (#benefits-section)
          ======================================================================= -->
-    <section class="benefits-wrap">
+    <section id="benefits-section" class="benefits-wrap">
       <div class="benefits-container">
-        <h2 class="benefits-title">Key Architectural Benefits</h2>
+        <div style="text-align: center; max-width: 680px; margin: 0 auto clamp(48px, 6vw, 72px);">
+          <span class="eyebrow-pill" style="margin-bottom: 16px;">01 / CORE MOTIVES</span>
+          <h2 class="benefits-title" style="margin-bottom: 14px;">Built with intention.<br>Engineered for dominance.</h2>
+          <p style="font-size: clamp(14.5px, 1.1vw, 16px); color: var(--fg-soft); line-height: 1.55;">We reject the assembly-line web. Every flagship we architect is a bespoke digital instrument—engineered for speed, conversion, and enduring authority.</p>
+        </div>
+
         <div class="benefits-grid">
-          <!-- Card 1: Left Card with Ambient Blue Blob -->
+          <!-- Card 1: Velocity -->
           <div class="benefit-card benefit-card-padded">
             <div class="blue-blob-left"></div>
-            <h3>Preemptive Risks<br>Scouting and Reactions</h3>
-            <p>Our autonomous defense protocols constantly observe traffic bursts, file integrity, and edge behavior to eliminate bottlenecks before your users ever notice.</p>
+            <div>
+              <span style="font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-faint); display:block; margin-bottom:12px;">01 / Velocity</span>
+              <h3 style="font-size: clamp(20px, 2.2vw, 26px); font-weight: 400; line-height: 1.2; color: var(--fg);">Lightning Deployment.<br>Built at four, live by seven.</h3>
+            </div>
+            <p style="font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.6; color: var(--fg-soft); margin-top: auto;">From architectural brief to a sub-second production release in record time. We execute with surgical velocity without sacrificing structural integrity.</p>
           </div>
 
-          <!-- Card 2: Center Video Card with Seamless Fade -->
+          <!-- Card 2: Craftsmanship (Center Video Card) -->
           <div class="benefit-card" style="display:flex; flex-direction:column;">
             <div class="benefit-video-wrapper">
               <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260421_072701_f6a01abb-eb30-4559-9d6e-774362defbc3.mp4" autoplay loop muted playsinline></video>
               <div class="benefit-video-fade"></div>
             </div>
-            <div class="benefit-video-bottom">
-              <h3>Know-how and Sectoral<br>Awareness</h3>
+            <div class="benefit-video-bottom" style="flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px;">
+              <span style="font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-faint); display:block;">02 / Craftsmanship</span>
+              <h3 style="font-size: clamp(18px, 1.8vw, 22px); font-weight: 400; line-height: 1.2; color: var(--fg); margin:0;">Bespoke Digital Craft</h3>
+              <p style="font-size: 13px; line-height: 1.5; color: var(--fg-soft); margin:0;">Hand-tailored UI/UX and custom front-end architecture. Zero template debt or generic builder bloat.</p>
             </div>
           </div>
 
-          <!-- Card 3: Right Card with Ambient Blue Blob -->
+          <!-- Card 3: Longevity & Value -->
           <div class="benefit-card benefit-card-padded">
             <div class="blue-blob-right"></div>
-            <h3>Preemptive Risks<br>Scouting and Reactions</h3>
-            <p style="margin-top:auto;">We engineer custom front-ends that maintain unbroken uptime and sub-second load times regardless of viral traffic surges.</p>
+            <div>
+              <span style="font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--fg-faint); display:block; margin-bottom:12px;">03 / Longevity &amp; Value</span>
+              <h3 style="font-size: clamp(20px, 2.2vw, 26px); font-weight: 400; line-height: 1.2; color: var(--fg);">Lifetime Stewardship &amp;<br>Unrivaled Market Value.</h3>
+            </div>
+            <p style="font-size: clamp(13px, 1.1vw, 14.5px); line-height: 1.6; color: var(--fg-soft); margin-top: auto;">Tier-one design agency polish at an accessible, transparent price point. Ongoing conversion audits, security updates, and dedicated long-term care.</p>
           </div>
         </div>
       </div>
@@ -1851,70 +2162,70 @@
          ======================================================================= -->
     <section id="work" class="pixel-projects-wrap">
       <div class="pixel-projects-container">
-        <span class="pixel-header-badge">Projects</span>
-        <h2 class="pixel-header-title">Insights from <span>Our</span><br><span>Case Studies</span></h2>
+        <span class="pixel-header-badge">SELECTED WORKS</span>
+        <h2 class="pixel-header-title">Case studies in <span>digital precision.</span><br><span>Hand-engineered flagships.</span></h2>
 
         <div class="pixel-grid-cards">
-          <!-- Project 1: HeartX -->
+          <!-- Project 1: Aura Health & Aesthetics -->
           <div class="pixel-card" data-pixel-card>
-            <img src="https://images.pexels.com/photos/7691249/pexels-photo-7691249.jpeg?auto=compress&cs=tinysrgb&w=800" alt="HeartX Platform" class="pixel-card-img">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Aura Health & Aesthetics Flagship Architecture" class="pixel-card-img">
             <div class="pixel-blocks-overlay"></div>
             <!-- Floating magnetic squares -->
             <div class="mag-square" style="width:16px;height:16px;left:5%;top:30%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:10%;top:42%;"></div>
             <div class="mag-square" style="width:14px;height:14px;left:80%;top:70%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">HeartX</div>
+              <div class="pixel-info-title">Aura Health &amp; Aesthetics</div>
               <div class="pixel-info-meta">
-                <span>Brand Strategy &amp; Product Design</span>
+                <span>Medical &amp; Wellness Flagship</span>
                 <span class="pixel-info-year">2026</span>
               </div>
             </div>
           </div>
 
-          <!-- Project 2: Swave -->
+          <!-- Project 2: Komorebi Studio -->
           <div class="pixel-card" data-pixel-card>
-            <img src="https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Swave Commerce" class="pixel-card-img">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85" alt="Komorebi Studio Architectural Space" class="pixel-card-img">
             <div class="pixel-blocks-overlay"></div>
             <div class="mag-square" style="width:16px;height:16px;left:82%;top:55%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:88%;top:68%;"></div>
             <div class="mag-square" style="width:12px;height:12px;left:78%;top:72%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">Swave&reg;</div>
+              <div class="pixel-info-title">Komorebi Studio</div>
               <div class="pixel-info-meta">
-                <span>Web Design &amp; Identity</span>
+                <span>Architectural Space &amp; Interiors</span>
                 <span class="pixel-info-year">2025</span>
               </div>
             </div>
           </div>
 
-          <!-- Project 3: EduSpark -->
+          <!-- Project 3: Vanguard Commerce -->
           <div class="pixel-card" data-pixel-card>
-            <img src="https://images.pexels.com/photos/5428003/pexels-photo-5428003.jpeg?auto=compress&cs=tinysrgb&w=800" alt="EduSpark Platform" class="pixel-card-img">
+            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85" alt="Vanguard Commerce Platform" class="pixel-card-img">
             <div class="pixel-blocks-overlay"></div>
             <div class="mag-square" style="width:16px;height:16px;left:4%;top:24%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:10%;top:36%;"></div>
             <div class="mag-square" style="width:14px;height:14px;left:78%;top:78%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">EduSpark</div>
+              <div class="pixel-info-title">Vanguard Commerce</div>
               <div class="pixel-info-meta">
-                <span>Brand Strategy &amp; Web Design</span>
+                <span>High-Conversion E-Commerce</span>
                 <span class="pixel-info-year">2025</span>
               </div>
             </div>
           </div>
 
-          <!-- Project 4: Greenergy -->
+          <!-- Project 4: Prism Collective -->
           <div class="pixel-card" data-pixel-card>
-            <img src="https://images.pexels.com/photos/2800832/pexels-photo-2800832.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Greenergy Identity" class="pixel-card-img">
+            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85" alt="Prism Collective Luxury Brand Identity" class="pixel-card-img">
             <div class="pixel-blocks-overlay"></div>
             <div class="mag-square" style="width:14px;height:14px;left:82%;top:26%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:88%;top:38%;"></div>
             <div class="mag-square" style="width:12px;height:12px;left:78%;top:44%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">Greenergy</div>
+              <div class="pixel-info-title">Prism Collective</div>
               <div class="pixel-info-meta">
-                <span>Brand Strategy &amp; Web Design</span>
+                <span>Luxury Brand Identity</span>
                 <span class="pixel-info-year">2024</span>
               </div>
             </div>
@@ -1925,7 +2236,7 @@
       <!-- Infinite Logo Marquee -->
       <div class="marquee-wrap">
         <div class="marquee-track">
-          <!-- Doubled 8 logos for seamless loop -->
+          <!-- Doubled 8 partner / brand logos for seamless loop -->
           <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Codecraft_</div>
           <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> ennLabs</div>
           <div class="marquee-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg> GlobalBank</div>
@@ -1948,18 +2259,90 @@
     </section>
 
     <!-- =======================================================================
-         SECTION 7: TECH-NOIR CREATOR MANIFESTO (#about)
+         SECTION 7: TRANSPARENT PRICING & TIERS (#pricing)
+         ======================================================================= -->
+    <section id="pricing" class="pricing-wrap">
+      <div class="pricing-container">
+        <div class="pricing-header">
+          <span class="eyebrow-pill">TRANSPARENT INVESTMENT</span>
+          <h2>Fixed investment.<br>Zero agency markup.</h2>
+          <p>Hand-crafted architecture delivered at uncompromising quality. No hidden retainers or surprise change orders.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Tier 1: Sprint Flagship -->
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-tier-name">Sprint Flagship</div>
+              <div class="pricing-price">$2,400</div>
+              <div class="pricing-turnaround">⚡ 5–7 Day Delivery</div>
+              <p class="pricing-desc">Ideal for early-stage ventures, boutique brands, or founder flagships demanding immediate market presence.</p>
+              <ul class="pricing-features">
+                <li>Handcrafted Architecture (Zero Templates)</li>
+                <li>100/100 Mobile PageSpeed Benchmark</li>
+                <li>Custom Micro-Interactions &amp; Transitions</li>
+                <li>Direct WhatsApp &amp; Contact Flow Integration</li>
+                <li>30-Day Post-Launch Optimization</li>
+              </ul>
+            </div>
+            <a href="#order" class="pricing-cta">Reserve Sprint &nearr;</a>
+          </div>
+
+          <!-- Tier 2: Commercial Flagship (Featured) -->
+          <div class="pricing-card featured">
+            <span class="pricing-badge">MOST POPULAR</span>
+            <div>
+              <div class="pricing-tier-name">Commercial Flagship</div>
+              <div class="pricing-price">$4,800</div>
+              <div class="pricing-turnaround">⚡ 10–14 Day Delivery</div>
+              <p class="pricing-desc">Engineered for scaling businesses and premium brands looking to dominate their category and maximize conversion.</p>
+              <ul class="pricing-features">
+                <li>Complete Multi-Page Flagship Architecture</li>
+                <li>Headless CMS or Dynamic Inventory Setup</li>
+                <li>Stripe Checkout or Custom Booking Engine</li>
+                <li>Advanced 3D / Interactive Scroll Effects</li>
+                <li>Full Technical SEO &amp; Schema Architecture</li>
+                <li>90-Day Priority Support &amp; Speed Audits</li>
+              </ul>
+            </div>
+            <a href="#order" class="pricing-cta">Initiate Flagship &nearr;</a>
+          </div>
+
+          <!-- Tier 3: Enterprise Architecture -->
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-tier-name">Enterprise Architecture</div>
+              <div class="pricing-price">$8,500</div>
+              <div class="pricing-turnaround">⚡ Custom Timeline</div>
+              <p class="pricing-desc">For established leaders requiring high-stakes web platforms, custom applications, or full replatforming.</p>
+              <ul class="pricing-features">
+                <li>Bespoke Web Platform / App Engineering</li>
+                <li>Complex API Integrations &amp; Custom Backend</li>
+                <li>Global Edge CDN Distribution (&lt;50ms)</li>
+                <li>Custom Design System &amp; Component Library</li>
+                <li>Dedicated Engineering Lead &amp; Slack Channel</li>
+                <li>Lifetime Architectural Stewardship</li>
+              </ul>
+            </div>
+            <a href="#order" class="pricing-cta">Consult Architecture &nearr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 8: THE ATELIER & MANIFESTO (#about)
          ======================================================================= -->
     <section id="about" class="noir-section">
       <div class="noir-container">
-        <!-- Logo Emblem -->
+        <!-- Logo Emblem in Obsidian Dark -->
         <svg class="noir-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M60 120C26.8629 120 0 93.1371 0 60V0C22.5654 0 42.2213 12.4569 52.4662 30.8691C38.4788 34.2089 28.0787 46.7902 28.0787 61.8006V63.1443C28.0787 79.9648 41.7146 93.6006 58.5353 93.6006H59.8789L59.8785 61.8006C59.8785 79.3633 74.1159 93.6006 91.6787 93.6006L91.6787 61.8006C91.6787 44.2783 77.5071 30.0661 60 30.0008L60 0H62.5352C94.2722 0 120 25.7279 120 57.4648V60C120 93.1371 93.1371 120 60 120Z" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M60 120C26.8629 120 0 93.1371 0 60V0C22.5654 0 42.2213 12.4569 52.4662 30.8691C38.4788 34.2089 28.0787 46.7902 28.0787 61.8006V63.1443C28.0787 79.9648 41.7146 93.6006 58.5353 93.6006H59.8789L59.8785 61.8006C59.8785 79.3633 74.1159 93.6006 91.6787 93.6006L91.6787 61.8006C91.6787 44.2783 77.5071 30.0661 60 30.0008L60 0H62.5352C94.2722 0 120 25.7279 120 57.4648V60C120 93.1371 93.1371 120 60 120Z" fill="currentColor"/>
         </svg>
 
         <!-- Mission statement -->
         <p class="noir-mission">
-          We built this platform with a single purpose: to eliminate operational chaos and restore uncompromising engineering authority to your brand.
+          We built WebCloud with a single purpose: to eliminate generic templates and restore uncompromising engineering authority to modern brands.
         </p>
 
         <!-- Cursive signature -->
@@ -1967,8 +2350,8 @@
 
         <!-- Narrative body -->
         <div class="noir-paragraphs">
-          <p>We were exhausted by bloated software that demanded more effort than it saved. That is why we engineer custom front-end architectures that operate silently and perform without hesitation.</p>
-          <p>Your digital flagship should command authority, not apologize for load times. Let our architecture handle the precision engineering so you can focus on building your empire.</p>
+          <p>We were exhausted by bloated page builders and slow template mills that charge enterprise prices for sluggish websites. That is why we engineer custom front-end architectures that load instantaneously and convert effortlessly.</p>
+          <p>Your digital flagship should command market authority, not apologize for load times. Let our architecture handle the precision engineering so you can focus on building your empire.</p>
         </div>
       </div>
 
@@ -1980,7 +2363,7 @@
     </section>
 
     <!-- =======================================================================
-         SECTION 8: CLIENT BRIEF (#order) & STUDIO FOOTER
+         SECTION 9: CLIENT BRIEF (#order) & STUDIO FOOTER
          ======================================================================= -->
     <section id="order" class="inquiry-box">
       <span class="inquiry-eyebrow">Initiate Brief &bull; Q2/Q3 Intake</span>
@@ -2010,9 +2393,11 @@
           <h4>Directory</h4>
           <ul>
             <li><a href="#spotlight">Mastery</a></li>
-            <li><a href="#mosaic-section">Platform</a></li>
-            <li><a href="#observability-section">Telemetry</a></li>
-            <li><a href="#work">Case Studies</a></li>
+            <li><a href="#mosaic-section">Process</a></li>
+            <li><a href="#observability-section">Architecture</a></li>
+            <li><a href="#benefits-section">Motives</a></li>
+            <li><a href="#work">Works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
             <li><a href="#about">The Atelier</a></li>
             <li><a href="#order">Initiate Brief</a></li>
           </ul>
