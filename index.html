@@ -1456,19 +1456,22 @@
     }
 
     .pricing-price {
-      font-size: clamp(34px, 3.8vw, 44px);
-      font-weight: 400;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      font-size: clamp(24px, 2.5vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
       margin-bottom: 6px;
       color: var(--fg);
     }
 
     .pricing-turnaround {
-      font-size: 12.5px;
+      font-size: 13px;
       color: #059669;
       font-weight: 600;
       margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .pricing-desc {
@@ -1809,6 +1812,187 @@
       flex-wrap: wrap;
     }
 
+    /* WhatsApp Direct Floating Widget */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: #ffffff;
+      padding: 10px 18px 10px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.42), 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 32px rgba(37, 211, 102, 0.58), 0 4px 12px rgba(0, 0, 0, 0.16);
+      color: #ffffff;
+    }
+
+    .whatsapp-float svg {
+      width: 26px;
+      height: 26px;
+      fill: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-float-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .whatsapp-float-sub {
+      font-size: 11px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    /* WhatsApp Button (General & Intake) */
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: #25D366;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14.5px;
+      padding: 13px 26px;
+      border-radius: 999px;
+      transition: all 0.25s var(--ease);
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.32);
+      height: 50px;
+    }
+
+    .whatsapp-btn:hover {
+      background: #20bd5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(37, 211, 102, 0.48);
+      color: #ffffff;
+    }
+
+    .whatsapp-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    /* Top Chrome Nav WhatsApp Button */
+    .chrome-whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 211, 102, 0.12);
+      color: #128C7E;
+      border: 1px solid rgba(37, 211, 102, 0.32);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.2s var(--ease);
+    }
+
+    .chrome-whatsapp-btn:hover {
+      background: #25D366;
+      color: #ffffff;
+      border-color: #25D366;
+      transform: translateY(-1px);
+    }
+
+    .chrome-whatsapp-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* Trust & Conversion Pillars in Section 9 */
+    .inquiry-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 1040px;
+      margin: 28px 0 36px;
+      text-align: left;
+    }
+
+    .inquiry-trust-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 20px 18px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+    }
+
+    .inquiry-trust-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .inquiry-trust-icon {
+      font-size: 22px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .inquiry-trust-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .inquiry-trust-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    @media (max-width: 960px) {
+      .inquiry-trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .inquiry-trust-grid {
+        grid-template-columns: 1fr;
+      }
+      .whatsapp-float {
+        bottom: 18px;
+        right: 18px;
+        padding: 12px;
+        border-radius: 50%;
+      }
+      .whatsapp-float-text {
+        display: none;
+      }
+      .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
     /* =========================================================================
        RESPONSIVE BREAKPOINTS
        ========================================================================= */
@@ -1915,6 +2099,10 @@
       <a href="#work">Works</a>
       <a href="#pricing">Pricing</a>
       <a href="#about">About</a>
+      <a class="chrome-whatsapp-btn" href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20to%20discuss%20a%20website%20project" target="_blank" rel="noopener noreferrer" title="Chat directly on WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+        <span>+91 90768 88172</span>
+      </a>
       <a class="pill" href="#order">Build Your Site</a>
     </nav>
   </header>
@@ -2292,70 +2480,70 @@
         <h2 class="pixel-header-title">Case studies in <span>digital precision.</span><br><span>Hand-engineered flagships.</span></h2>
 
         <div class="pixel-grid-cards">
-          <!-- Project 1: Aura Health & Aesthetics -->
-          <div class="pixel-card" data-pixel-card>
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Aura Health & Aesthetics Flagship Architecture" class="pixel-card-img">
+          <!-- Project 1: Sobha Privy Collection -->
+          <a href="https://sobha-privy-collection.com/" target="_blank" rel="noopener noreferrer" class="pixel-card" data-pixel-card style="text-decoration:none; color:inherit; display:block;">
+            <img src="images/portfolio/sobha-privy.png" onerror="this.src='https://sobha-privy-collection.com/assets/manifest/og.png'" alt="Sobha Privy Collection Luxury Real Estate" class="pixel-card-img" loading="lazy">
             <div class="pixel-blocks-overlay"></div>
             <!-- Floating magnetic squares -->
             <div class="mag-square" style="width:16px;height:16px;left:5%;top:30%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:10%;top:42%;"></div>
             <div class="mag-square" style="width:14px;height:14px;left:80%;top:70%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">Aura Health &amp; Aesthetics</div>
+              <div class="pixel-info-title">Sobha Privy Collection <span style="font-size:15px; opacity:0.65;">&nearr;</span></div>
               <div class="pixel-info-meta">
-                <span>Medical &amp; Wellness Flagship</span>
-                <span class="pixel-info-year">2026</span>
+                <span>Luxury Real Estate &amp; Penthouses</span>
+                <span class="pixel-info-year">Dubai</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <!-- Project 2: Komorebi Studio -->
-          <div class="pixel-card" data-pixel-card>
-            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85" alt="Komorebi Studio Architectural Space" class="pixel-card-img">
+          <!-- Project 2: The Nest -->
+          <a href="https://thenest.pl/en" target="_blank" rel="noopener noreferrer" class="pixel-card" data-pixel-card style="text-decoration:none; color:inherit; display:block;">
+            <img src="images/portfolio/thenest.webp" onerror="this.src='https://thenest.pl/images/the-nest-building.webp'" alt="The Nest Modern Workspace Warsaw" class="pixel-card-img" loading="lazy">
             <div class="pixel-blocks-overlay"></div>
             <div class="mag-square" style="width:16px;height:16px;left:82%;top:55%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:88%;top:68%;"></div>
             <div class="mag-square" style="width:12px;height:12px;left:78%;top:72%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">Komorebi Studio</div>
+              <div class="pixel-info-title">The Nest <span style="font-size:15px; opacity:0.65;">&nearr;</span></div>
               <div class="pixel-info-meta">
-                <span>Architectural Space &amp; Interiors</span>
-                <span class="pixel-info-year">2025</span>
+                <span>Modern Coworking &amp; Architecture</span>
+                <span class="pixel-info-year">Warsaw</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <!-- Project 3: Vanguard Commerce -->
-          <div class="pixel-card" data-pixel-card>
-            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85" alt="Vanguard Commerce Platform" class="pixel-card-img">
+          <!-- Project 3: 21Oaks -->
+          <a href="https://21oaks.org/" target="_blank" rel="noopener noreferrer" class="pixel-card" data-pixel-card style="text-decoration:none; color:inherit; display:block;">
+            <img src="images/portfolio/21oaks.avif" onerror="this.src='https://cdn.prod.website-files.com/69f216b8ea891f70c9adbd5c/69fd2fc3af58206abec1d68d_Home.avif'" alt="21Oaks Student Residences" class="pixel-card-img" loading="lazy">
             <div class="pixel-blocks-overlay"></div>
             <div class="mag-square" style="width:16px;height:16px;left:4%;top:24%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:10%;top:36%;"></div>
             <div class="mag-square" style="width:14px;height:14px;left:78%;top:78%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">Vanguard Commerce</div>
+              <div class="pixel-info-title">21Oaks Residences <span style="font-size:15px; opacity:0.65;">&nearr;</span></div>
               <div class="pixel-info-meta">
-                <span>High-Conversion E-Commerce</span>
-                <span class="pixel-info-year">2025</span>
+                <span>Modern Student Living &amp; Housing</span>
+                <span class="pixel-info-year">USC</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <!-- Project 4: Prism Collective -->
-          <div class="pixel-card" data-pixel-card>
-            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85" alt="Prism Collective Luxury Brand Identity" class="pixel-card-img">
+          <!-- Project 4: Dr. Chavhan Dental Clinic -->
+          <a href="https://drchavhanmultispecialitydentalclinic.com/" target="_blank" rel="noopener noreferrer" class="pixel-card" data-pixel-card style="text-decoration:none; color:inherit; display:block;">
+            <img src="images/portfolio/drchavhan.jpg" onerror="this.src='https://drchavhanmultispecialitydentalclinic.com/og-image.jpg'" alt="Dr Chavhan Multispeciality Dental Clinic" class="pixel-card-img" loading="lazy">
             <div class="pixel-blocks-overlay"></div>
             <div class="mag-square" style="width:14px;height:14px;left:82%;top:26%;"></div>
             <div class="mag-square" style="width:10px;height:10px;left:88%;top:38%;"></div>
             <div class="mag-square" style="width:12px;height:12px;left:78%;top:44%;"></div>
             <div class="pixel-info-plate">
-              <div class="pixel-info-title">Prism Collective</div>
+              <div class="pixel-info-title">Dr. Chavhan Dental Clinic <span style="font-size:15px; opacity:0.65;">&nearr;</span></div>
               <div class="pixel-info-meta">
-                <span>Luxury Brand Identity</span>
-                <span class="pixel-info-year">2024</span>
+                <span>Multi-Speciality Healthcare Practice</span>
+                <span class="pixel-info-year">Pune</span>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2392,9 +2580,9 @@
     <section id="pricing" class="pricing-wrap">
       <div class="pricing-container">
         <div class="pricing-header">
-          <span class="eyebrow-pill">TRANSPARENT PACKAGES</span>
-          <h2>Reasonable prices.<br>Everything your business needs.</h2>
-          <p>From building your website to promoting it, tracking results, and continuous updates. No hidden retainers or surprise fees.</p>
+          <span class="eyebrow-pill">TRANSPARENT &amp; TAILORED PACKAGES</span>
+          <h2>Tailored solutions for every budget.<br>Zero inflated prices.</h2>
+          <p>No fixed rigid retainers or inflated agency pricing. Whether you need a high-conversion landing page launched today or a complete digital growth engine, we provide custom quotes tailored to your business.</p>
         </div>
 
         <div class="pricing-grid">
@@ -2402,19 +2590,22 @@
           <div class="pricing-card">
             <div>
               <div class="pricing-tier-name">Starter Business Website</div>
-              <div class="pricing-price">$1,800</div>
-              <div class="pricing-turnaround">⚡ 5–7 Day Delivery</div>
-              <p class="pricing-desc">Ideal for small businesses, founders, and professionals demanding a modern, fast website designed to build trust.</p>
+              <div class="pricing-price">Custom Quote</div>
+              <div class="pricing-turnaround">⚡ Same-Day Delivery Options Available</div>
+              <p class="pricing-desc">Ideal for small businesses, founders, and professionals demanding a modern, fast website designed to build trust and generate customer inquiries.</p>
               <ul class="pricing-features">
-                <li>🌐 Modern, Fast &amp; Responsive Website</li>
-                <li>🛠️ Free Lifetime Management &amp; Support</li>
-                <li>🔍 On-Page SEO &amp; Google Indexing Setup</li>
-                <li>📊 Website Analytics &amp; Traffic Setup</li>
-                <li>⚡ 100/100 Mobile PageSpeed Benchmark</li>
-                <li>💬 Direct WhatsApp &amp; Contact Flow</li>
+                <li>🌐 Modern, Fast &amp; Mobile-Responsive Website</li>
+                <li>⚡ Same-Day Delivery &amp; Rapid Launch Available</li>
+                <li>🛠️ Free Lifetime Management &amp; Ongoing Support</li>
+                <li>🔍 On-Page SEO &amp; Fast Google Indexing Setup</li>
+                <li>📊 Website Analytics &amp; Traffic Attribution</li>
+                <li>💬 Direct 1-Click WhatsApp Lead Routing</li>
               </ul>
             </div>
-            <a href="#order" class="pricing-cta">Get Started &nearr;</a>
+            <a href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20a%20custom%20quote%20for%20a%20Starter%20Business%20Website" target="_blank" rel="noopener noreferrer" class="pricing-cta" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+              Get Quote on WhatsApp &nearr;
+            </a>
           </div>
 
           <!-- Tier 2: Growth Flagship (Featured) -->
@@ -2422,27 +2613,31 @@
             <span class="pricing-badge">MOST POPULAR</span>
             <div>
               <div class="pricing-tier-name">Growth Flagship</div>
-              <div class="pricing-price">$3,600</div>
-              <div class="pricing-turnaround">⚡ 10–14 Day Delivery</div>
-              <p class="pricing-desc">Our complete digital growth package: custom high-converting website, organic search ranking, and ad tracking.</p>
+              <div class="pricing-price">Tailored Package</div>
+              <div class="pricing-turnaround">⚡ Priority Execution &amp; Rapid Delivery</div>
+              <p class="pricing-desc">Our complete digital growth package: custom high-converting website, organic search ranking, and ad campaign strategy.</p>
               <ul class="pricing-features">
                 <li>🌐 Custom Multi-Page Business or E-Commerce Site</li>
-                <li>🛠️ Free Lifetime Management &amp; Priority Support</li>
-                <li>🔍 Comprehensive SEO (Keyword Research &amp; Sitemaps)</li>
+                <li>⚡ Rapid Turnaround with Same-Day Priority Available</li>
+                <li>🛠️ Free Lifetime Management &amp; Priority Updates</li>
+                <li>🔍 Comprehensive SEO (Keyword Strategy &amp; Sitemaps)</li>
                 <li>📊 Analytics, Conversions &amp; Meta Pixel Setup</li>
                 <li>📣 Meta &amp; 🔎 Google Ads Strategy &amp; Setup</li>
-                <li>🎓 Free Access to All Digital Courses</li>
+                <li>🎓 Free Access to Practical Digital Growth Resources</li>
               </ul>
             </div>
-            <a href="#order" class="pricing-cta">Launch Growth Flagship &nearr;</a>
+            <a href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20to%20discuss%20the%20Growth%20Flagship%20package" target="_blank" rel="noopener noreferrer" class="pricing-cta" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+              Discuss on WhatsApp &nearr;
+            </a>
           </div>
 
           <!-- Tier 3: Full Digital Partner -->
           <div class="pricing-card">
             <div>
               <div class="pricing-tier-name">Full Digital Growth Partner</div>
-              <div class="pricing-price">$6,500</div>
-              <div class="pricing-turnaround">⚡ Custom Timeline</div>
+              <div class="pricing-price">Partner Agreement</div>
+              <div class="pricing-turnaround">⚡ Continuous Growth &amp; Dedicated Care</div>
               <p class="pricing-desc">For established companies wanting an all-in-one digital partner: custom solutions, managed ad campaigns, and continuous growth.</p>
               <ul class="pricing-features">
                 <li>🌐 Bespoke Web Platform &amp; Custom Solutions</li>
@@ -2453,7 +2648,10 @@
                 <li>🚀 One Partner for Continuous Digital Growth</li>
               </ul>
             </div>
-            <a href="#order" class="pricing-cta">Partner With Us &nearr;</a>
+            <a href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20to%20partner%20with%20you%20for%20full%20digital%20growth" target="_blank" rel="noopener noreferrer" class="pricing-cta" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+              Partner on WhatsApp &nearr;
+            </a>
           </div>
         </div>
       </div>
@@ -2498,6 +2696,31 @@
       <span class="inquiry-eyebrow">🚀 One Partner for Your Digital Growth</span>
       <h2>Ready to build trust and generate more customers?</h2>
       <p>From building your website to getting it discovered, promoting it, tracking results, and continuously improving it, we provide the digital services you need — at reasonable prices. Build. Market. Grow.</p>
+      
+      <!-- Trust & Conversion Architecture Pillars -->
+      <div class="inquiry-trust-grid">
+        <div class="inquiry-trust-card">
+          <span class="inquiry-trust-icon">🤝</span>
+          <div class="inquiry-trust-title">Built to Build Trust</div>
+          <div class="inquiry-trust-desc">Clean typography, modern aesthetics, and professional polish that immediately establish credibility and authority for your business.</div>
+        </div>
+        <div class="inquiry-trust-card">
+          <span class="inquiry-trust-icon">🎯</span>
+          <div class="inquiry-trust-title">Built to Generate Customers</div>
+          <div class="inquiry-trust-desc">Conversion-driven architectures with frictionless WhatsApp inquiry routing, tailored calls-to-action, and lead capture.</div>
+        </div>
+        <div class="inquiry-trust-card">
+          <span class="inquiry-trust-icon">⚡</span>
+          <div class="inquiry-trust-title">Same-Day Delivery Available</div>
+          <div class="inquiry-trust-desc">Need an urgent launch? We move with lightning speed. From same-day rapid deployments to comprehensive custom growth ecosystems.</div>
+        </div>
+        <div class="inquiry-trust-card">
+          <span class="inquiry-trust-icon">🛠️</span>
+          <div class="inquiry-trust-title">Free Lifetime Management</div>
+          <div class="inquiry-trust-desc">Your website doesn’t stop at launch. Enjoy ongoing technical support, content updates, and continuous improvements at zero extra cost.</div>
+        </div>
+      </div>
+
       <div class="inquiry-tags">
         <span class="inquiry-chip">🌐 Web Development</span>
         <span class="inquiry-chip">📈 Digital Marketing</span>
@@ -2508,9 +2731,14 @@
         <span class="inquiry-chip">🎓 Digital Courses</span>
         <span class="inquiry-chip">🛠️ Free Lifetime Management</span>
       </div>
+
       <div class="inquiry-cta">
-        <a class="pill pill-light" href="mailto:studio@webcloud.build?subject=WebCloud%20Project%20Inquiry%20%E2%80%94%20Build.%20Market.%20Grow.">Launch Your Project &nearr;</a>
-        <a class="inquiry-direct" href="mailto:studio@webcloud.build">studio@webcloud.build</a>
+        <a class="whatsapp-btn" href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20to%20start%20a%20project%20with%20you" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+          Chat on WhatsApp: +91 90768 88172
+        </a>
+        <a class="pill pill-light" href="mailto:studio@webcloud.build?subject=WebCloud%20Project%20Inquiry%20%E2%80%94%20Build.%20Market.%20Grow.">Email Us Directly &nearr;</a>
+        <a class="inquiry-direct" href="tel:+919076888172">Call: +91 90768 88172</a>
       </div>
     </section>
 
@@ -2538,8 +2766,12 @@
         <div class="footer-links-col">
           <h4>Connect</h4>
           <ul>
+            <li><a href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20to%20discuss%20a%20website%20project" target="_blank" rel="noopener noreferrer" style="color:#25D366; font-weight:600; display:inline-flex; align-items:center; gap:6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+              WhatsApp: +91 90768 88172
+            </a></li>
             <li><a href="mailto:studio@webcloud.build">studio@webcloud.build</a></li>
-            <li><a href="#pricing">Transparent Pricing</a></li>
+            <li><a href="#pricing">Tailored Packages</a></li>
             <li><a href="#order">Start Your Project</a></li>
             <li><a href="https://github.com/Coolvik678/webcloud" target="_blank" rel="noopener noreferrer">GitHub &nearr;</a></li>
           </ul>
@@ -2548,6 +2780,7 @@
       <div class="footer-bottom">
         <div>WebCloud Studio &nbsp;&middot;&nbsp; Web Development &amp; Full Digital Growth &nbsp;&middot;&nbsp; Free Lifetime Management Included</div>
         <div>&copy; 2026 WebCloud. Build. Market. Grow.</div>
+      </div>
     </footer>
 
   </div>
@@ -2860,5 +3093,14 @@
 
   })();
   </script>
+
+  <!-- Floating WhatsApp Quick Connect Button -->
+  <a href="https://wa.me/919076888172?text=Hi%20WebCloud%2C%20I%27d%20like%20to%20discuss%20a%20website%20project" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp with WebCloud (+91 90768 88172)">
+    <svg viewBox="0 0 24 24"><path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.86.516 3.6 1.414 5.117L2 22l5.047-1.328A9.914 9.914 0 0 0 12.03 22c5.524 0 10.016-4.49 10.016-10S17.555 2 12.031 2zm0 18.258a8.21 8.21 0 0 1-4.226-1.164l-.305-.18-3.133.82.836-3.055-.196-.312A8.2 8.2 0 0 1 3.781 12c0-4.547 3.7-8.242 8.25-8.242 4.547 0 8.242 3.695 8.242 8.242 0 4.555-3.695 8.258-8.242 8.258zm4.524-6.172c-.246-.125-1.465-.723-1.691-.805-.23-.086-.395-.125-.563.125-.164.246-.64.805-.785.969-.145.168-.293.187-.539.062a6.797 6.797 0 0 1-1.996-1.23 7.514 7.514 0 0 1-1.383-1.723c-.145-.246-.016-.383.109-.504.11-.11.246-.293.371-.438.125-.148.164-.246.246-.41.082-.168.043-.313-.02-.438-.066-.125-.563-1.355-.774-1.855-.203-.493-.414-.426-.566-.434l-.484-.008c-.168 0-.438.063-.668.313-.23.25-.879.859-.879 2.094s.898 2.43 1.023 2.598c.125.168 1.766 2.7 4.282 3.785.6.258 1.066.414 1.433.531.602.192 1.152.164 1.586.1.484-.074 1.465-.6 1.672-1.176.207-.582.207-1.078.145-1.18-.063-.101-.227-.164-.473-.285z"/></svg>
+    <div class="whatsapp-float-text">
+      <span>Chat on WhatsApp</span>
+      <span class="whatsapp-float-sub">+91 90768 88172</span>
+    </div>
+  </a>
 </body>
 </html>
