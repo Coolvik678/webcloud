@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "^/en/journal/on-youtube/?$",
+      "dest": "/en/journal/300-million-button/index.html"
+    },
+    {
+      "src": "^/journal/on-youtube/?$",
+      "dest": "/journal/300-million-button/index.html"
+    },
+    {
+      "src": "^/en/?$",
+      "dest": "/en/index.html"
+    },
+    {
+      "src": "^/en/(.*)/?$",
+      "dest": "/en/$1/index.html"
+    },
+    {
+      "src": "^/(.*)/?$",
+      "dest": "/$1/index.html"
+    }
+  ]
+}

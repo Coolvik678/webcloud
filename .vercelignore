@@ -1,0 +1,16 @@
+.git
+.github
+node_modules
+.chrome_debug_profile*
+*.png
+*.jpg.bak
+*.log
+*.bat
+check_*.js
+test_*.js
+verify_*.js
+patch_*.js
+take_*.js
+inspect_*.js
+update_*.js
+*.py
