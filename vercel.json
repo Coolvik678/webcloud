@@ -1,27 +1,19 @@
 {
-  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
-    {
-      "src": "^/en/journal/on-youtube/?$",
-      "dest": "/en/journal/300-million-button/index.html"
-    },
-    {
-      "src": "^/journal/on-youtube/?$",
-      "dest": "/journal/300-million-button/index.html"
-    },
-    {
-      "src": "^/en/?$",
-      "dest": "/en/index.html"
-    },
-    {
-      "src": "^/en/(.*)/?$",
-      "dest": "/en/$1/index.html"
-    },
-    {
-      "src": "^/(.*)/?$",
-      "dest": "/$1/index.html"
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/en/index.html" },
+    { "source": "/en", "destination": "/en/index.html" },
+    { "source": "/_next/static/:path*", "destination": "/static/:path*" },
+    { "source": "/_next/image", "destination": "/api/image" },
+    { "source": "/en/journal/on-youtube", "destination": "/en/journal/300-million-button/index.html" },
+    { "source": "/journal/on-youtube", "destination": "/journal/300-million-button/index.html" },
+    { "source": "/en/journal/why-i-dont-use-templates", "destination": "/en/journal/why-i-dont-use-templates/index.html" },
+    { "source": "/en/journal/200-milliseconds", "destination": "/en/journal/200-milliseconds/index.html" },
+    { "source": "/en/journal/300-million-button", "destination": "/en/journal/300-million-button/index.html" },
+    { "source": "/en/work", "destination": "/en/work/index.html" },
+    { "source": "/en/studio", "destination": "/en/studio/index.html" },
+    { "source": "/en/start-project", "destination": "/en/start-project/index.html" },
+    { "source": "/en/contact", "destination": "/en/contact/index.html" }
   ]
 }

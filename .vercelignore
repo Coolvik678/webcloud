@@ -13,4 +13,16 @@ patch_*.js
 take_*.js
 inspect_*.js
 update_*.js
-*.py
+dump_*.js
+bake_*.js
+sync_*.js
+cdp_*.js
+build_*.js
+debug_*.js
+view_*.js
+find_*.py
+inject_*.py
+revert_*.py
+serve.py
+server.js
+dump.html
