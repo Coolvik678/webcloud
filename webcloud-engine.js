@@ -261,6 +261,20 @@
       }
     });
 
+    // Resolve any Next.js image optimizer paths directly to static assets
+    document.querySelectorAll('img').forEach(function(img) {
+      if (img.src && img.src.indexOf('/_next/image') !== -1) {
+        var match = img.src.match(/url=([^&]+)/);
+        if (match) {
+          var realPath = decodeURIComponent(match[1]);
+          img.src = realPath.charAt(0) === '/' ? realPath : '/' + realPath;
+        }
+      }
+      if (img.srcset && img.srcset.indexOf('/_next/image') !== -1) {
+        img.srcset = img.srcset.replace(/\/_next\/image\?url=%2F([^&]+)[^,\s]*/g, '/$1');
+      }
+    });
+
     // Footer copyright update
     document.querySelectorAll('footer .rule div, footer .rule p, footer').forEach(function(el) {
       if (el.childNodes) {

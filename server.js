@@ -34,42 +34,6 @@ const KILL_STYLE = `<style id="kill-black-screen">
   }
   html.intro { overflow: auto !important; }
   body { overflow: auto !important; background-color: #f4f4f2 !important; }
-  [data-reveal],
-  [data-reveal="clip"] > *,
-  [data-reveal="focus"],
-  [data-reveal="up"],
-  [data-reveal="fade"],
-  [data-assemble] [data-cx],
-  [data-assemble] .cx-body,
-  .prose {
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-    translate: none !important;
-    clip-path: none !important;
-    visibility: visible !important;
-  }
-  .brief-build [data-reveal] {
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-  }
-  .brief-build .brief-step>h2,
-  .js .brief-build .field-label,
-  .js .brief-build .field>legend,
-  .js .brief-build .field-hint,
-  .js .brief-build .brief-draft,
-  .js .brief-build .brief-submit {
-    opacity: 1 !important;
-  }
-  .brief-build .chip {
-    clip-path: none !important;
-  }
-  .field-input {
-    border: 1px solid var(--line) !important;
-    background: var(--paper) !important;
-    color: var(--ink) !important;
-  }
 </style>`;
 
 const server = http.createServer((req, res) => {

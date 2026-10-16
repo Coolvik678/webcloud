@@ -314,26 +314,17 @@
       preloader.style.pointerEvents = 'none';
     }
 
-    // 8b. Reveal Enforcer (Zero Blank Spaces)
-    function enforceVisibility() {
-      document.querySelectorAll('[data-reveal]').forEach(function(el) {
-        el.classList.add('is-in');
-        el.style.opacity = '1';
-        el.style.filter = 'none';
-        el.style.transform = 'none';
-        el.style.clipPath = 'none';
-      });
-      document.querySelectorAll('[data-reveal=clip] > *').forEach(function(el) {
-        el.style.clipPath = 'none';
-      });
+    // 8b. Journal Prose Visibility Guard (Only on journal pages)
+    if (window.location.pathname.includes('/journal/')) {
       document.querySelectorAll('.prose').forEach(function(el) {
         el.style.opacity = '1';
         el.style.visibility = 'visible';
       });
+      document.querySelectorAll('.parallax-img').forEach(function(el) {
+        el.style.clipPath = 'none';
+        el.style.opacity = '1';
+      });
     }
-    enforceVisibility();
-    setTimeout(enforceVisibility, 300);
-    setTimeout(enforceVisibility, 1000);
 
     // 9. Kinetic Typography Wobbly Engine
     function initKineticWobble() {
