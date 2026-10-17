@@ -239,9 +239,9 @@
     document.querySelectorAll('footer p').forEach(function(p) {
       var t = p.textContent;
       if (t.indexOf('St. Georgen') !== -1 || t.indexOf('Upper Austria') !== -1) {
-        p.textContent = 'Web and digital architecture studio. Bespoke high-performance digital experiences and 3D web applications.';
+        p.textContent = 'Web and digital architecture studio. Bespoke high-performance digital experiences and 3D web applications. Global Hubs: New York · London · Zurich · Dubai · Bangalore · Singapore · Tokyo.';
       } else if (t.indexOf('meticulous:') !== -1) {
-        p.textContent = 'WebCloud Corporation: engineered with precision.';
+        p.textContent = 'WebCloud Corporation: engineered with precision across international time zones.';
       }
     });
 
@@ -419,7 +419,27 @@
         services.push(cb.value);
       });
 
-      var budget = form.querySelector('input[name="budget"]:checked')?.value || 'Not specified';
+      var budgetCode = form.querySelector('input[name="budget"]:checked')?.value || 'Not specified';
+      var activeCurr = (localStorage.getItem('webcloud_currency') || 'USD').toUpperCase();
+      var budgetLabel = budgetCode;
+      var currMap = {
+        USD: { b1: 'up to $2,500', b2: '$2,500 to $9,000', b3: '$9,000 to $25,000', b4: 'over $25,000' },
+        EUR: { b1: 'up to €2,000', b2: '€2,000 to €8,000', b3: '€8,000 to €20,000', b4: 'over €20,000' },
+        GBP: { b1: 'up to £1,800', b2: '£1,800 to £7,000', b3: '£7,000 to £18,000', b4: 'over £18,000' },
+        INR: { b1: 'up to ₹2,00,000', b2: '₹2,00,000 to ₹7,50,000', b3: '₹7,50,000 to ₹20,00,000', b4: 'over ₹20,00,000' },
+        AED: { b1: 'up to AED 9,000', b2: 'AED 9,000 to AED 35,000', b3: 'AED 35,000 to AED 95,000', b4: 'over AED 95,000' },
+        SGD: { b1: 'up to S$3,300', b2: 'S$3,300 to S$12,000', b3: 'S$12,000 to S$33,000', b4: 'over S$33,000' },
+        CHF: { b1: 'up to CHF 2,000', b2: 'CHF 2,000 to CHF 8,000', b3: 'CHF 8,000 to CHF 20,000', b4: 'over CHF 20,000' },
+        CAD: { b1: 'up to CA$3,500', b2: 'CA$3,500 to CA$12,500', b3: 'CA$12,500 to CA$33,000', b4: 'over CA$33,000' },
+        AUD: { b1: 'up to AU$3,800', b2: 'AU$3,800 to AU$14,000', b3: 'AU$14,000 to AU$36,000', b4: 'over AU$36,000' },
+        JPY: { b1: 'up to ¥350,000', b2: '¥350,000 to ¥1,400,000', b3: '¥1,400,000 to ¥3,500,000', b4: 'over ¥3,500,000' }
+      };
+      if (currMap[activeCurr] && currMap[activeCurr][budgetCode]) {
+        budgetLabel = currMap[activeCurr][budgetCode] + ' (' + activeCurr + ')';
+      } else if (budgetCode === 'open') {
+        budgetLabel = 'Open (' + activeCurr + ')';
+      }
+
       var timeline = form.querySelector('input[name="timeline"]:checked')?.value || 'Not specified';
 
       var lines = [
@@ -430,8 +450,9 @@
         '🏢 *Company:* ' + (company || 'Not provided'),
         '📞 *Phone:* ' + (phone || 'Not provided'),
         '🛠 *Services:* ' + (services.length > 0 ? services.join(', ') : 'All Services'),
-        '💰 *Budget:* ' + budget,
+        '💰 *Budget:* ' + budgetLabel,
         '⏱ *Timeline:* ' + timeline,
+        '🌐 *Currency:* ' + activeCurr,
         '',
         '📝 *Project Details:*',
         msg || '(No additional message provided)'
