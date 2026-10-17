@@ -27,7 +27,7 @@
       tag: '3D WebGL · Flagship 2026',
       lead: 'Interactive 3D digital flagship and immersive hardware tour engineered with Three.js and spatial audio.',
       secret: 'Next-Gen Flagship.',
-      img: '/api/media/file/webcloud-3d-flagship.png',
+      img: '/api/media/file/webcloud-3d-flagship.webp',
       url: 'https://webcloud-3d-flagship.vercel.app/'
     },
     {
@@ -35,7 +35,7 @@
       tag: 'Ultra-Luxury Real Estate · Dubai',
       lead: 'Ultra-luxury waterfront residences and architectural marvel in Dubai.',
       secret: 'Dubai Luxury.',
-      img: '/api/media/file/sobha-privy.png',
+      img: '/api/media/file/sobha-privy.webp',
       url: 'https://sobha-privy-collection.com/'
     },
     {
@@ -97,7 +97,7 @@
 
   // 2. Preloader Safety Guard
   try {
-    window.sessionStorage.setItem('metic-intro', '1');
+    window.sessionStorage.setItem('webcloud-intro', '1');
     setTimeout(function() {
       var p = document.querySelector('.preloader');
       if (p) {
@@ -261,26 +261,65 @@
       }
     });
 
-    // Resolve any Next.js image optimizer paths directly to static assets
-    document.querySelectorAll('img').forEach(function(img) {
-      if (img.src && img.src.indexOf('/_next/image') !== -1) {
-        var match = img.src.match(/url=([^&]+)/);
+    // Resolve any Next.js image optimizer paths directly to static assets and prevent broken image falls
+    function sanitizeImageElement(img) {
+      if (!img) return;
+      var src = img.getAttribute('src') || img.src || '';
+      var srcset = img.getAttribute('srcset') || img.srcset || '';
+
+      if (src.indexOf('/_next/image') !== -1 || srcset.indexOf('/_next/image') !== -1) {
+        var match = (src + ' ' + srcset).match(/url=([^&"'\s]+)/);
         if (match) {
           var realPath = decodeURIComponent(match[1]);
-          img.src = realPath.charAt(0) === '/' ? realPath : '/' + realPath;
+          if (realPath.charAt(0) !== '/') realPath = '/' + realPath;
+          img.removeAttribute('srcset');
+          img.src = realPath;
         }
       }
-      if (img.srcset && img.srcset.indexOf('/_next/image') !== -1) {
-        img.srcset = img.srcset.replace(/\/_next\/image\?url=%2F([^&]+)[^,\s]*/g, '/$1');
+
+      if (src.indexOf('kontakt-lupe') !== -1 || (img.alt && img.alt.toLowerCase().indexOf('magnifier') !== -1)) {
+        img.removeAttribute('srcset');
+        img.src = '/api/media/file/kontakt-lupe.jpeg';
       }
-    });
+
+      if (src.indexOf('story-paper') !== -1) {
+        img.removeAttribute('srcset');
+        img.src = '/api/media/file/story-paper-1920x1079.jpg';
+      }
+    }
+
+    document.querySelectorAll('img').forEach(sanitizeImageElement);
+
+    // Dynamic brand text node scrub
+    function scrubBrandText(el) {
+      if (!el) return;
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      var n;
+      while (n = walker.nextNode()) {
+        var v = n.nodeValue;
+        if (!v) continue;
+        if (/\b(metic|matic|meticulous)\b/i.test(v)) {
+          if (/arithmetic|automatic|dramatic|programmatic|mathematical/i.test(v)) continue;
+          n.nodeValue = v
+            .replace(/\bMetic\b/g, 'WebCloud')
+            .replace(/\bmetic\b/g, 'webcloud')
+            .replace(/\bMatic\b/g, 'WebCloud')
+            .replace(/\bmatic\b/g, 'webcloud')
+            .replace(/closer \u2192 meticulous \u2192 metic\.?/g, 'digital \u2192 engineering \u2192 webcloud.')
+            .replace(/genau \u2192 meticulous \u2192 metic\.?/g, 'pr\u00e4zise \u2192 architektur \u2192 webcloud.')
+            .replace(/\bmeticulous\b/gi, 'precision engineered');
+        }
+      }
+    }
+    scrubBrandText(document.body);
+
 
     // Footer copyright update
     document.querySelectorAll('footer .rule div, footer .rule p, footer').forEach(function(el) {
       if (el.childNodes) {
         el.childNodes.forEach(function(node) {
-          if (node.nodeType === 3 && node.nodeValue && node.nodeValue.indexOf('metic') !== -1) {
-            node.nodeValue = node.nodeValue.replace(/metic\.\s*·\s*Manuel Mayrhofer/g, 'WebCloud Corporation');
+          if (node.nodeType === 3 && node.nodeValue && node.nodeValue.indexOf('webcloud') !== -1) {
+            node.nodeValue = node.nodeValue.replace(/webcloud\.\s*·\s*WebCloud Corporation/g, 'WebCloud Corporation');
           }
         });
       }
@@ -403,7 +442,53 @@
     }
   }, true);
 
-  // 6. Continuous / Post-hydration decorator
+  // 6. Global image error protection & dynamic observer
+  window.addEventListener('error', function(e) {
+    if (e.target && e.target.tagName === 'IMG') {
+      var img = e.target;
+      var src = (img.src || '').toLowerCase();
+      var alt = (img.alt || '').toLowerCase();
+
+      if (src.indexOf('kontakt-lupe') !== -1 || alt.indexOf('magnifier') !== -1) {
+        img.removeAttribute('srcset');
+        img.src = '/api/media/file/kontakt-lupe.jpeg';
+      } else if (src.indexOf('/_next/image') !== -1) {
+        var match = (img.src || '').match(/url=([^&]+)/);
+        if (match) {
+          var real = decodeURIComponent(match[1]);
+          if (real.charAt(0) !== '/') real = '/' + real;
+          img.removeAttribute('srcset');
+          img.src = real;
+        }
+      } else if (src.indexOf('story-paper') !== -1) {
+        img.removeAttribute('srcset');
+        img.src = '/api/media/file/story-paper-1920x1079.jpg';
+      }
+    }
+  }, true);
+
+  if (window.MutationObserver && document.body) {
+    var obs = new MutationObserver(function(mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var added = mutations[i].addedNodes;
+        for (var j = 0; j < added.length; j++) {
+          var node = added[j];
+          if (node.nodeType === 1) {
+            if (node.tagName === 'IMG') {
+              var s = (node.src || '').toLowerCase();
+              if (s.indexOf('kontakt-lupe') !== -1 || (node.alt && node.alt.toLowerCase().indexOf('magnifier') !== -1)) {
+                node.removeAttribute('srcset');
+                node.src = '/api/media/file/kontakt-lupe.jpeg';
+              }
+            }
+          }
+        }
+      }
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+
+  // 7. Continuous / Post-hydration decorator
   function runLoop() {
     applyDecorations();
   }
@@ -419,3 +504,4 @@
   setTimeout(runLoop, 1600);
   setTimeout(runLoop, 3000);
 })();
+

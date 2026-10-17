@@ -2,7 +2,15 @@
 .github
 node_modules
 .chrome_debug_profile*
-*.png
+shot_*.png
+test_*.png
+final_*.png
+localhost_*.png
+screenshot*.png
+verify_*.png
+start_project_*.png
+pristine_*.png
+live_*.png
 *.jpg.bak
 *.log
 *.bat

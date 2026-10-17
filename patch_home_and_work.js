@@ -28,7 +28,7 @@ function patchHome(filePath) {
   html = html.replace('href="/journal/200-milliseconds"', 'href="javascript:void(0)" style="cursor:default"');
 
   // 3. Logo in header & footer
-  // Replace <span class="font-sans font-semibold tracking-[-0.03em]">metic<span class="text-accent">.</span></span>
+  // Replace <span class="font-sans font-semibold tracking-[-0.03em]">webcloud<span class="text-accent">.</span></span>
   // or webcloud
   const logoRegex = /<a[^>]*aria-label="[^"]*home"[^>]*>[\s\S]*?<\/a>/gi;
   html = html.replace(logoRegex, (match) => {

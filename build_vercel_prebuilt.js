@@ -25,7 +25,7 @@ const skip = new Set([
 
 function copyRecursive(src, dest) {
   const base = path.basename(src);
-  if (skip.has(base) || base.endsWith('.png') || base.endsWith('.log') || base.endsWith('.bak')) {
+  if (skip.has(base) || base.startsWith('shot_') || base.startsWith('test_') || base.startsWith('final_') || base.endsWith('.log') || base.endsWith('.bak')) {
     return;
   }
   const stat = fs.statSync(src);

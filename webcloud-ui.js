@@ -314,15 +314,21 @@
       preloader.style.pointerEvents = 'none';
     }
 
-    // 8b. Journal Prose Visibility Guard (Only on journal pages)
+    // 8b. Journal Prose & Media Visibility Guard (Only on journal pages)
     if (window.location.pathname.includes('/journal/')) {
       document.querySelectorAll('.prose').forEach(function(el) {
         el.style.opacity = '1';
         el.style.visibility = 'visible';
       });
-      document.querySelectorAll('.parallax-img').forEach(function(el) {
+      document.querySelectorAll('.measure-frame, [data-reveal="clip"] > *').forEach(function(el) {
         el.style.clipPath = 'none';
         el.style.opacity = '1';
+        el.style.visibility = 'visible';
+      });
+      document.querySelectorAll('.parallax-img, main img').forEach(function(el) {
+        el.style.clipPath = 'none';
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
       });
     }
 

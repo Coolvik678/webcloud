@@ -154,15 +154,15 @@ function patchHomeStatic(filePath) {
   html = html.replace('Dimbach Veterinary Practice', 'Sobha Privy Collection');
   html = html.replace('Veterinary care with heart, on a phone too.', 'Ultra-luxury real estate showcase engineered for high-net-worth client acquisition.');
 
-  html = html.replace('Manuel Mayrhofer, portfolio', 'The Nest Sanctuary');
+  html = html.replace('WebCloud Corporation, portfolio', 'The Nest Sanctuary');
   html = html.replace('A CV that compiles itself first.', 'Modern architectural co-working and club sanctuary with seamless booking.');
 
   // First card
   html = html.replace('GORW Table Tennis', 'WebCloud 3D Flagship Experience');
 
   // Journal card 1 static text
-  html = html.replace('New on YouTube: This is metic.', 'Why Conversion Beats Pure Decoration');
-  html = html.replace('metic. is now on YouTube. The trailer shows what I do in under a minute and a half. Built like a website: from code, frame by frame.', 'Why aesthetic design without conversion architecture is just expensive digital art. How WebCloud engineers platforms for measurable ROI.');
+  html = html.replace('New on Instagram: This is WebCloud.', 'Why Conversion Beats Pure Decoration');
+  html = html.replace('WebCloud is now on Instagram. The trailer shows what I do in under a minute and a half. Built like a website: from code, frame by frame.', 'Why aesthetic design without conversion architecture is just expensive digital art. How WebCloud engineers platforms for measurable ROI.');
 
   fs.writeFileSync(filePath, html, 'utf8');
   console.log('Patched static home: ' + filePath);

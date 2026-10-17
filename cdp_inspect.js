@@ -84,7 +84,7 @@ async function run() {
   const evalIntro = await send('Runtime.evaluate', {
     expression: `JSON.stringify({
       classList: document.documentElement.className,
-      sessionStorageIntro: sessionStorage.getItem('metic-intro'),
+      sessionStorageIntro: sessionStorage.getItem('webcloud-intro'),
       canvases: document.querySelectorAll('canvas').length,
       preloaderDisplay: getComputedStyle(document.querySelector('.preloader') || document.body).display,
       bodyChildren: document.body.children.length,
