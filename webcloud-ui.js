@@ -561,8 +561,6 @@
           timingLabels.forEach(l => { l.textContent = tInfo.text; });
           score += 0.75;
         }
-      }
-      window.__webcloud_updateDraft = updateDraft;
 
         const pct = Math.min(100, Math.round((score / total) * 100));
         countValues.forEach(el => {
@@ -575,6 +573,7 @@
           path.style.strokeDashoffset = (1 - (pct / 100)) + 'px';
         });
       }
+      window.__webcloud_updateDraft = updateDraft;
 
       form.addEventListener('input', updateDraft);
       form.addEventListener('change', updateDraft);
