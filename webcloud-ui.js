@@ -138,8 +138,6 @@
     }
 
     // 4. Global Studio World Clock & Scroll Readout
-    const progressSpan = document.querySelector('.nav-readout .nav-progress span');
-    const measureSpan = document.querySelector('.nav-readout .measure');
     let isUserScrolling = false;
     let scrollIdleTimer = null;
 
@@ -162,35 +160,36 @@
       ].join(' · ');
     }
 
-    if (measureSpan) {
-      measureSpan.textContent = formatStudioWorldClock();
-      setInterval(() => {
-        if (!isUserScrolling && measureSpan) {
-          measureSpan.textContent = formatStudioWorldClock();
+    function updateWorldClock() {
+      const mSpan = document.querySelector('.nav-readout .measure');
+      if (mSpan) {
+        mSpan.id = 'wc-world-clock';
+        if (!isUserScrolling) {
+          mSpan.textContent = formatStudioWorldClock();
         }
-      }, 1000);
-    }
-
-    if (progressSpan) {
-      function onScroll() {
-        isUserScrolling = true;
-        clearTimeout(scrollIdleTimer);
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
-        progressSpan.style.width = pct.toFixed(1) + '%';
-        if (measureSpan) {
-          measureSpan.textContent = Math.round(scrollTop) + ' px · ' + Math.round(pct) + '%';
-        }
-        scrollIdleTimer = setTimeout(() => {
-          isUserScrolling = false;
-          if (measureSpan) {
-            measureSpan.textContent = formatStudioWorldClock();
-          }
-        }, 1600);
       }
-      window.addEventListener('scroll', onScroll, { passive: true });
     }
+    updateWorldClock();
+    setInterval(updateWorldClock, 1000);
+
+    function onScroll() {
+      isUserScrolling = true;
+      clearTimeout(scrollIdleTimer);
+      const progressSpan = document.querySelector('.nav-readout .nav-progress span');
+      const measureSpan = document.querySelector('.nav-readout .measure');
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      if (progressSpan) progressSpan.style.width = pct.toFixed(1) + '%';
+      if (measureSpan) {
+        measureSpan.textContent = Math.round(scrollTop) + ' px · ' + Math.round(pct) + '%';
+      }
+      scrollIdleTimer = setTimeout(() => {
+        isUserScrolling = false;
+        updateWorldClock();
+      }, 1600);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     // 4b. International Currency Engine & Real-Time Switcher
     const CURRENCIES = {
@@ -352,10 +351,12 @@
 
     // Inject Currency selector into header
     function setupHeaderCurrencyPill() {
-      const navPills = document.querySelectorAll('header .nav-pill');
+      const navPills = document.querySelectorAll('.nav-pill');
       if (navPills.length < 2) return;
       const rightPill = navPills[1];
-      if (document.getElementById('wc-currency-wrap')) return;
+      const existingWrap = document.getElementById('wc-currency-wrap');
+      if (existingWrap && rightPill.contains(existingWrap)) return;
+      if (existingWrap && existingWrap.parentElement) existingWrap.parentElement.removeChild(existingWrap);
 
       const wrap = document.createElement('div');
       wrap.id = 'wc-currency-wrap';
@@ -412,15 +413,21 @@
       wrap.appendChild(dropdown);
 
       const startBtn = rightPill.querySelector('a[href*="start-project"]');
-      if (startBtn && startBtn.parentElement) {
+      if (startBtn && startBtn.parentElement && startBtn.parentElement !== rightPill) {
         rightPill.insertBefore(wrap, startBtn.parentElement);
+      } else if (startBtn) {
+        rightPill.insertBefore(wrap, startBtn);
       } else {
-        rightPill.insertBefore(wrap, rightPill.lastElementChild);
+        rightPill.appendChild(wrap);
       }
 
       applyCurrency(activeCurrency);
     }
     setupHeaderCurrencyPill();
+    setTimeout(setupHeaderCurrencyPill, 400);
+    setTimeout(setupHeaderCurrencyPill, 1000);
+    setTimeout(setupHeaderCurrencyPill, 2000);
+    setInterval(setupHeaderCurrencyPill, 3500);
 
     // 5. Theme Selector
     const themeRadios = document.querySelectorAll('input[name="theme"]');
