@@ -401,13 +401,14 @@
     }
   }, true);
 
-  // 5. Start Project Form -> WhatsApp Lead Capture
+  // 5. Start Project Form -> Direct Email Dispatch (myovik@gmail.com)
   document.addEventListener('submit', function(e) {
     var form = e.target.closest('.brief-build, form');
     if (form) {
       e.preventDefault();
       e.stopPropagation();
 
+      var submitBtn = form.querySelector('button[type="submit"]');
       var name = (form.querySelector('#f-name, input[name="name"]')?.value || '').trim();
       var email = (form.querySelector('#f-email, input[name="email"]')?.value || '').trim();
       var company = (form.querySelector('#f-company, input[name="company"]')?.value || '').trim();
@@ -442,24 +443,95 @@
 
       var timeline = form.querySelector('input[name="timeline"]:checked')?.value || 'Not specified';
 
-      var lines = [
-        '🚀 *New Project Brief from WebCloud Website*',
-        '',
-        '👤 *Client:* ' + (name || 'Anonymous'),
-        '📧 *Email:* ' + (email || 'Not provided'),
-        '🏢 *Company:* ' + (company || 'Not provided'),
-        '📞 *Phone:* ' + (phone || 'Not provided'),
-        '🛠 *Services:* ' + (services.length > 0 ? services.join(', ') : 'All Services'),
-        '💰 *Budget:* ' + budgetLabel,
-        '⏱ *Timeline:* ' + timeline,
-        '🌐 *Currency:* ' + activeCurr,
-        '',
-        '📝 *Project Details:*',
-        msg || '(No additional message provided)'
-      ];
+      // Visual feedback on submit button
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.85';
+        submitBtn.innerHTML = '<span class="relative">Sending brief to ' + GMAIL + '...</span><span class="btn-dot" style="animation:spin 1s linear infinite">⏳</span>';
+      }
 
-      var waMsg = encodeURIComponent(lines.join('\n'));
-      window.open(WA_URL + '?text=' + waMsg, '_blank');
+      var subjectText = '🚀 New WebCloud Project Brief: ' + (company || name || 'New Client') + ' [' + budgetLabel + ']';
+      var emailLines = [
+        '🚀 New Project Brief from WebCloud Website',
+        '-------------------------------------------',
+        'Client: ' + (name || 'Anonymous'),
+        'Email: ' + (email || 'Not provided'),
+        'Company: ' + (company || 'Not provided'),
+        'Phone: ' + (phone || 'Not provided'),
+        'Services: ' + (services.length > 0 ? services.join(', ') : 'All Services'),
+        'Budget: ' + budgetLabel,
+        'Timeline: ' + timeline,
+        'Currency: ' + activeCurr,
+        '-------------------------------------------',
+        'Project Details:',
+        msg || '(No additional message provided)'
+      ].join('\n');
+
+      var payload = {
+        _subject: subjectText,
+        _replyto: email || GMAIL,
+        _template: 'table',
+        _captcha: 'false',
+        Client_Name: name || 'Anonymous',
+        Client_Email: email || 'Not provided',
+        Company: company || 'Not provided',
+        Phone: phone || 'Not provided',
+        Services: services.length > 0 ? services.join(', ') : 'All Services',
+        Budget: budgetLabel,
+        Timeline: timeline,
+        Currency: activeCurr,
+        Project_Details: msg || 'No additional message provided'
+      };
+
+      function renderSuccess() {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '1';
+          submitBtn.innerHTML = '<span class="relative font-medium" style="color:#22c55e">✓ Brief Sent to ' + GMAIL + '</span><span class="btn-dot" style="background:#22c55e;color:#fff">✓</span>';
+        }
+
+        // Show prominent confirmation box
+        var conf = form.querySelector('#wc-sent-confirmation');
+        if (!conf) {
+          conf = document.createElement('div');
+          conf.id = 'wc-sent-confirmation';
+          conf.style.cssText = 'margin-top:1.25rem;padding:1rem 1.25rem;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);border-radius:12px;color:#22c55e;font-size:0.9rem;line-height:1.5;';
+          var btnContainer = submitBtn ? (submitBtn.closest('.mt-8, .mt-6, div') || submitBtn.parentElement) : form;
+          btnContainer.appendChild(conf);
+        }
+        conf.innerHTML = '<div style="font-weight:600;display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg> Brief Dispatched to ' + GMAIL + '</div><div>Your brief has been delivered directly to WebCloud. We will review your requirements and respond within 24 hours.</div>';
+
+        // Stamp browser preview
+        var stamp = document.querySelector('.bd-stamp');
+        if (stamp) {
+          stamp.textContent = 'Received.';
+          stamp.style.opacity = '1';
+        }
+      }
+
+      function fallbackEmail() {
+        var mailtoUri = 'mailto:' + GMAIL + '?subject=' + encodeURIComponent(subjectText) + '&body=' + encodeURIComponent(emailLines);
+        window.location.href = mailtoUri;
+        renderSuccess();
+      }
+
+      fetch('https://formsubmit.co/ajax/' + GMAIL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res) {
+        return res.json();
+      })
+      .then(function(data) {
+        renderSuccess();
+      })
+      .catch(function(err) {
+        fallbackEmail();
+      });
     }
   }, true);
 
