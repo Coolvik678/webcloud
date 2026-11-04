@@ -10,7 +10,7 @@
  *    - Card 3: The 200 milliseconds that decide everything (/en/journal/200-milliseconds)
  *    - All articles: /en/journal
  * 5. Contact Details (myovik@gmail.com, WhatsApp +91 90768 88172, remove Austrian addresses)
- * 6. Floating WhatsApp Contact Button
+ * 6. Floating Gmail Contact Button (myovik@gmail.com)
  * 7. Start Project Direct WhatsApp Lead Dispatch
  */
 (function() {
@@ -340,8 +340,8 @@
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
           } else if (txt === 'youtube' || href.indexOf('youtube') !== -1 || txt === 'whatsapp' || href.indexOf('wa.me') !== -1) {
-            a.textContent = 'WhatsApp';
-            a.href = WA_URL + '?text=' + encodeURIComponent('Hello WebCloud!');
+            a.textContent = 'Gmail';
+            a.href = 'mailto:' + GMAIL + '?subject=' + encodeURIComponent('Project Inquiry — WebCloud Corporation');
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
           }
@@ -349,18 +349,45 @@
       });
     }
 
-    // E. Floating WhatsApp Button
-    if (!document.getElementById('webcloud-floating-whatsapp')) {
+    // Clean up any old floating whatsapp if present
+    var oldWa = document.getElementById('webcloud-floating-whatsapp');
+    if (oldWa) oldWa.remove();
+
+    // E. Floating Gmail Button (directed to myovik@gmail.com)
+    if (!document.getElementById('webcloud-floating-gmail')) {
       var fab = document.createElement('a');
-      fab.id = 'webcloud-floating-whatsapp';
-      fab.href = WA_URL + '?text=' + encodeURIComponent('Hi WebCloud, I would like to discuss a project.');
-      fab.target = '_blank';
-      fab.rel = 'noopener noreferrer';
-      fab.setAttribute('aria-label', 'Chat with WebCloud on WhatsApp');
-      fab.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,0.4);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);cursor:pointer;';
-      fab.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#ffffff" viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,218.35a8,8,0,0,0,9.82,9.82l41.47-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6-1.08l-30.92,8.46,8.46-30.92a8,8,0,0,0-1.08-6A88,88,0,1,1,128,216Zm47.46-62.89-21.7-9.3a16,16,0,0,0-17.72,3.61l-6.49,6.49a56.44,56.44,0,0,1-29.16-29.16l6.49-6.49a16,16,0,0,0,3.61-17.72l-9.3-21.7a16,16,0,0,0-19.34-9.15l-16,4.8A16,16,0,0,0,56,90.4a96.11,96.11,0,0,0,96,96,16,16,0,0,0,12.72-9.66l4.8-16A16,16,0,0,0,175.46,153.11Z"/></svg>';
-      fab.addEventListener('mouseenter', function() { fab.style.transform = 'scale(1.1) rotate(5deg)'; });
-      fab.addEventListener('mouseleave', function() { fab.style.transform = 'scale(1) rotate(0deg)'; });
+      fab.id = 'webcloud-floating-gmail';
+      fab.href = 'mailto:' + GMAIL + '?subject=' + encodeURIComponent('Project Inquiry — WebCloud Corporation');
+      fab.setAttribute('aria-label', 'Send Email to WebCloud at ' + GMAIL);
+      fab.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;width:54px;height:54px;background:#ffffff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.08);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1),box-shadow 0.3s ease;cursor:pointer;text-decoration:none;';
+      
+      // Official Google Gmail SVG Icon
+      fab.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="28" height="28">' +
+        '<path fill="#4285F4" d="M45,16.2l-5,2.9V37c0,2.2-1.8,4-4,4H12c-2.2,0-4-1.8-4-4V19.1l-5-2.9C1.8,15.4,1,13.9,1,12.3c0-3.2,3.3-5.3,6.2-4l16.8,9.8l16.8-9.8c2.9-1.3,6.2,0.8,6.2,4C47,13.9,46.2,15.4,45,16.2z"/>' +
+        '<path fill="#34A853" d="M36,41h8c2.2,0,4-1.8,4-4V16.2l-12,7V41z"/>' +
+        '<path fill="#EA4335" d="M12,41H4c-2.2,0-4-1.8-4-4V16.2l12,7V41z"/>' +
+        '<path fill="#FBBC05" d="M24,25.3l16-9.3V12.3c0-3.2-3.3-5.3-6.2-4L24,14l-9.8-5.7c-2.9-1.3-6.2,0.8-6.2,4v3.7L24,25.3z"/>' +
+        '</svg>';
+
+      // Tooltip pill on hover
+      var tip = document.createElement('span');
+      tip.textContent = 'Email ' + GMAIL;
+      tip.style.cssText = 'position:absolute;right:64px;background:#0a0a0b;color:#f2efe9;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,0.25);opacity:0;pointer-events:none;transform:translateX(8px);transition:all 0.25s cubic-bezier(0.16,1,0.3,1);letter-spacing:-0.01em;border:1px solid rgba(255,255,255,0.1);';
+      fab.appendChild(tip);
+
+      fab.addEventListener('mouseenter', function() {
+        fab.style.transform = 'scale(1.1) rotate(-4deg)';
+        fab.style.boxShadow = '0 14px 36px rgba(0,0,0,0.25), 0 4px 14px rgba(234,67,53,0.3)';
+        tip.style.opacity = '1';
+        tip.style.transform = 'translateX(0)';
+      });
+      fab.addEventListener('mouseleave', function() {
+        fab.style.transform = 'scale(1) rotate(0deg)';
+        fab.style.boxShadow = '0 10px 30px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06)';
+        tip.style.opacity = '0';
+        tip.style.transform = 'translateX(8px)';
+      });
+
       document.body.appendChild(fab);
     }
   }
