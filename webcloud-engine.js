@@ -21,8 +21,9 @@
   var IG_URL = 'https://www.instagram.com/webcloud_coorp/';
   var GMAIL = 'myovik@gmail.com';
 
-  var PORTFOLIO_DATA = [
+    var PORTFOLIO_DATA = [
     {
+      id: 'webcloud-3d-flagship',
       title: 'WebCloud 3D Flagship Experience',
       tag: '3D WebGL · Flagship 2026',
       lead: 'Interactive 3D digital flagship and immersive hardware tour engineered with Three.js and spatial audio.',
@@ -31,6 +32,25 @@
       url: 'https://webcloud-3d-flagship.vercel.app/'
     },
     {
+      id: 'truus-agency',
+      title: 'Truus Advertising Studio',
+      tag: 'Creative Agency · Amsterdam',
+      lead: 'Advertising for the new mainstream: cultural creative strategy, viral campaigns, and 360° digital activations.',
+      secret: 'New Mainstream.',
+      img: '/api/media/file/truus.webp',
+      url: 'https://truus.co/?ref=killerportfolio'
+    },
+    {
+      id: 'andreas-vision',
+      title: 'Andreas Vision Studio',
+      tag: 'Design Engineering · Europe',
+      lead: 'Precision, joyful interfaces and design systems engineered from first sketch to production for high-growth tech companies.',
+      secret: 'Vision & Systems.',
+      img: '/api/media/file/andreas-vision.webp',
+      url: 'https://andreas.vision/'
+    },
+    {
+      id: 'sobha-privy',
       title: 'Sobha Privy Collection',
       tag: 'Ultra-Luxury Real Estate · Dubai',
       lead: 'Ultra-luxury waterfront residences and architectural marvel in Dubai.',
@@ -39,6 +59,7 @@
       url: 'https://sobha-privy-collection.com/'
     },
     {
+      id: 'thenest-sanctuary',
       title: 'The Nest Sanctuary',
       tag: 'Modern Workspace · Warsaw',
       lead: 'Bespoke modern workspace and architectural sanctuary in Warsaw.',
@@ -131,46 +152,113 @@
       }
     });
 
-    // B. Portfolio Cards (Images + Copy)
-    var cards = document.querySelectorAll('[data-card="true"]');
-    cards.forEach(function(card, idx) {
-      if (idx < PORTFOLIO_DATA.length) {
-        var data = PORTFOLIO_DATA[idx];
+    // B. Scalable Portfolio Cards (Dynamic Spawning + Sticky Stacking + Hover Lens + Direct Routing)
+    var cardsContainer = document.querySelector('div.grid.gap-6:has([data-card="true"])') || document.querySelector('div.grid.gap-6');
+    if (!cardsContainer) {
+      var firstCard = document.querySelector('[data-card="true"]');
+      if (firstCard) cardsContainer = firstCard.parentElement;
+    }
 
-        // 1. Swap Image & strip srcset
-        var img = card.querySelector('img');
-        if (img && img.getAttribute('src') !== data.img) {
-          img.removeAttribute('srcset');
-          img.src = data.img;
-          img.alt = data.title;
-        }
+    if (cardsContainer) {
+      var initialCards = Array.from(cardsContainer.querySelectorAll('[data-card="true"]'));
 
-        // 2. Headline
-        var h3 = card.querySelector('h3');
-        if (h3 && !card.dataset.wcTitleDone) {
-          card.dataset.wcTitleDone = 'true';
-          h3.innerHTML = data.title + ' &nearr;';
-        }
-
-        // 3. Category / Tag
-        var cat = card.querySelector('p.measure');
-        if (cat) {
-          cat.textContent = data.tag;
-        }
-
-        // 4. Lead copy
-        var lead = card.querySelector('p.lead');
-        if (lead) {
-          lead.textContent = data.lead;
-        }
-
-        // 5. Secret note
-        var secret = card.querySelector('.secret-note');
-        if (secret) {
-          secret.textContent = data.secret;
+      // Dynamically clone and append cards if fewer than PORTFOLIO_DATA.length
+      if (initialCards.length > 0 && initialCards.length < PORTFOLIO_DATA.length) {
+        var cardTemplate = initialCards[initialCards.length - 1];
+        for (var i = initialCards.length; i < PORTFOLIO_DATA.length; i++) {
+          var clonedCard = cardTemplate.cloneNode(true);
+          delete clonedCard.dataset.wcTitleDone;
+          delete clonedCard.dataset.lensBound;
+          var clonedLens = clonedCard.querySelector('.hover-lens');
+          if (clonedLens) delete clonedLens.dataset.lensBound;
+          cardsContainer.appendChild(clonedCard);
         }
       }
-    });
+
+      var allCards = Array.from(cardsContainer.querySelectorAll('[data-card="true"]'));
+      allCards.forEach(function(card, idx) {
+        if (idx < PORTFOLIO_DATA.length) {
+          var data = PORTFOLIO_DATA[idx];
+
+          // Set exact sticky stacking offset (1.25rem / 20px per card)
+          card.style.top = 'calc(var(--nav-h) + ' + (idx * 1.25) + 'rem)';
+          card.setAttribute('data-target-url', data.url);
+
+          // 1. Swap Images (main + hover lens glass inner) & strip srcset
+          var imgs = card.querySelectorAll('img');
+          imgs.forEach(function(img) {
+            img.removeAttribute('srcset');
+            img.src = data.img;
+            img.alt = data.title;
+          });
+
+          // 2. Headline with direct arrow
+          var h3 = card.querySelector('h3');
+          if (h3) {
+            h3.innerHTML = data.title + ' &nearr;';
+          }
+
+          // 3. Category / Tag
+          var cat = card.querySelector('p.measure');
+          if (cat) {
+            cat.textContent = data.tag;
+          }
+
+          // 4. Lead copy
+          var lead = card.querySelector('p.lead');
+          if (lead) {
+            lead.textContent = data.lead;
+          }
+
+          // 5. Secret note
+          var secret = card.querySelector('.secret-note');
+          if (secret) {
+            secret.textContent = data.secret;
+          }
+
+          // 6. Anchor href target update
+          var a = card.querySelector('a');
+          if (a) {
+            a.href = data.url;
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+          }
+
+          // 7. Interactive Hover Lens Engine
+          var lensContainer = card.querySelector('.hover-lens');
+          if (lensContainer && !lensContainer.dataset.lensBound) {
+            lensContainer.dataset.lensBound = 'true';
+            var glass = lensContainer.querySelector('.hover-lens-glass');
+            var inner = lensContainer.querySelector('.hover-lens-inner');
+            var r = 84;
+            var zoom = 2.2;
+            lensContainer.addEventListener('pointermove', function(e) {
+              if (e.pointerType !== 'mouse') return;
+              var rect = lensContainer.getBoundingClientRect();
+              var d = e.clientX - rect.left;
+              var u = e.clientY - rect.top;
+              if (glass) glass.style.transform = 'translate3d(' + (d - r) + 'px, ' + (u - r) + 'px, 0)';
+              if (inner) {
+                inner.style.width = rect.width + 'px';
+                inner.style.height = rect.height + 'px';
+                inner.style.transform = 'translate3d(' + (r - d * zoom) + 'px, ' + (r - u * zoom) + 'px, 0) scale(' + zoom + ')';
+              }
+              lensContainer.classList.add('is-lensing');
+            });
+            lensContainer.addEventListener('pointerleave', function() {
+              lensContainer.classList.remove('is-lensing');
+            });
+          }
+        }
+      });
+
+      // Update project counts anywhere on the page
+      document.querySelectorAll('.measure').forEach(function(el) {
+        if (/^\d+\s+projects?$/i.test(el.textContent.trim())) {
+          el.textContent = PORTFOLIO_DATA.length + ' projects';
+        }
+      });
+    }
 
     // C. Permanent Journal Section on Homepage
     var journalSection = document.querySelector('section[aria-labelledby="journal-titel"]');
@@ -399,9 +487,12 @@
     if (card) {
       e.preventDefault();
       e.stopPropagation();
-      var allCards = Array.from(document.querySelectorAll('[data-card="true"]'));
-      var idx = allCards.indexOf(card);
-      var targetUrl = (idx >= 0 && idx < PORTFOLIO_DATA.length) ? PORTFOLIO_DATA[idx].url : PORTFOLIO_DATA[0].url;
+      var targetUrl = card.getAttribute('data-target-url');
+      if (!targetUrl) {
+        var allCards = Array.from(document.querySelectorAll('[data-card="true"]'));
+        var idx = allCards.indexOf(card);
+        targetUrl = (idx >= 0 && idx < PORTFOLIO_DATA.length) ? PORTFOLIO_DATA[idx].url : PORTFOLIO_DATA[0].url;
+      }
       window.open(targetUrl, '_blank', 'noopener,noreferrer');
       return;
     }
